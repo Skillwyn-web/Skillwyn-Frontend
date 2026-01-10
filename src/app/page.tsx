@@ -1,9 +1,11 @@
-import Image from "next/image";
+import { HeroSection } from "@/components/HeroSection";
+import { Navbar } from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen">
-      <h1>DevPath</h1>
-    </div>
+    <main className="min-h-screen bg-black">
+      <Navbar />
+      <HeroSection />
+    </main>
   );
 }
