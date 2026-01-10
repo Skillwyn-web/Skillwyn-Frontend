@@ -1,9 +1,11 @@
-import Image from "next/image";
+import PricingSection from "@/components/sections/Pricing/PricingSection";
+import Footer from "@/components/layout/footer";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen">
-      <h1>DevPath</h1>
-    </div>
+    <>
+      <PricingSection />
+      <Footer />
+    </>
   );
 }
