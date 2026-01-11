@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../components/layout/globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "All you need in your Developer Journey",
 };
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,6 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <SmoothScroll />
         {children}
       </body>
     </html>
