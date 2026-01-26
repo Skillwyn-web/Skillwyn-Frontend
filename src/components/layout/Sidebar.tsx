@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 
@@ -10,6 +10,11 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
     // Prevent body scroll when sidebar is open
     useEffect(() => {
         if (isOpen) {
@@ -30,6 +35,8 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         window.addEventListener("keydown", handleEsc);
         return () => window.removeEventListener("keydown", handleEsc);
     }, [onClose]);
+
+    if (!mounted) return null;
 
     return createPortal(
         <>
