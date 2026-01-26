@@ -6,11 +6,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Sidebar from "./Sidebar";
 import { RippleButton } from "@/components/ui/RippleButton";
+import { useAuth } from "@/context/AuthContext";
 
 export function Navbar() {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const { user, logout, loading } = useAuth();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,6 +26,7 @@ export function Navbar() {
         { name: "Roadmaps", href: "#" },
         { name: "Practice", href: "#" },
         { name: "Bootcamps", href: "#" },
+        { name: "Snap Code", href: "/snap-code" },
         { name: "Pro", href: "#" },
     ];
 
@@ -46,14 +49,14 @@ export function Navbar() {
                         <div className="relative flex flex-col items-center justify-center w-6 h-6">
                             <span
                                 className={`absolute block h-0.5 bg-current transition-all duration-300 ease-out ${isSidebarOpen
-                                        ? "w-6 rotate-45"
-                                        : "w-5 -translate-y-1 group-hover:w-6"
+                                    ? "w-6 rotate-45"
+                                    : "w-5 -translate-y-1 group-hover:w-6"
                                     }`}
                             />
                             <span
                                 className={`absolute block h-0.5 bg-current transition-all duration-300 ease-out ${isSidebarOpen
-                                        ? "w-6 -rotate-45"
-                                        : "w-5 translate-y-1 group-hover:w-4"
+                                    ? "w-6 -rotate-45"
+                                    : "w-5 translate-y-1 group-hover:w-4"
                                     }`}
                             />
                         </div>
@@ -89,12 +92,26 @@ export function Navbar() {
                 </div>
 
                 <div className="flex items-center gap-6">
-                    <Link
-                        href="#"
-                        className="text-sm font-medium text-zinc-400 hover:text-blue-400 transition-colors hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-                    >
-                        Log In
-                    </Link>
+                    {loading ? (
+                        <div className="w-20 h-5 bg-white/10 rounded animate-pulse" />
+                    ) : !user ? (
+                        <Link
+                            href="/login"
+                            className="text-sm font-medium text-zinc-400 hover:text-blue-400 transition-colors hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                        >
+                            Log In
+                        </Link>
+                    ) : (
+                        <div className="flex items-center gap-4">
+                            <span className="text-sm font-medium text-white hidden sm:block">Hi, {user.name || 'Dev'}</span>
+                            <button
+                                onClick={logout}
+                                className="text-sm font-medium text-zinc-400 hover:text-red-400 transition-colors"
+                            >
+                                Log Out
+                            </button>
+                        </div>
+                    )}
                     <RippleButton
                         className="hidden sm:flex rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 font-bold text-sm shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_35px_rgba(37,99,235,0.6)] hover:scale-105 active:scale-95 transition-all outline-none ring-0 focus:ring-2 focus:ring-blue-500/50"
                         rippleColor="rgba(255, 255, 255, 0.2)"
