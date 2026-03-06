@@ -209,15 +209,17 @@ export function HeroSection() {
                     className="flex flex-col sm:flex-row items-center gap-4 animate-fade-in-up pt-4"
                     style={{ animationDelay: "300ms" }}
                 >
-                    <RippleButton
-                        className="group bg-white text-black rounded-full hover:bg-zinc-200 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(255,255,255,0.5)] active:scale-95 px-8 py-4"
-                        rippleColor="rgba(0, 0, 0, 0.1)"
-                    >
-                        <span className="flex items-center gap-2 text-base font-semibold whitespace-nowrap">
-                            Start Your Roadmap
-                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                        </span>
-                    </RippleButton>
+                    <Link href="/roadmaps">
+                        <RippleButton
+                            className="group bg-white text-black rounded-full hover:bg-zinc-200 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(255,255,255,0.5)] active:scale-95 px-8 py-4"
+                            rippleColor="rgba(0, 0, 0, 0.1)"
+                        >
+                            <span className="flex items-center gap-2 text-base font-semibold whitespace-nowrap">
+                                Start Your Roadmap
+                                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                            </span>
+                        </RippleButton>
+                    </Link>
 
                     <RippleButton
                         className="bg-zinc-900/50 backdrop-blur-sm text-white rounded-full border border-zinc-800 hover:bg-zinc-800 hover:border-zinc-700 active:scale-95 px-8 py-4"

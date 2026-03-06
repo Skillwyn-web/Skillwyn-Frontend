@@ -87,7 +87,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                             <ul className="space-y-1">
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/roadmaps"
                                         className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all bg-green-500/10 text-green-400 border border-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.1)] group"
                                     >
                                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -133,7 +133,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                             <ul className="space-y-1">
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/resume-builder"
                                         className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition-all group"
                                     >
                                         <svg className="w-4 h-4 text-zinc-500 group-hover:text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -145,7 +145,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                                 </li>
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/mock-interview"
                                         className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition-all group"
                                     >
                                         <svg className="w-4 h-4 text-zinc-500 group-hover:text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
