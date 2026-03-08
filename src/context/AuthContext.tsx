@@ -13,7 +13,7 @@ interface User {
 interface AuthContextType {
     user: User | null;
     login: (userData: User) => void;
-    logout: () => void;
+    logout: () => Promise<void>;
     isAdmin: boolean;
     loading: boolean;
 }
@@ -26,27 +26,48 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const router = useRouter();
 
     useEffect(() => {
-        // Load user from local storage on mount
-        const storedUser = localStorage.getItem('devpath_user');
-        if (storedUser) {
+        const loadCurrentUser = async () => {
             try {
-                setUser(JSON.parse(storedUser));
-            } catch (e) {
-                console.error("Failed to parse user", e);
+                const res = await fetch('/api/auth/me', {
+                    method: 'GET',
+                    credentials: 'include',
+                    cache: 'no-store',
+                });
+
+                if (!res.ok) {
+                    setUser(null);
+                    return;
+                }
+
+                const currentUser = await res.json();
+                setUser(currentUser);
+            } catch (error) {
+                console.error('Failed to load current user', error);
+                setUser(null);
+            } finally {
+                setLoading(false);
             }
-        }
-        setLoading(false);
+        };
+
+        void loadCurrentUser();
     }, []);
 
     const login = (userData: User) => {
         setUser(userData);
-        localStorage.setItem('devpath_user', JSON.stringify(userData));
     };
 
-    const logout = () => {
-        setUser(null);
-        localStorage.removeItem('devpath_user');
-        router.push('/auth/login');
+    const logout = async () => {
+        try {
+            await fetch('/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include',
+            });
+        } catch (error) {
+            console.error('Logout request failed', error);
+        } finally {
+            setUser(null);
+            router.push('/login');
+        }
     };
 
     const value = {

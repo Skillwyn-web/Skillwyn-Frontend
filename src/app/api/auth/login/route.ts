@@ -1,43 +1,63 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 import connectDB from '@/lib/db/connect';
 import User from '@/lib/models/User';
+import { generateSessionToken, hashToken, sessionExpiryDate, setSessionCookie } from '@/lib/auth/session';
 
-export async function POST(request: Request) {
+const verifyPassword = (storedPassword: string, candidatePassword: string): boolean => {
+    // Backward-compatible: support legacy plaintext users while migrating.
+    if (!storedPassword.includes(':')) {
+        return storedPassword === candidatePassword;
+    }
+
+    const [salt, hash] = storedPassword.split(':');
+    const candidateHash = crypto.scryptSync(candidatePassword, salt, 64).toString('hex');
+    const hashBuffer = Buffer.from(hash, 'hex');
+    const candidateBuffer = Buffer.from(candidateHash, 'hex');
+
+    if (hashBuffer.length !== candidateBuffer.length) {
+        return false;
+    }
+
+    return crypto.timingSafeEqual(hashBuffer, candidateBuffer);
+};
+
+export async function POST(request: NextRequest) {
     try {
         await connectDB();
         const { email, password } = await request.json();
 
-        // 1. Check if user exists
-        let user = await User.findOne({ email });
-
-        // For demo purposes, we will AUTO-CREATE the user if they don't exist
-        // This is not standard for 'login', but useful if we don't have a signup page ready
-        // and allows the user to easily create an account and then edit the role in DB.
-        if (!user) {
-            console.log('Creating new user in database:', email);
-            user = await User.create({
-                name: email.split('@')[0],
-                email,
-                password, // Note: In production you MUST hash passwords
-                role: 'user', // Default role
-                avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`
-            });
-        } else {
-            console.log('User found in database:', email);
-            // Very simple password check (plaintext for this demo as per context)
-            if (user.password !== password) {
-                return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
-            }
+        if (!email || !password) {
+            return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
         }
 
-        // Return user info including role
-        return NextResponse.json({
+        const normalizedEmail = String(email).trim().toLowerCase();
+
+        const user = await User.findOne({ email: normalizedEmail });
+        if (!user) {
+            return NextResponse.json({ error: 'Account not found. Please sign up first.' }, { status: 404 });
+        }
+
+        if (!verifyPassword(user.password, String(password))) {
+            return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+        }
+
+        const sessionToken = generateSessionToken();
+        const expiresAt = sessionExpiryDate();
+        user.sessionTokenHash = hashToken(sessionToken);
+        user.sessionExpiresAt = expiresAt;
+        await user.save();
+
+        const response = NextResponse.json({
             id: user._id.toString(),
             name: user.name,
             email: user.email,
             role: user.role,
             avatar: user.avatar
         });
+
+        setSessionCookie(response, sessionToken, expiresAt);
+        return response;
 
     } catch (error) {
         console.error('Login Error:', error);

@@ -6,6 +6,8 @@ const UserSchema = new Schema({
     password: { type: String, required: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     avatar: { type: String },
+    sessionTokenHash: { type: String, default: null, select: false },
+    sessionExpiresAt: { type: Date, default: null, select: false },
     createdAt: { type: Date, default: Date.now }
 });
 

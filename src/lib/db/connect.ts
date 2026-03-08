@@ -1,9 +1,24 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const getMongoUri = (): string => {
+    const rawValue = (process.env.DB_URI || process.env.MONGODB_URI || '').trim();
+    if (!rawValue) {
+        throw new Error('Please define the DB_URI environment variable inside .env');
+    }
 
-if (!MONGODB_URI) {
-    throw new Error('Please define the MONGODB_URI environment variable inside .env');
+    // Guard against accidentally writing DB_URI=... inside the value itself.
+    const sanitizedValue = rawValue.startsWith('DB_URI=') ? rawValue.slice('DB_URI='.length).trim() : rawValue;
+    if (!sanitizedValue.startsWith('mongodb://') && !sanitizedValue.startsWith('mongodb+srv://')) {
+        throw new Error('Invalid DB_URI format. It must start with mongodb:// or mongodb+srv://');
+    }
+
+    return sanitizedValue;
+};
+
+const DB_URI = getMongoUri();
+
+if (!DB_URI) {
+    throw new Error('Please define the DB_URI environment variable inside .env');
 }
 
 /**
@@ -33,7 +48,7 @@ async function connectDB() {
             bufferCommands: false,
         };
 
-        cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
+        cached.promise = mongoose.connect(DB_URI!, opts).then((mongoose) => {
             return mongoose;
         });
     }
