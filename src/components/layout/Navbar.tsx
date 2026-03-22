@@ -69,7 +69,7 @@ export function Navbar() {
                             <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-blue-400/30 to-transparent z-20" />
                         </div>
                         <span className="text-lg font-bold text-white tracking-wide opacity-90 group-hover:opacity-100 transition-opacity">
-                            DevPath
+                            SkillWyn
                         </span>
                     </Link>
                 </div>

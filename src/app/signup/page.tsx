@@ -76,7 +76,7 @@ export default function SignupPage() {
                 <div className="overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
                     <div className="mb-8 text-center">
                         <h1 className="mb-2 text-3xl font-bold tracking-tight text-white">Create Account</h1>
-                        <p className="text-zinc-400">Start your DevPath journey today</p>
+                        <p className="text-zinc-400">Start your SkillWyn journey today</p>
                     </div>
 
                     {error ? (

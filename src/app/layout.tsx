@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Devpath",
+  title: "Skillwyn",
   description: "All you need in your Developer Journey",
 };
 

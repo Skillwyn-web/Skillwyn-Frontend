@@ -36,7 +36,7 @@ export default function SnapCodeFeed() {
                     </svg>
                 </div>
                 <h2 className="text-2xl font-bold mb-2">Login Required</h2>
-                <p className="text-zinc-400 text-center max-w-xs mb-8">Join Devpath to view, like, and share developer moments.</p>
+                <p className="text-zinc-400 text-center max-w-xs mb-8">Join Skillwyn to view, like, and share developer moments.</p>
                 <Link
                     href="/login"
                     className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-500/20"

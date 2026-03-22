@@ -37,10 +37,10 @@ const Footer = () => {
       {/* Background Decorations */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[1000px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* Massive Background Text - "DEVPATH" */}
+      {/* Massive Background Text - "SKILLWYN" */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none select-none overflow-hidden flex justify-center opacity-[0.03]">
         <h1 className="text-[20vw] font-black leading-none tracking-tighter text-white">
-          DEVPATH
+          SKILLWYN
         </h1>
       </div>
 
@@ -52,7 +52,7 @@ const Footer = () => {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-lg shadow-white/10">
                 <span className="font-bold text-black">DP</span>
               </div>
-              <span className="text-2xl font-bold tracking-wide">DevPath</span>
+              <span className="text-2xl font-bold tracking-wide">SkillWyn</span>
             </Link>
 
             <p className="mb-8 text-zinc-400 leading-relaxed font-light">
@@ -105,7 +105,7 @@ const Footer = () => {
 
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-sm text-zinc-600">
-            &copy; {new Date().getFullYear()} DevPath Inc. Crafted with ❤️ for builders.
+            &copy; {new Date().getFullYear()} SkillWyn Inc. Crafted with ❤️ for builders.
           </p>
 
           <div className="flex gap-4">

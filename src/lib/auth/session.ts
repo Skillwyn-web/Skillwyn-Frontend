@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { NextResponse } from 'next/server';
 
-export const SESSION_COOKIE_NAME = 'devpath_session';
+export const SESSION_COOKIE_NAME = 'skillwyn_session';
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 
 export const generateSessionToken = (): string => crypto.randomBytes(48).toString('hex');
