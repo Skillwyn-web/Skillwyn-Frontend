@@ -15,9 +15,10 @@ interface CommentsModalProps {
     isOpen: boolean;
     onClose: () => void;
     snapId: string;
+    onCommentAdded?: () => void;
 }
 
-export function CommentsModal({ isOpen, onClose, snapId }: CommentsModalProps) {
+export function CommentsModal({ isOpen, onClose, snapId, onCommentAdded }: CommentsModalProps) {
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState('');
     const [authorName, setAuthorName] = useState('');
@@ -61,6 +62,7 @@ export function CommentsModal({ isOpen, onClose, snapId }: CommentsModalProps) {
                 const savedComment = await res.json();
                 setComments(prev => [savedComment, ...prev]);
                 setNewComment('');
+                if (onCommentAdded) onCommentAdded();
             }
         } catch (error) {
             console.error('Failed to post comment', error);
