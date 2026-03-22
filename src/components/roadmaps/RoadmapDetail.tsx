@@ -101,10 +101,10 @@ export default function RoadmapDetail({ slug }: { slug: string }) {
 
     if (!data) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-[#09090b] text-white">
+            <div className="min-h-screen flex items-center justify-center bg-[#09090b] [.light-theme_&]:bg-[#F7F4EA] text-white [.light-theme_&]:text-zinc-900 transition-colors duration-300">
                 <div className="text-center">
-                    <h1 className="text-2xl font-mono font-bold mb-4">404: MODULE_NOT_FOUND</h1>
-                    <Link href="/roadmaps" className="text-zinc-500 hover:text-white underline underline-offset-4">
+                    <h1 className="text-2xl font-black mb-4 uppercase tracking-[0.2em]">404_Module_Not_Found</h1>
+                    <Link href="/roadmaps" className="text-zinc-500 font-bold hover:text-white [.light-theme_&]:hover:text-zinc-900 uppercase tracking-widest text-xs underline underline-offset-8">
                         Return to Index
                     </Link>
                 </div>
@@ -113,67 +113,66 @@ export default function RoadmapDetail({ slug }: { slug: string }) {
     }
 
     return (
-        <div className="min-h-screen bg-[#09090b] text-white font-sans selection:bg-white selection:text-black">
-            {/* Header */}
-            <div className="border-b border-zinc-800 bg-[#09090b]">
-                <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
-                    <Link href="/roadmaps" className="inline-flex items-center text-xs font-mono text-zinc-500 hover:text-white mb-8 transition-colors">
-                        <svg className="w-3 h-3 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        <div className="min-h-screen bg-[#09090b] [.light-theme_&]:bg-[#F7F4EA] text-white [.light-theme_&]:text-zinc-900 font-sans selection:bg-white selection:text-black transition-colors duration-300">
+            <div className="border-b border-zinc-800 [.light-theme_&]:border-black/5 bg-[#09090b] [.light-theme_&]:bg-[#F7F4EA] shadow-xl">
+                <div className="max-w-5xl mx-auto px-10 py-20 md:py-32">
+                    <Link href="/roadmaps" className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-white [.light-theme_&]:hover:text-zinc-900 mb-12 transition-colors group">
+                        <svg className="w-3.5 h-3.5 mr-2.5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
-                        BACK TO CURRICULUM
+                        Syllabus Directory
                     </Link>
 
-                    <div className="space-y-4">
-                        <div className="inline-block px-3 py-1 border border-zinc-800 rounded bg-zinc-900/50 text-xs font-mono text-zinc-400 mb-2">
-                            MODULE: {slug.toUpperCase()}
+                    <div className="space-y-6">
+                        <div className="inline-block px-4 py-1.5 border border-zinc-800 [.light-theme_&]:border-black/5 rounded-xl bg-zinc-900/50 [.light-theme_&]:bg-white text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 mb-4 shadow-sm">
+                            System Module: {slug.toUpperCase()}
                         </div>
                         <motion.h1
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-4xl md:text-6xl font-extrabold tracking-tight text-white"
+                            className="text-5xl md:text-8xl font-black tracking-tighter text-white [.light-theme_&]:text-zinc-900 uppercase"
                         >
                             {data.title}
                         </motion.h1>
-                        <p className="text-xl md:text-2xl text-zinc-400 font-light max-w-3xl">
+                        <p className="text-2xl md:text-3xl text-zinc-500 [.light-theme_&]:text-zinc-600 font-bold tracking-tight max-w-3xl leading-relaxed uppercase">
                             {data.subtitle}
                         </p>
-                        <div className="h-px w-20 bg-white/20 mt-6" />
-                        <p className="text-zinc-500 max-w-2xl pt-4 leading-relaxed">
+                        <div className="h-2 w-32 bg-white/5 [.light-theme_&]:bg-black/5 mt-10 rounded-full overflow-hidden">
+                            <div className="h-full bg-blue-600 w-1/3 shadow-[0_0_15px_rgba(37,99,235,0.5)]" />
+                        </div>
+                        <p className="text-zinc-500 [.light-theme_&]:text-zinc-600 max-w-2xl pt-10 leading-relaxed font-bold uppercase tracking-widest text-[10px]">
                             {data.description}
                         </p>
                     </div>
                 </div>
             </div>
 
-            {/* Syllabus */}
-            <div className="max-w-5xl mx-auto px-6 py-20">
-                <h2 className="text-sm font-mono text-zinc-500 uppercase tracking-widest mb-12 border-b border-zinc-800 pb-4">
-                    Syllabus Breakdown
+            <div className="max-w-5xl mx-auto px-10 py-32">
+                <h2 className="text-[10px] font-black text-zinc-600 [.light-theme_&]:text-zinc-400 uppercase tracking-[0.3em] mb-16 border-b border-zinc-800 [.light-theme_&]:border-black/5 pb-6">
+                    Vector Breakdown
                 </h2>
 
-                <div className="space-y-0">
+                <div className="space-y-4">
                     {data.steps.map((step, idx) => (
                         <motion.div
                             key={idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.05 }}
-                            className="group relative border-l border-zinc-800 pl-8 md:pl-12 pb-12 last:pb-0"
+                            className="group relative border-l-4 border-zinc-800/30 [.light-theme_&]:border-black/5 pl-10 md:pl-16 pb-16 last:pb-0"
                         >
-                            {/* Timeline Marker */}
-                            <div className="absolute -left-[5px] top-1.5 w-[9px] h-[9px] bg-zinc-900 border border-zinc-600 transition-colors group-hover:bg-white group-hover:border-white" />
+                            <div className="absolute -left-[10px] top-2 w-4 h-4 rounded-full bg-zinc-900 [.light-theme_&]:bg-white border-2 border-zinc-700 [.light-theme_&]:border-black/10 transition-all group-hover:bg-blue-600 group-hover:border-blue-400 group-hover:scale-125 shadow-lg" />
 
-                            <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8">
-                                <div className="md:w-32 flex-shrink-0">
-                                    <span className="text-xs font-mono text-zinc-500 block mb-1">{step.duration}</span>
+                            <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12">
+                                <div className="md:w-40 flex-shrink-0">
+                                    <span className="text-[10px] font-black text-zinc-600 [.light-theme_&]:text-zinc-400 uppercase tracking-widest block mb-1">{step.duration}</span>
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-zinc-200 transition-colors">
+                                    <h3 className="text-2xl font-black text-white [.light-theme_&]:text-zinc-900 mb-3 uppercase tracking-tight group-hover:text-blue-500 transition-colors">
                                         {step.title}
                                     </h3>
-                                    <p className="text-zinc-400 leading-relaxed max-w-2xl text-sm md:text-base">
+                                    <p className="text-zinc-500 [.light-theme_&]:text-zinc-600 leading-relaxed max-w-2xl text-xs md:text-sm font-bold uppercase tracking-wide">
                                         {step.desc}
                                     </p>
                                 </div>
@@ -182,19 +181,17 @@ export default function RoadmapDetail({ slug }: { slug: string }) {
                     ))}
                 </div>
 
-                {/* Completion State */}
-                <div className="mt-20 p-8 border border-zinc-800 bg-zinc-900/20 rounded-lg text-center">
-                    <div className="inline-block p-3 rounded-full bg-zinc-900 border border-zinc-800 mb-4">
-                        <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <div className="mt-32 p-10 md:p-16 border-2 border-zinc-800 [.light-theme_&]:border-black/5 bg-zinc-900/40 [.light-theme_&]:bg-white rounded-[3rem] text-center shadow-2xl transition-all hover:scale-[1.01]">
+                    <div className="inline-block p-5 rounded-3xl bg-zinc-950 [.light-theme_&]:bg-zinc-100 border border-zinc-800 [.light-theme_&]:border-black/5 mb-8 shadow-inner">
+                        <svg className="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">Program Completion</h3>
-                    <p className="text-zinc-500 text-sm max-w-md mx-auto">
-                        Upon completing all modules, you will have mastered the core competencies required for this domain.
+                    <h3 className="text-2xl font-black text-white [.light-theme_&]:text-zinc-900 mb-4 uppercase tracking-tighter">Vector Certification</h3>
+                    <p className="text-zinc-500 [.light-theme_&]:text-zinc-600 text-[10px] font-black uppercase tracking-[0.2em] max-w-md mx-auto leading-relaxed">
+                        Upon successful unit completion, you will have established core competencies for architectural engineering in this domain.
                     </p>
                 </div>
-
             </div>
         </div>
     );

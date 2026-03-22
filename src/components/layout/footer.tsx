@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -8,10 +7,10 @@ const SocialIcon = ({ d, label }: { d: string; label: string }) => (
   <a
     href="#"
     aria-label={label}
-    className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all hover:bg-white/10 hover:border-white/20"
+    className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 [.light-theme_&]:border-black/5 bg-white/5 [.light-theme_&]:bg-zinc-200/50 transition-all hover:bg-white/10 [.light-theme_&]:hover:bg-zinc-200 hover:border-white/20 [.light-theme_&]:hover:border-black/10"
   >
     <svg
-      className="h-5 w-5 fill-zinc-400 text-zinc-400 transition-colors group-hover:fill-white group-hover:text-white"
+      className="h-5 w-5 fill-zinc-400 [.light-theme_&]:fill-zinc-600 text-zinc-400 [.light-theme_&]:text-zinc-600 transition-colors group-hover:fill-white [.light-theme_&]:group-hover:fill-zinc-900 group-hover:text-white [.light-theme_&]:group-hover:text-zinc-900"
       viewBox="0 0 24 24"
     >
       <path d={d} />
@@ -23,7 +22,7 @@ const FooterLink = ({ href, children }: { href: string; children: React.ReactNod
   <li>
     <Link
       href={href}
-      className="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-white"
+      className="group flex items-center gap-2 text-sm text-zinc-500 [.light-theme_&]:text-zinc-600 transition-colors hover:text-white [.light-theme_&]:hover:text-zinc-900"
     >
       <span className="h-px w-0 bg-blue-500 transition-all group-hover:w-4" />
       {children}
@@ -33,29 +32,26 @@ const FooterLink = ({ href, children }: { href: string; children: React.ReactNod
 
 const Footer = () => {
   return (
-    <footer className="relative overflow-hidden bg-black pt-24 pb-12 text-white border-t border-zinc-900">
-      {/* Background Decorations */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[1000px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none" />
+    <footer className="relative overflow-hidden bg-black [.light-theme_&]:bg-[#F7F4EA] pt-24 pb-12 text-white [.light-theme_&]:text-zinc-900 border-t border-zinc-900 [.light-theme_&]:border-black/5 transition-colors duration-300">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[1000px] bg-blue-900/10 [.light-theme_&]:bg-blue-400/5 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* Massive Background Text - "DEVPATH" */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none select-none overflow-hidden flex justify-center opacity-[0.03]">
-        <h1 className="text-[20vw] font-black leading-none tracking-tighter text-white">
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none select-none overflow-hidden flex justify-center opacity-[0.03] [.light-theme_&]:opacity-[0.05]">
+        <h1 className="text-[20vw] font-black leading-none tracking-tighter text-white [.light-theme_&]:text-zinc-900">
           DEVPATH
         </h1>
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-2">
-          {/* Brand & Newsletter */}
           <div className="max-w-md">
             <Link href="/" className="mb-8 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-lg shadow-white/10">
-                <span className="font-bold text-black">DP</span>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white [.light-theme_&]:bg-zinc-900 shadow-lg shadow-white/10 [.light-theme_&]:shadow-black/10">
+                <span className="font-bold text-black [.light-theme_&]:text-white">DP</span>
               </div>
-              <span className="text-2xl font-bold tracking-wide">DevPath</span>
+              <span className="text-2xl font-bold tracking-wide text-white [.light-theme_&]:text-zinc-900">DevPath</span>
             </Link>
 
-            <p className="mb-8 text-zinc-400 leading-relaxed font-light">
+            <p className="mb-8 text-zinc-400 [.light-theme_&]:text-zinc-600 leading-relaxed font-medium">
               Join 50,000+ developers mastering Data Structures, System Design, and Real-world Engineering. The last platform you'll ever need.
             </p>
 
@@ -63,18 +59,17 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full max-w-[240px] rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-600 outline-none transition-all focus:border-blue-500/50 focus:bg-white/10"
+                className="w-full max-w-[240px] rounded-xl border border-white/10 [.light-theme_&]:border-black/10 bg-white/5 [.light-theme_&]:bg-white px-4 py-3 text-sm text-white [.light-theme_&]:text-zinc-900 placeholder-zinc-600 [.light-theme_&]:placeholder-zinc-400 outline-none transition-all focus:border-blue-500/50 focus:bg-white/10 [.light-theme_&]:focus:bg-zinc-50 shadow-sm"
               />
-              <RippleButton className="rounded-xl px-6 py-3 text-sm font-semibold bg-white text-black hover:bg-zinc-200">
+              <RippleButton className="rounded-xl px-6 py-3 text-sm font-bold bg-white [.light-theme_&]:bg-zinc-900 text-black [.light-theme_&]:text-white hover:bg-zinc-200 [.light-theme_&]:hover:bg-black transition-all">
                 Subscribe
               </RippleButton>
             </div>
           </div>
 
-          {/* Links Grid */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             <div>
-              <h4 className="mb-6 text-sm font-bold uppercase tracking-wider text-white">Platform</h4>
+              <h4 className="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-white [.light-theme_&]:text-zinc-900">Platform</h4>
               <ul className="space-y-4">
                 <FooterLink href="#">Adaptive Roadmaps</FooterLink>
                 <FooterLink href="#">Live Bootcamps</FooterLink>
@@ -83,7 +78,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h4 className="mb-6 text-sm font-bold uppercase tracking-wider text-white">Resources</h4>
+              <h4 className="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-white [.light-theme_&]:text-zinc-900">Resources</h4>
               <ul className="space-y-4">
                 <FooterLink href="#">Engineering Blog</FooterLink>
                 <FooterLink href="#">Success Stories</FooterLink>
@@ -92,7 +87,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h4 className="mb-6 text-sm font-bold uppercase tracking-wider text-white">Company</h4>
+              <h4 className="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-white [.light-theme_&]:text-zinc-900">Company</h4>
               <ul className="space-y-4">
                 <FooterLink href="#">About Us</FooterLink>
                 <FooterLink href="#">Careers</FooterLink>
@@ -103,8 +98,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-sm text-zinc-600">
+        <div className="mt-20 pt-8 border-t border-white/5 [.light-theme_&]:border-black/5 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-xs font-medium text-zinc-500 [.light-theme_&]:text-zinc-600">
             &copy; {new Date().getFullYear()} DevPath Inc. Crafted with ❤️ for builders.
           </p>
 

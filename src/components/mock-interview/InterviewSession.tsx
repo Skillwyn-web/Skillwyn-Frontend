@@ -6,22 +6,11 @@ import { InterviewSettings } from "./MockInterviewLanding";
 import InterviewFeedback from "./InterviewFeedback";
 import Image from "next/image";
 
-// Simulated avatars (would be local assets in a real app)
-// For now, we will use placeholders if local images are not set up perfectly
-// But we *did* generate them. We need to expose them.
-// Since we can't easily move the generated files to public/avatars in this environment without a shell command that might work or not, 
-// I'll assume they are there or use a robust fallback.
-// Actually, I'll use the generated image paths if possible, but standard NEXT.js requires them in public.
-// I'll skip the file move complexity and just use a placeholder URL for the demo that looks good if the local one fails,
-// or use a base64 string if I could read it. 
-// Let's assume the user will see a broken image if I don't move it. 
-// I will try to use a generic professional avatar placeholder from a reliable CDN for now to ensure it works immediately.
 const AVATARS = {
     female: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
     male: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop"
 };
 
-// --- SIMULATED AI DATA ---
 const QUESTION_BANK: Record<string, string[]> = {
     "intro": [
         "Tell me a little about yourself and your background.",
@@ -65,8 +54,6 @@ type Message = {
     timestamp: Date;
 };
 
-// --- SPEECH RECOGNITION SETUP ---
-// Define interface for SpeechRecognition since it's experimental
 interface IWindow extends Window {
     webkitSpeechRecognition: any;
     SpeechRecognition: any;
@@ -78,21 +65,17 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
     const [state, setState] = useState<'idle' | 'listening' | 'speaking' | 'processing'>("idle");
     const [questionCount, setQuestionCount] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
-
-    // Voice State
     const [isMuted, setIsMuted] = useState(false);
 
     const chatEndRef = useRef<HTMLDivElement>(null);
     const synthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
     const recognitionRef = useRef<any>(null);
 
-    // Initialize Voice Features
     useEffect(() => {
-        // Speech Recognition Setup
         const { webkitSpeechRecognition } = window as unknown as IWindow;
         if (webkitSpeechRecognition) {
             const recognition = new webkitSpeechRecognition();
-            recognition.continuous = false; // Stop after one sentence/pause for this demo flow
+            recognition.continuous = false;
             recognition.interimResults = true;
             recognition.lang = 'en-US';
 
@@ -106,19 +89,14 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
             };
 
             recognition.onend = () => {
-                // If we have content, auto-send after a small pause? 
-                // Better to let user review and click send, OR auto-send if they stopped speaking.
-                // For this demo, we'll go back to idle.
                 setState('idle');
             };
 
             recognitionRef.current = recognition;
         }
 
-        // Initial Greeting
         const greeting = `Hi! I'm ${settings.interviewer === 'female' ? 'Sarah' : 'David'}. I'll be conducting your ${settings.difficulty} level ${settings.type} interview for the ${settings.role} position. To start, could you please introduce yourself?`;
 
-        // Slight delay to allow component to mount
         setTimeout(() => {
             speak(greeting);
             addMessage('ai', greeting);
@@ -130,7 +108,6 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
         };
     }, []);
 
-    // Scroll chat
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
@@ -138,10 +115,9 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
     const speak = (text: string) => {
         if (isMuted) return;
 
-        window.speechSynthesis.cancel(); // Stop previous
+        window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
 
-        // Try to pick a voice
         const voices = window.speechSynthesis.getVoices();
         let voice;
         if (settings.interviewer === 'female') {
@@ -192,7 +168,6 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
         addMessage('user', userText);
         setState('processing');
 
-        // Simulate AI thinking and response
         setTimeout(async () => {
             const nextQ = await getNextQuestion();
             addMessage('ai', nextQ);
@@ -227,23 +202,18 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
         return <InterviewFeedback messages={messages} onExit={onExit} />;
     }
 
-    // Avatar Pulse Animation
     const avatarScale = state === 'speaking' ? [1, 1.05, 1] : 1;
     const avatarBorderColor = state === 'speaking'
         ? settings.interviewer === 'female' ? 'rgba(168, 85, 247, 0.5)' : 'rgba(59, 130, 246, 0.5)'
         : 'transparent';
 
     return (
-        <div className="flex h-screen bg-[#050505] text-white overflow-hidden relative">
-
-            {/* Main Content: Avatar & Visualization */}
+        <div className="flex h-screen bg-[#050505] [.light-theme_&]:bg-[#F7F4EA] text-white [.light-theme_&]:text-zinc-900 overflow-hidden relative transition-colors duration-300">
             <div className="flex-1 flex flex-col items-center justify-center relative p-8">
-
-                {/* Avatar Container */}
                 <motion.div
                     animate={{ scale: avatarScale }}
                     transition={{ repeat: state === 'speaking' ? Infinity : 0, duration: 1 }}
-                    className="relative w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden border-4 shadow-[0_0_100px_rgba(0,0,0,0.5)] z-10"
+                    className="relative w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden border-4 shadow-[0_0_100px_rgba(0,0,0,0.5)] [.light-theme_&]:shadow-none z-10 bg-zinc-900"
                     style={{ borderColor: avatarBorderColor }}
                 >
                     <Image
@@ -252,15 +222,12 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
                         fill
                         className="object-cover"
                     />
-
-                    {/* Status Badge */}
-                    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 px-4 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-white/10 text-xs font-mono flex items-center gap-2">
+                    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 px-4 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${state === 'speaking' ? 'bg-green-500 animate-pulse' : 'bg-zinc-500'}`} />
                         {state === 'speaking' ? 'SPEAKING' : state === 'listening' ? 'LISTENING' : state === 'processing' ? 'THINKING' : 'IDLE'}
                     </div>
                 </motion.div>
 
-                {/* Subtitles / Latest Message */}
                 <div className="absolute bottom-32 left-0 w-full px-8 text-center z-20">
                     <AnimatePresence mode="wait">
                         {messages.length > 0 && messages[messages.length - 1].sender === 'ai' && (
@@ -268,38 +235,35 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
-                                className="inline-block max-w-2xl bg-black/50 backdrop-blur-md p-6 rounded-2xl text-lg md:text-xl font-medium leading-relaxed shadow-2xl border border-white/5"
+                                className="inline-block max-w-2xl bg-black/80 [.light-theme_&]:bg-white/90 backdrop-blur-xl p-8 rounded-3xl text-lg md:text-xl font-black leading-relaxed shadow-2xl border border-white/5 [.light-theme_&]:border-black/5 text-white [.light-theme_&]:text-zinc-900"
                             >
                                 {messages[messages.length - 1].text}
                             </motion.div>
                         )}
                     </AnimatePresence>
                 </div>
-
             </div>
 
-            {/* Sidebar: Chat History & Controls */}
-            <div className="w-96 border-l border-zinc-800 bg-zinc-900/50 backdrop-blur flex flex-col z-30 transform transition-transform duration-300 translate-x-full md:translate-x-0 absolute md:static right-0 h-full">
-                <div className="h-16 border-b border-zinc-800 flex items-center justify-between px-6">
-                    <span className="font-bold">Interview Chat</span>
-                    <button onClick={onExit} className="text-red-400 text-sm hover:underline">Exit</button>
+            <div className="w-96 border-l border-zinc-800 [.light-theme_&]:border-black/5 bg-zinc-900/50 [.light-theme_&]:bg-white/50 backdrop-blur-2xl flex flex-col z-30 transform transition-transform duration-300 translate-x-full md:translate-x-0 absolute md:static right-0 h-full">
+                <div className="h-20 border-b border-zinc-800 [.light-theme_&]:border-black/5 flex items-center justify-between px-8">
+                    <span className="font-black text-xs uppercase tracking-widest opacity-50">Interview Session</span>
+                    <button onClick={onExit} className="text-red-500 text-[10px] font-black uppercase tracking-widest hover:underline p-2">Exit Session</button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                <div className="flex-1 overflow-y-auto p-6 space-y-6">
                     {messages.map((msg) => (
                         <div key={msg.id} className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
-                            <div className={`max-w-[85%] p-3 rounded-xl text-sm ${msg.sender === 'user' ? 'bg-indigo-600 text-white' : 'bg-zinc-800 text-zinc-300'}`}>
+                            <div className={`max-w-[85%] p-4 rounded-2xl text-xs font-bold leading-relaxed shadow-sm ${msg.sender === 'user' ? 'bg-indigo-600 text-white shadow-indigo-500/10' : 'bg-zinc-800 [.light-theme_&]:bg-zinc-100 text-zinc-300 [.light-theme_&]:text-zinc-600 shadow-black/5'}`}>
                                 {msg.text}
                             </div>
-                            <span className="text-[10px] text-zinc-600 mt-1">{msg.sender === 'user' ? 'Me' : 'AI'}</span>
+                            <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest mt-2 px-1">{msg.sender === 'user' ? 'Candidate' : 'AI Interviewer'}</span>
                         </div>
                     ))}
                     <div ref={chatEndRef} />
                 </div>
 
-                {/* Controls */}
-                <div className="p-4 border-t border-zinc-800 bg-zinc-900">
-                    <div className="relative">
+                <div className="p-6 border-t border-zinc-800 [.light-theme_&]:border-black/5 bg-zinc-900 [.light-theme_&]:bg-white">
+                    <div className="relative group">
                         <textarea
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
@@ -309,36 +273,36 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
                                     handleSend();
                                 }
                             }}
-                            placeholder="Type or speak..."
-                            className="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-3 pr-10 text-sm focus:ring-1 focus:ring-indigo-500 outline-none resize-none h-20"
+                            placeholder="Type your response here..."
+                            className="w-full bg-zinc-800 [.light-theme_&]:bg-zinc-50 border border-zinc-700 [.light-theme_&]:border-black/5 rounded-2xl p-4 pr-12 text-sm font-bold focus:ring-2 focus:ring-indigo-500/50 outline-none resize-none h-24 shadow-inner transition-all"
                         />
                         <button
                             onClick={toggleListening}
-                            className={`absolute right-2 bottom-2 p-2 rounded-full transition-all ${state === 'listening' ? 'bg-red-500 text-white animate-pulse' : 'bg-zinc-700 text-zinc-400 hover:text-white'}`}
+                            className={`absolute right-3 bottom-3 p-2.5 rounded-xl transition-all shadow-lg ${state === 'listening' ? 'bg-red-500 text-white animate-pulse' : 'bg-zinc-700 [.light-theme_&]:bg-white text-zinc-400 [.light-theme_&]:text-zinc-600 hover:text-white [.light-theme_&]:hover:text-zinc-900 shadow-black/20'}`}
                         >
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                             </svg>
                         </button>
                     </div>
-                    <div className="flex items-center justify-between mt-3">
+                    <div className="flex items-center justify-between mt-4">
                         <button
                             onClick={() => setIsMuted(!isMuted)}
-                            className={`text-xs flex items-center gap-1 ${isMuted ? 'text-red-400' : 'text-zinc-500'}`}
+                            className={`text-[10px] uppercase font-black tracking-widest flex items-center gap-2 px-2 py-1 rounded-md transition-all ${isMuted ? 'text-red-500 bg-red-500/10' : 'text-zinc-500 hover:text-white'}`}
                         >
-                            {isMuted ? 'Unmute Audio' : 'Mute Audio'}
+                            <div className={`w-1.5 h-1.5 rounded-full ${isMuted ? 'bg-red-500' : 'bg-zinc-500'}`} />
+                            {isMuted ? 'Audio Suspended' : 'Audio On'}
                         </button>
                         <button
                             onClick={handleSend}
                             disabled={!inputValue.trim() || state === 'processing' || state === 'speaking'}
-                            className="bg-white text-black px-6 py-2 rounded-lg text-sm font-bold hover:bg-zinc-200 disabled:opacity-50"
+                            className="bg-white [.light-theme_&]:bg-zinc-900 text-black [.light-theme_&]:text-white px-8 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 disabled:opacity-30 disabled:scale-100 transition-all shadow-lg shadow-white/5 [.light-theme_&]:shadow-black/10"
                         >
-                            Send
+                            Send Message
                         </button>
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }

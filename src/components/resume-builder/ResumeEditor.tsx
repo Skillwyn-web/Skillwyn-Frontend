@@ -2,8 +2,6 @@
 
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-// import  html2canvas  from "html2canvas";
-// import  jspdf  from "jspdf";
 
 // --- TYPES ---
 export type ResumeData = {
@@ -37,7 +35,7 @@ export type ResumeData = {
         link: string;
         description: string;
     }[];
-    skills: string; // comma separated for simplicity in this demo
+    skills: string; 
 };
 
 const initialResumeState: ResumeData = {
@@ -56,7 +54,6 @@ const initialResumeState: ResumeData = {
     skills: "",
 };
 
-// --- SIMULATED AI ACTION ---
 const simulateAIEnhance = async (text: string, type: 'summary' | 'bullet'): Promise<string> => {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -69,15 +66,13 @@ const simulateAIEnhance = async (text: string, type: 'summary' | 'bullet'): Prom
     });
 };
 
-// --- COMPONENTS ---
-
 const StepIndicator = ({ currentStep, steps }: { currentStep: number; steps: string[] }) => (
     <div className="flex items-center space-x-2 mb-8 overflow-x-auto pb-2 scrollbar-none">
         {steps.map((step, idx) => (
-            <div key={idx} className={`flex items-center ${idx <= currentStep ? 'text-white' : 'text-zinc-600'}`}>
+            <div key={idx} className={`flex items-center ${idx <= currentStep ? 'text-white [.light-theme_&]:text-zinc-900' : 'text-zinc-600'}`}>
                 <div className={`
                     w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border
-                    ${idx === currentStep ? 'bg-blue-600 border-blue-600' : idx < currentStep ? 'bg-green-600 border-green-600' : 'bg-transparent border-zinc-700'}
+                    ${idx === currentStep ? 'bg-blue-600 border-blue-600 text-white' : idx < currentStep ? 'bg-green-600 border-green-600 text-white' : 'bg-transparent border-zinc-700'}
                 `}>
                     {idx < currentStep ? '✓' : idx + 1}
                 </div>
@@ -86,8 +81,6 @@ const StepIndicator = ({ currentStep, steps }: { currentStep: number; steps: str
         ))}
     </div>
 );
-
-// --- PREVIEW TEMPLATES ---
 
 const ModernTemplate = ({ data }: { data: ResumeData }) => (
     <div className="bg-white text-black p-8 h-full min-h-[1100px] shadow-lg text-sm font-sans">
@@ -256,18 +249,13 @@ const ClassicTemplate = ({ data }: { data: ResumeData }) => (
     </div>
 );
 
-
-// --- EDITOR MAIN COMPONENT ---
-
 export default function ResumeEditor({ initialData, onBack }: { initialData?: any; onBack: () => void }) {
     const [step, setStep] = useState(0);
     const [data, setData] = useState<ResumeData>(initialData || initialResumeState);
     const [isGenerating, setIsGenerating] = useState(false);
 
-    // Steps: 0=Personal, 1=Skills, 2=Work, 3=Project, 4=Education, 5=Finalize
     const steps = ["Personal", "Skills", "Experience", "Projects", "Education", "Download"];
 
-    // Update Helpers
     const updatePersonal = (field: string, val: string) => {
         setData(prev => ({ ...prev, personal: { ...prev.personal, [field]: val } }));
     };
@@ -278,39 +266,40 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
             const summary = await simulateAIEnhance(data.personal.summary, 'summary');
             updatePersonal('summary', summary);
         }
-        // Logic for others omitted for brevity but follows same pattern
         setIsGenerating(false);
     };
 
-    // --- RENDER FORMS ---
     const renderForm = () => {
+        const inputClasses = "bg-zinc-800 [.light-theme_&]:bg-white border-zinc-700 [.light-theme_&]:border-black/10 p-3 rounded text-white [.light-theme_&]:text-zinc-900 w-full outline-none focus:ring-1 focus:ring-blue-500 shadow-sm transition-all";
+        const labelClasses = "block text-sm text-zinc-400 [.light-theme_&]:text-zinc-500 mb-2 font-medium";
+
         switch (step) {
-            case 0: // Personal
+            case 0:
                 return (
                     <div className="space-y-4 animate-fade-in">
-                        <h2 className="text-2xl font-bold mb-4">Personal Details</h2>
+                        <h2 className="text-2xl font-bold mb-4 text-white [.light-theme_&]:text-zinc-900">Personal Details</h2>
                         <div className="grid grid-cols-2 gap-4">
-                            <input placeholder="Full Name" className="bg-zinc-800 border-zinc-700 p-3 rounded text-white w-full"
+                            <input placeholder="Full Name" className={inputClasses}
                                 value={data.personal.fullName} onChange={e => updatePersonal('fullName', e.target.value)} />
-                            <input placeholder="Email" className="bg-zinc-800 border-zinc-700 p-3 rounded text-white w-full"
+                            <input placeholder="Email" className={inputClasses}
                                 value={data.personal.email} onChange={e => updatePersonal('email', e.target.value)} />
-                            <input placeholder="Phone" className="bg-zinc-800 border-zinc-700 p-3 rounded text-white w-full"
+                            <input placeholder="Phone" className={inputClasses}
                                 value={data.personal.phone} onChange={e => updatePersonal('phone', e.target.value)} />
-                            <input placeholder="LinkedIn URL" className="bg-zinc-800 border-zinc-700 p-3 rounded text-white w-full"
+                            <input placeholder="LinkedIn URL" className={inputClasses}
                                 value={data.personal.linkedin} onChange={e => updatePersonal('linkedin', e.target.value)} />
-                            <input placeholder="GitHub URL" className="bg-zinc-800 border-zinc-700 p-3 rounded text-white w-full"
+                            <input placeholder="GitHub URL" className={inputClasses}
                                 value={data.personal.github} onChange={e => updatePersonal('github', e.target.value)} />
-                            <input placeholder="Portfolio" className="bg-zinc-800 border-zinc-700 p-3 rounded text-white w-full"
+                            <input placeholder="Portfolio" className={inputClasses}
                                 value={data.personal.website} onChange={e => updatePersonal('website', e.target.value)} />
                         </div>
                         <div className="pt-4">
-                            <label className="block text-sm text-zinc-400 mb-2">Professional Summary</label>
-                            <textarea className="bg-zinc-800 border-zinc-700 p-3 rounded text-white w-full h-32"
+                            <label className={labelClasses}>Professional Summary</label>
+                            <textarea className={`${inputClasses} h-32`}
                                 value={data.personal.summary} onChange={e => updatePersonal('summary', e.target.value)} />
                             <button
                                 onClick={() => handleAIGenerate('summary')}
                                 disabled={isGenerating}
-                                className="mt-2 text-sm flex items-center gap-2 text-purple-400 hover:text-purple-300"
+                                className="mt-2 text-sm flex items-center gap-2 text-purple-400 [.light-theme_&]:text-purple-600 hover:text-purple-300 [.light-theme_&]:hover:text-purple-700 transition-colors"
                             >
                                 <svg className={`w-4 h-4 ${isGenerating ? 'animate-spin' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                                 {isGenerating ? 'Generating...' : 'Enhance with AI'}
@@ -318,35 +307,35 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                         </div>
                     </div>
                 );
-            case 1: // Skills
+            case 1:
                 return (
                     <div className="space-y-4 animate-fade-in">
-                        <h2 className="text-2xl font-bold mb-4">Skills</h2>
+                        <h2 className="text-2xl font-bold mb-4 text-white [.light-theme_&]:text-zinc-900">Skills</h2>
                         <textarea
                             placeholder="Languages, Frameworks, Tools (comma separated)"
-                            className="bg-zinc-800 border-zinc-700 p-3 rounded text-white w-full h-48"
+                            className={`${inputClasses} h-48`}
                             value={data.skills}
                             onChange={e => setData(prev => ({ ...prev, skills: e.target.value }))}
                         />
-                        <p className="text-zinc-500 text-sm">Example: JavaScript, React, Node.js, Python, AWS, Docker</p>
+                        <p className="text-zinc-500 [.light-theme_&]:text-zinc-400 text-sm">Example: JavaScript, React, Node.js, Python, AWS, Docker</p>
                     </div>
                 );
-            case 2: // Experience
+            case 2:
                 return (
-                    <div className="space-y-6 animate-fade-in">
+                    <div className="space-y-6 animate-fade-in text-white [.light-theme_&]:text-zinc-900 text-white [.light-theme_&]:text-zinc-900">
                         <div className="flex justify-between items-center">
                             <h2 className="text-2xl font-bold">Experience</h2>
                             <button
                                 onClick={() => setData(prev => ({ ...prev, experience: [...prev.experience, { id: Date.now().toString(), company: '', role: '', duration: '', description: '' }] }))}
-                                className="text-sm bg-blue-600 px-3 py-1 rounded hover:bg-blue-500"
+                                className="text-sm bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 text-white"
                             >
                                 + Add Job
                             </button>
                         </div>
                         {data.experience.map((exp, idx) => (
-                            <div key={exp.id} className="bg-zinc-900 p-4 rounded border border-zinc-800">
+                            <div key={exp.id} className="bg-zinc-900 [.light-theme_&]:bg-white p-4 rounded border border-zinc-800 [.light-theme_&]:border-black/5 shadow-sm">
                                 <div className="grid grid-cols-2 gap-3 mb-3">
-                                    <input placeholder="Company" className="bg-zinc-800 p-2 rounded text-white"
+                                    <input placeholder="Company" className={`${inputClasses} p-2 h-auto`}
                                         value={exp.company}
                                         onChange={e => {
                                             const newExp = [...data.experience];
@@ -354,7 +343,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                             setData(p => ({ ...p, experience: newExp }));
                                         }}
                                     />
-                                    <input placeholder="Role" className="bg-zinc-800 p-2 rounded text-white"
+                                    <input placeholder="Role" className={`${inputClasses} p-2 h-auto`}
                                         value={exp.role}
                                         onChange={e => {
                                             const newExp = [...data.experience];
@@ -362,7 +351,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                             setData(p => ({ ...p, experience: newExp }));
                                         }}
                                     />
-                                    <input placeholder="Duration (e.g. Jan 2023 - Present)" className="bg-zinc-800 p-2 rounded text-white col-span-2"
+                                    <input placeholder="Duration (e.g. Jan 2023 - Present)" className={`${inputClasses} p-2 h-auto col-span-2`}
                                         value={exp.duration}
                                         onChange={e => {
                                             const newExp = [...data.experience];
@@ -371,7 +360,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                         }}
                                     />
                                 </div>
-                                <textarea placeholder="Description (Bullet points)" className="bg-zinc-800 p-2 rounded text-white w-full h-24"
+                                <textarea placeholder="Description (Bullet points)" className={`${inputClasses} p-2 h-24`}
                                     value={exp.description}
                                     onChange={e => {
                                         const newExp = [...data.experience];
@@ -389,7 +378,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                         setData(p => ({ ...p, experience: newExp }));
                                         setIsGenerating(false);
                                     }}
-                                    className="mt-2 text-xs flex items-center gap-2 text-purple-400 hover:text-purple-300"
+                                    className="mt-2 text-xs flex items-center gap-2 text-purple-400 [.light-theme_&]:text-purple-600 hover:text-purple-300 [.light-theme_&]:hover:text-purple-700"
                                 >
                                     <svg className={`w-3 h-3 ${isGenerating ? 'animate-spin' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                                     AI Polish
@@ -398,22 +387,22 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                         ))}
                     </div>
                 );
-            case 3: // Projects
+            case 3:
                 return (
-                    <div className="space-y-6 animate-fade-in">
+                    <div className="space-y-6 animate-fade-in text-white [.light-theme_&]:text-zinc-900">
                         <div className="flex justify-between items-center">
                             <h2 className="text-2xl font-bold">Projects</h2>
                             <button
                                 onClick={() => setData(prev => ({ ...prev, projects: [...prev.projects, { id: Date.now().toString(), name: '', tech: '', link: '', description: '' }] }))}
-                                className="text-sm bg-blue-600 px-3 py-1 rounded hover:bg-blue-500"
+                                className="text-sm bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 text-white"
                             >
                                 + Add Project
                             </button>
                         </div>
                         {data.projects.map((proj, idx) => (
-                            <div key={proj.id} className="bg-zinc-900 p-4 rounded border border-zinc-800">
+                            <div key={proj.id} className="bg-zinc-900 [.light-theme_&]:bg-white p-4 rounded border border-zinc-800 [.light-theme_&]:border-black/5 shadow-sm">
                                 <div className="grid grid-cols-2 gap-3 mb-3">
-                                    <input placeholder="Project Name" className="bg-zinc-800 p-2 rounded text-white"
+                                    <input placeholder="Project Name" className={`${inputClasses} p-2 h-auto`}
                                         value={proj.name}
                                         onChange={e => {
                                             const newProj = [...data.projects];
@@ -421,7 +410,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                             setData(p => ({ ...p, projects: newProj }));
                                         }}
                                     />
-                                    <input placeholder="Tech Stack" className="bg-zinc-800 p-2 rounded text-white"
+                                    <input placeholder="Tech Stack" className={`${inputClasses} p-2 h-auto`}
                                         value={proj.tech}
                                         onChange={e => {
                                             const newProj = [...data.projects];
@@ -429,7 +418,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                             setData(p => ({ ...p, projects: newProj }));
                                         }}
                                     />
-                                    <input placeholder="Link" className="bg-zinc-800 p-2 rounded text-white col-span-2"
+                                    <input placeholder="Link" className={`${inputClasses} p-2 h-auto col-span-2`}
                                         value={proj.link}
                                         onChange={e => {
                                             const newProj = [...data.projects];
@@ -438,7 +427,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                         }}
                                     />
                                 </div>
-                                <textarea placeholder="Description" className="bg-zinc-800 p-2 rounded text-white w-full h-24"
+                                <textarea placeholder="Description" className={`${inputClasses} p-2 h-24`}
                                     value={proj.description}
                                     onChange={e => {
                                         const newProj = [...data.projects];
@@ -450,22 +439,22 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                         ))}
                     </div>
                 );
-            case 4: // Education
+            case 4:
                 return (
-                    <div className="space-y-6 animate-fade-in">
+                    <div className="space-y-6 animate-fade-in text-white [.light-theme_&]:text-zinc-900">
                         <div className="flex justify-between items-center">
                             <h2 className="text-2xl font-bold">Education</h2>
                             <button
                                 onClick={() => setData(prev => ({ ...prev, education: [...prev.education, { id: Date.now().toString(), school: '', degree: '', graduation: '', gpa: '' }] }))}
-                                className="text-sm bg-blue-600 px-3 py-1 rounded hover:bg-blue-500"
+                                className="text-sm bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 text-white"
                             >
                                 + Add School
                             </button>
                         </div>
                         {data.education.map((edu, idx) => (
-                            <div key={edu.id} className="bg-zinc-900 p-4 rounded border border-zinc-800">
+                            <div key={edu.id} className="bg-zinc-900 [.light-theme_&]:bg-white p-4 rounded border border-zinc-800 [.light-theme_&]:border-black/5 shadow-sm">
                                 <div className="grid grid-cols-2 gap-3 mb-3">
-                                    <input placeholder="School / University" className="bg-zinc-800 p-2 rounded text-white"
+                                    <input placeholder="School / University" className={`${inputClasses} p-2 h-auto`}
                                         value={edu.school}
                                         onChange={e => {
                                             const newEdu = [...data.education];
@@ -473,7 +462,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                             setData(p => ({ ...p, education: newEdu }));
                                         }}
                                     />
-                                    <input placeholder="Degree" className="bg-zinc-800 p-2 rounded text-white"
+                                    <input placeholder="Degree" className={`${inputClasses} p-2 h-auto`}
                                         value={edu.degree}
                                         onChange={e => {
                                             const newEdu = [...data.education];
@@ -481,7 +470,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                             setData(p => ({ ...p, education: newEdu }));
                                         }}
                                     />
-                                    <input placeholder="Graduation Year" className="bg-zinc-800 p-2 rounded text-white"
+                                    <input placeholder="Graduation Year" className={`${inputClasses} p-2 h-auto`}
                                         value={edu.graduation}
                                         onChange={e => {
                                             const newEdu = [...data.education];
@@ -489,7 +478,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                                             setData(p => ({ ...p, education: newEdu }));
                                         }}
                                     />
-                                    <input placeholder="GPA (Optional)" className="bg-zinc-800 p-2 rounded text-white"
+                                    <input placeholder="GPA (Optional)" className={`${inputClasses} p-2 h-auto`}
                                         value={edu.gpa}
                                         onChange={e => {
                                             const newEdu = [...data.education];
@@ -502,43 +491,42 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                         ))}
                     </div>
                 );
-            case 5: // Finalize
+            case 5:
                 return (
-                    <div className="text-center space-y-6 animate-fade-in py-12">
+                    <div className="text-center space-y-6 animate-fade-in py-12 text-white [.light-theme_&]:text-zinc-900">
                         <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
                             <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
                         <h2 className="text-3xl font-bold">Resume Ready!</h2>
-                        <p className="text-zinc-400 max-w-md mx-auto">
+                        <p className="text-zinc-400 [.light-theme_&]:text-zinc-500 max-w-md mx-auto">
                             Your professional resume is ready. You can now download it as a PDF or continue editing.
                         </p>
                         <div className="flex justify-center gap-4">
                             <button
                                 onClick={() => window.print()}
-                                className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full font-bold transition-all"
+                                className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg"
                             >
                                 Print / Save as PDF
                             </button>
                         </div>
-                        <p className="text-xs text-zinc-600 mt-8">
-                            * Use browser "Save to PDF" option in the print dialog.
-                        </p>
                     </div>
                 );
+            default:
+                return null;
         }
     };
 
     const [template, setTemplate] = useState<'modern' | 'classic'>('modern');
 
     return (
-        <div className="flex h-screen bg-[#09090b] text-white overflow-hidden">
+        <div className="flex h-screen bg-[#09090b] [.light-theme_&]:bg-[#F7F4EA] text-white overflow-hidden transition-colors duration-300">
             {/* Left Panel: EDITOR */}
-            <div className="w-1/2 p-8 border-r border-zinc-800 overflow-y-auto print:hidden">
+            <div className="w-1/2 p-8 border-r border-zinc-800 [.light-theme_&]:border-black/5 overflow-y-auto print:hidden">
                 <div className="max-w-xl mx-auto">
                     <div className="flex items-center justify-between mb-6">
-                        <button onClick={onBack} className="text-zinc-500 hover:text-white text-sm flex items-center gap-1">
+                        <button onClick={onBack} className="text-zinc-500 hover:text-white [.light-theme_&]:hover:text-zinc-900 text-sm flex items-center gap-1 transition-colors">
                             ← Back to Home
                         </button>
                     </div>
@@ -549,18 +537,18 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
                         {renderForm()}
                     </div>
 
-                    <div className="flex justify-between mt-12 pt-8 border-t border-zinc-800">
+                    <div className="flex justify-between mt-12 pt-8 border-t border-zinc-800 [.light-theme_&]:border-black/5">
                         <button
                             disabled={step === 0}
                             onClick={() => setStep(s => s - 1)}
-                            className="px-6 py-2 rounded border border-zinc-700 hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="px-6 py-2 rounded border border-zinc-700 [.light-theme_&]:border-black/10 text-white [.light-theme_&]:text-zinc-900 hover:bg-zinc-800 [.light-theme_&]:hover:bg-zinc-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                             Previous
                         </button>
                         {step < steps.length - 1 && (
                             <button
                                 onClick={() => setStep(s => s + 1)}
-                                className="px-6 py-2 rounded bg-white text-black font-bold hover:bg-zinc-200"
+                                className="px-6 py-2 rounded bg-white [.light-theme_&]:bg-zinc-900 text-black [.light-theme_&]:text-white font-bold hover:bg-zinc-200 [.light-theme_&]:hover:bg-black shadow-lg transition-all"
                             >
                                 Next Step
                             </button>
@@ -570,19 +558,18 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
             </div>
 
             {/* Right Panel: PREVIEW */}
-            <div className="w-1/2 bg-zinc-900 p-8 overflow-y-auto flex flex-col items-center justify-start gap-6 print:w-full print:p-0 print:absolute print:top-0 print:left-0 print:z-50 print:bg-white">
+            <div className="w-1/2 bg-zinc-950 [.light-theme_&]:bg-zinc-100 p-8 overflow-y-auto flex flex-col items-center justify-start gap-6 print:w-full print:p-0 print:absolute print:top-0 print:left-0 print:z-50 print:bg-white transition-colors duration-300">
 
-                {/* Simulated Template Picker (Floating) */}
-                <div className="bg-zinc-800 p-1 rounded-lg inline-flex mb-2 print:hidden">
+                <div className="bg-zinc-800 [.light-theme_&]:bg-white p-1 rounded-lg inline-flex mb-2 print:hidden border border-white/5 [.light-theme_&]:border-black/5 shadow-sm">
                     <button
                         onClick={() => setTemplate('modern')}
-                        className={`px-4 py-1.5 rounded text-sm font-medium transition-all ${template === 'modern' ? 'bg-black text-white shadow' : 'text-zinc-400 hover:text-white'}`}
+                        className={`px-4 py-1.5 rounded text-sm font-medium transition-all ${template === 'modern' ? 'bg-black text-white shadow' : 'text-zinc-400 [.light-theme_&]:text-zinc-500 hover:text-white [.light-theme_&]:hover:text-zinc-900'}`}
                     >
                         Modern
                     </button>
                     <button
                         onClick={() => setTemplate('classic')}
-                        className={`px-4 py-1.5 rounded text-sm font-medium transition-all ${template === 'classic' ? 'bg-black text-white shadow' : 'text-zinc-400 hover:text-white'}`}
+                        className={`px-4 py-1.5 rounded text-sm font-medium transition-all ${template === 'classic' ? 'bg-black text-white shadow' : 'text-zinc-400 [.light-theme_&]:text-zinc-500 hover:text-white [.light-theme_&]:hover:text-zinc-900'}`}
                     >
                         Classic
                     </button>

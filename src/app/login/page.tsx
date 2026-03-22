@@ -67,7 +67,7 @@ export default function LoginPage() {
             }
 
             login(data);
-            router.push('/snap-code'); // User wanted to access snap code mostly
+            router.push('/snap-code'); 
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -76,27 +76,27 @@ export default function LoginPage() {
     };
 
     return (
-        <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-4 py-20 text-white">
+        <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black [.light-theme_&]:bg-[#F7F4EA] px-4 py-20 text-white transition-colors duration-300">
             {/* Background Effects */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/20 rounded-full blur-[120px] opacity-40 animate-pulse-slow" />
-                <div className="absolute inset-0 bg-[linear-gradient(#111_1px,transparent_1px),linear-gradient(90deg,#111_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/20 [.light-theme_&]:bg-blue-600/10 rounded-full blur-[120px] opacity-40 animate-pulse-slow" />
+                <div className="absolute inset-0 bg-[linear-gradient(#111_1px,transparent_1px),linear-gradient(90deg,#111_1px,transparent_1px)] [.light-theme_&]:bg-[linear-gradient(#eee_1px,transparent_1px),linear-gradient(90deg,#eee_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
             </div>
 
             {/* Login Card */}
             <div className="relative z-10 w-full max-w-md animate-fade-in-up">
                 {/* Brand Logo Floating above */}
                 <div className="flex justify-center mb-8">
-                    <Link href="/" className="group relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-transform hover:scale-105">
-                        <span className="text-2xl font-black text-black">DP</span>
+                    <Link href="/" className="group relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white [.light-theme_&]:bg-zinc-900 shadow-[0_0_30px_rgba(255,255,255,0.2)] [.light-theme_&]:shadow-[0_0_30px_rgba(0,0,0,0.1)] transition-transform hover:scale-105">
+                        <span className="text-2xl font-black text-black [.light-theme_&]:text-white">DP</span>
                         <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-blue-400/20 to-transparent rounded-2xl overflow-hidden" />
                     </Link>
                 </div>
 
-                <div className="overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/50 backdrop-blur-xl shadow-2xl p-8 sm:p-10">
+                <div className="overflow-hidden rounded-3xl border border-zinc-800 [.light-theme_&]:border-black/5 bg-zinc-900/50 [.light-theme_&]:bg-white/80 backdrop-blur-xl shadow-2xl p-8 sm:p-10 transition-colors">
                     <div className="mb-8 text-center">
-                        <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Welcome Back</h1>
-                        <p className="text-zinc-400">Sign in to continue your journey</p>
+                        <h1 className="text-3xl font-bold tracking-tight text-white [.light-theme_&]:text-zinc-900 mb-2">Welcome Back</h1>
+                        <p className="text-zinc-400 [.light-theme_&]:text-zinc-500">Sign in to continue your journey</p>
                     </div>
 
                     {error && (
@@ -107,12 +107,12 @@ export default function LoginPage() {
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="mb-2 block text-sm font-medium text-zinc-300">Email Address</label>
+                            <label className="mb-2 block text-sm font-medium text-zinc-300 [.light-theme_&]:text-zinc-600">Email Address</label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full rounded-xl border border-zinc-700 bg-zinc-900/50 px-4 py-3 text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                                className="w-full rounded-xl border border-zinc-700 [.light-theme_&]:border-black/10 bg-zinc-900/50 [.light-theme_&]:bg-white px-4 py-3 text-white [.light-theme_&]:text-zinc-900 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all shadow-sm"
                                 placeholder="you@example.com"
                                 required
                             />
@@ -120,7 +120,7 @@ export default function LoginPage() {
 
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <label className="text-sm font-medium text-zinc-300">Password</label>
+                                <label className="text-sm font-medium text-zinc-300 [.light-theme_&]:text-zinc-600">Password</label>
                                 <Link href="#" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">Forgot password?</Link>
                             </div>
                             <div className="relative">
@@ -128,7 +128,7 @@ export default function LoginPage() {
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full rounded-xl border border-zinc-700 bg-zinc-900/50 px-4 py-3 text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all pr-12"
+                                    className="w-full rounded-xl border border-zinc-700 [.light-theme_&]:border-black/10 bg-zinc-900/50 [.light-theme_&]:bg-white px-4 py-3 text-white [.light-theme_&]:text-zinc-900 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all pr-12 shadow-sm"
                                     placeholder="••••••••"
                                     required
                                 />
@@ -153,19 +153,19 @@ export default function LoginPage() {
 
                     <div className="relative my-8">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-zinc-800"></div>
+                            <div className="w-full border-t border-zinc-800 [.light-theme_&]:border-black/5"></div>
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-[#0e0e11] px-2 text-zinc-500 rounded-full">Or continue with</span>
+                            <span className="bg-[#0e0e11] [.light-theme_&]:bg-white px-3 text-zinc-500 rounded-full font-medium">Or continue with</span>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                        <button className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800/50 py-2.5 transition-colors hover:bg-zinc-800 hover:border-zinc-600">
+                        <button className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 [.light-theme_&]:border-black/10 bg-zinc-800/50 [.light-theme_&]:bg-white py-2.5 transition-all hover:bg-zinc-800 [.light-theme_&]:hover:bg-zinc-50 text-white [.light-theme_&]:text-zinc-900 shadow-sm">
                             <GoogleIcon className="h-5 w-5" />
                             <span className="text-sm font-medium">Google</span>
                         </button>
-                        <button className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800/50 py-2.5 transition-colors hover:bg-zinc-800 hover:border-zinc-600">
+                        <button className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 [.light-theme_&]:border-black/10 bg-zinc-800/50 [.light-theme_&]:bg-white py-2.5 transition-all hover:bg-zinc-800 [.light-theme_&]:hover:bg-zinc-50 text-white [.light-theme_&]:text-zinc-900 shadow-sm">
                             <GithubIcon className="h-5 w-5" />
                             <span className="text-sm font-medium">GitHub</span>
                         </button>

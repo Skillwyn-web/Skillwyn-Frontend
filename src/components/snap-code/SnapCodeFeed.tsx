@@ -14,29 +14,27 @@ export default function SnapCodeFeed() {
     const router = useRouter();
     const [isUploadOpen, setIsUploadOpen] = useState(false);
     const [snaps, setSnaps] = useState<SnapCode[]>([]);
-    const [isMuted, setIsMuted] = useState(true); // Global mute state
+    const [isMuted, setIsMuted] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
 
     if (loading) {
         return (
-            <div className="w-full h-full bg-black flex items-center justify-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            <div className="w-full h-full bg-black [.light-theme_&]:bg-[#F7F4EA] flex items-center justify-center transition-colors duration-300">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white [.light-theme_&]:border-zinc-900"></div>
             </div>
         );
     }
 
-    // Redirect or show login if not authenticated
-    // For better UX, we can show a lock screen
     if (!user) {
         return (
-            <div className="w-full h-full bg-black flex flex-col items-center justify-center text-white px-4">
-                <div className="w-20 h-20 bg-zinc-900 rounded-3xl flex items-center justify-center mb-6 shadow-2xl border border-zinc-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-zinc-500">
+            <div className="w-full h-full bg-black [.light-theme_&]:bg-[#F7F4EA] flex flex-col items-center justify-center text-white [.light-theme_&]:text-zinc-900 px-4 transition-colors duration-300">
+                <div className="w-20 h-20 bg-zinc-900 [.light-theme_&]:bg-white rounded-3xl flex items-center justify-center mb-6 shadow-2xl border border-zinc-800 [.light-theme_&]:border-black/5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-zinc-500 [.light-theme_&]:text-zinc-400">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                     </svg>
                 </div>
                 <h2 className="text-2xl font-bold mb-2">Login Required</h2>
-                <p className="text-zinc-400 text-center max-w-xs mb-8">Join Devpath to view, like, and share developer moments.</p>
+                <p className="text-zinc-400 [.light-theme_&]:text-zinc-600 text-center max-w-xs mb-8 font-medium">Join Devpath to view, like, and share developer moments.</p>
                 <Link
                     href="/login"
                     className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-500/20"
@@ -67,21 +65,18 @@ export default function SnapCodeFeed() {
 
     const [activeId, setActiveId] = useState<string>('');
 
-    // Update activeId when snaps load if it was empty
     useEffect(() => {
         if (!activeId && snaps.length > 0) {
             setActiveId(snaps[0].id);
         }
     }, [snaps, activeId]);
 
-    // Intersection Observer to track active video
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Re-run observer when snaps change to observe new elements
     useEffect(() => {
         const options = {
             root: containerRef.current,
-            threshold: 0.6, // Trigger when 60% visible
+            threshold: 0.6,
         };
 
         const handleIntersect = (entries: IntersectionObserverEntry[]) => {
@@ -95,23 +90,17 @@ export default function SnapCodeFeed() {
 
         const observer = new IntersectionObserver(handleIntersect, options);
 
-        // Timeout to ensure DOM is updated
         setTimeout(() => {
             const elements = document.querySelectorAll('.snap-code-item');
             elements.forEach(el => observer.observe(el));
         }, 100);
 
         return () => observer.disconnect();
-    }, [snaps]); // Add snaps dependency
+    }, [snaps]);
 
     const handleNewSnap = (snap: SnapCode) => {
-        // Add new snap to the top using functional update to ensure latest state
         setSnaps(prev => [snap, ...prev]);
-
-        // Set as active immediately
         setActiveId(snap.id);
-
-        // Scroll to top with a slight delay to ensure render
         setTimeout(() => {
             if (containerRef.current) {
                 containerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
@@ -120,19 +109,18 @@ export default function SnapCodeFeed() {
     };
 
     return (
-        <div className="relative w-full h-full bg-black overflow-hidden">
-            {/* ... (Top Bar) ... */}
-            <div className="absolute top-0 left-0 right-0 z-20 p-4 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
+        <div className="relative w-full h-full bg-black [.light-theme_&]:bg-[#F7F4EA] overflow-hidden transition-colors duration-300">
+            <div className="absolute top-0 left-0 right-0 z-20 p-4 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent [.light-theme_&]:from-black/10 pointer-events-none">
                 <div className="flex items-center gap-3 pointer-events-auto">
                     <button
                         onClick={() => router.push('/')}
-                        className="p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white transition-all group"
+                        className="p-2 rounded-full bg-white/10 [.light-theme_&]:bg-black/5 hover:bg-white/20 [.light-theme_&]:hover:bg-black/10 backdrop-blur-md text-white [.light-theme_&]:text-zinc-900 transition-all group shadow-sm"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                         </svg>
                     </button>
-                    <h1 className="text-xl font-bold text-white drop-shadow-md">Snap Code</h1>
+                    <h1 className="text-xl font-bold text-white [.light-theme_&]:text-zinc-900 drop-shadow-md [.light-theme_&]:drop-shadow-none transition-colors">Snap Code</h1>
                 </div>
                 {isAdmin && (
                     <button
@@ -147,7 +135,6 @@ export default function SnapCodeFeed() {
                 )}
             </div>
 
-            {/* Feed Container */}
             <div
                 ref={containerRef}
                 className="w-full h-full overflow-y-scroll snap-y snap-mandatory scrollbar-hide"
@@ -160,7 +147,6 @@ export default function SnapCodeFeed() {
                         data-id={item.id}
                         className="snap-code-item w-full h-full snap-center"
                     >
-                        {/* @ts-ignore */}
                         <SnapCodeItem
                             item={item}
                             isActive={activeId === item.id}
@@ -170,16 +156,14 @@ export default function SnapCodeFeed() {
                     </div>
                 ))}
 
-                {/* Loading State */}
                 {isLoading && (
-                    <div className="w-full h-full snap-center flex items-center justify-center bg-black text-white">
+                    <div className="w-full h-full snap-center flex items-center justify-center bg-black/50 backdrop-blur-sm">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
                     </div>
                 )}
 
-                {/* Empty State / End of Feed */}
                 {!isLoading && snaps.length === 0 && (
-                    <div className="w-full h-full snap-center flex items-center justify-center bg-neutral-900 text-neutral-500">
+                    <div className="w-full h-full snap-center flex items-center justify-center bg-neutral-900 [.light-theme_&]:bg-white/50 text-neutral-500">
                         <div className="text-center">
                             <p className="text-xl font-medium mb-2">No snaps yet</p>
                             <p className="text-sm">Upload a snap to start the feed.</p>
