@@ -52,7 +52,6 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
     const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
-        // Check if user has already liked this specific snap
         const liked = localStorage.getItem(`liked_${item.id}`);
         if (liked) setIsLiked(true);
     }, [item.id]);
@@ -68,7 +67,6 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
 
     const handleInteraction = async (action: 'like' | 'comment' | 'share' | 'save') => {
         if (action === 'like') {
-            // Toggle like
             const newIsLiked = !isLiked;
             setIsLiked(newIsLiked);
 
@@ -95,7 +93,6 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
             return;
         }
 
-        // Optimistic update for others
         setInteractions(prev => ({
             ...prev,
             [action === 'comment' ? 'comments' : action === 'share' ? 'shares' : 'saves']: prev[action === 'comment' ? 'comments' : action === 'share' ? 'shares' : 'saves'] + 1
@@ -138,9 +135,9 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
     };
 
     return (
-        <div className="relative w-full h-full bg-black flex items-center justify-center snap-center shrink-0 overflow-hidden">
+        <div className="relative w-full h-full bg-black [.light-theme_&]:bg-[#F7F4EA] flex items-center justify-center snap-center shrink-0 overflow-hidden transition-colors duration-300">
             {/* Video Container */}
-            <div className="relative w-full h-full max-w-md mx-auto h-full" onClick={togglePlay}>
+            <div className="relative w-full h-full max-w-md mx-auto aspect-[9/16] bg-black shadow-2xl overflow-hidden" onClick={togglePlay}>
                 <video
                     key={item.id}
                     ref={videoRef}
@@ -155,24 +152,23 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
                     Your browser does not support the video tag.
                 </video>
 
-                {/* Progress Bar (TikTok style bottom line) */}
+                {/* Progress Bar */}
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-20">
                     <motion.div
-                        className="h-full bg-blue-500"
+                        className="h-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"
                         style={{ width: `${progress}%` }}
-                        layoutId={`progress-${item.id}`} // layoutId for smoother transition if needed
                     />
                 </div>
 
-                {/* Play/Pause Overlay Indicator (Animated) */}
+                {/* Play/Pause Overlay Indicator */}
                 {!isPlaying && (
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none bg-black/10">
                         <motion.div
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg"
+                            className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-10 h-10 ml-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-8 h-8 ml-1">
                                 <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
                             </svg>
                         </motion.div>
@@ -180,27 +176,25 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
                 )}
 
                 {/* Info & Actions Overlay */}
-                <div className="absolute bottom-1 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent pt-24 pb-8">
+                <div className="absolute bottom-1 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-24 pb-8">
                     <div className="flex items-end justify-between">
-                        {/* Left Info */}
                         <div className="flex-1 mr-14">
                             <div className="flex items-center gap-3 mb-3">
                                 <div className="p-0.5 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full">
                                     <img
                                         src={item.author.avatar}
                                         alt={item.author.name}
-                                        className="w-10 h-10 rounded-full border-2 border-black"
+                                        className="w-10 h-10 rounded-full border-2 border-black object-cover"
                                     />
                                 </div>
-                                <div>
+                                <div className="drop-shadow-sm">
                                     <div className="flex items-center gap-1">
-                                        <span className="font-bold text-white text-base drop-shadow-sm">{item.author.username}</span>
-                                        {/* Simple Verified Badge Mock */}
+                                        <span className="font-bold text-white text-base">{item.author.username}</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-blue-400">
                                             <path fillRule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.491 4.491 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
                                         </svg>
                                     </div>
-                                    <p className="text-xs text-white/80 font-medium">Original Audio</p>
+                                    <p className="text-[10px] text-white/70 font-medium uppercase tracking-wider">Original Audio</p>
                                 </div>
                             </div>
                             <p className="text-white text-sm leading-relaxed drop-shadow-md">
@@ -208,8 +202,7 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
                             </p>
                         </div>
 
-                        {/* Right Side Actions */}
-                        <div className="flex flex-col gap-5 items-center absolute right-3 bottom-20" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex flex-col gap-5 items-center absolute right-3 bottom-16" onClick={(e) => e.stopPropagation()}>
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
@@ -217,7 +210,7 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
                                 className="flex flex-col items-center gap-1 group"
                             >
                                 <div className={`p-3 rounded-full transition-all duration-300 ${isLiked ? 'bg-red-500/20 shadow-lg shadow-red-500/20' : 'bg-black/20 backdrop-blur-md hover:bg-black/40'}`}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill={isLiked ? "currentColor" : "none"} viewBox="0 0 24 24" strokeWidth={isLiked ? 0 : 2} stroke="currentColor" className={`w-8 h-8 transition-colors ${isLiked ? 'text-red-500' : 'text-white'}`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill={isLiked ? "currentColor" : "none"} viewBox="0 0 24 24" strokeWidth={isLiked ? 0 : 2} stroke="currentColor" className={`w-7 h-7 transition-colors ${isLiked ? 'text-red-500' : 'text-white'}`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                                     </svg>
                                 </div>
@@ -231,7 +224,7 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
                                 className="flex flex-col items-center gap-1 group"
                             >
                                 <div className="p-3 bg-black/20 backdrop-blur-md rounded-full hover:bg-black/40 transition-all">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                                         <path fillRule="evenodd" d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223zM8.25 10.875a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25zM10.875 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875-1.125a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25z" clipRule="evenodd" />
                                     </svg>
                                 </div>
@@ -245,7 +238,7 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
                                 className="flex flex-col items-center gap-1 group"
                             >
                                 <div className="p-3 bg-black/20 backdrop-blur-md rounded-full hover:bg-black/40 transition-all">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                                         <path fillRule="evenodd" d="M15.75 4.5a3 3 0 11.825 2.066l-8.421 4.679a3.002 3.002 0 010 1.51l8.421 4.679a3 3 0 11-.729 1.31l-8.421-4.678a3 3 0 110-4.132l8.421-4.679a3 3 0 01-.096-.755z" clipRule="evenodd" />
                                     </svg>
                                 </div>
@@ -259,7 +252,7 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
                                 className="flex flex-col items-center gap-1 group"
                             >
                                 <div className="p-3 bg-black/20 backdrop-blur-md rounded-full hover:bg-black/40 transition-all">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                                         <path fillRule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clipRule="evenodd" />
                                     </svg>
                                 </div>
@@ -269,10 +262,10 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
                     </div>
                 </div>
 
-                {/* Mute Button (Clean) */}
+                {/* Mute Button */}
                 <button
                     onClick={toggleMute}
-                    className="absolute top-6 right-6 p-2 bg-black/30 backdrop-blur-md rounded-full text-white hover:bg-black/50 transition-colors"
+                    className="absolute top-6 right-6 p-2 bg-black/30 backdrop-blur-md rounded-full text-white hover:bg-black/50 transition-colors z-20"
                 >
                     {isMuted ? (
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -284,11 +277,11 @@ export function SnapCodeItem({ item, isActive, isMuted, onToggleMute }: SnapCode
                         </svg>
                     )}
                 </button>
+
                 <CommentsModal
                     isOpen={isCommentsOpen}
                     onClose={() => setIsCommentsOpen(false)}
                     snapId={item.id}
-                    // @ts-ignore
                     onCommentAdded={handleCommentAdded}
                 />
             </div>
