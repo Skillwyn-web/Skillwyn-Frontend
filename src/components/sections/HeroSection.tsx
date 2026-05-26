@@ -1,175 +1,214 @@
 "use client";
 
-import { RippleButton } from "@/components/ui/RippleButton";
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import {
+  ArrowRight,
+  Bot,
+  BriefcaseBusiness,
+  CheckCircle2,
+  FileText,
+  GraduationCap,
+  Map,
+  Play,
+  Sparkles,
+} from "lucide-react";
+import { motion } from "framer-motion";
+import { RippleButton } from "@/components/ui/RippleButton";
 
-// --- Icons ---
-const ArrowRight = ({ className }: { className?: string }) => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-    >
-        <path d="M5 12h14" />
-        <path d="m12 5 7 7-7 7" />
-    </svg>
-);
+const signals = [
+  { label: "AI mentor", value: "24/7" },
+  { label: "Project labs", value: "18+" },
+  { label: "Interview reps", value: "120" },
+];
 
-const PlayCircle = ({ className }: { className?: string }) => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-    >
-        <circle cx="12" cy="12" r="10" />
-        <polygon points="10 8 16 12 10 16 10 8" />
-    </svg>
-);
-
-// --- Components ---
-
-const GridBackground = ({ mousePosition }: { mousePosition: { x: number, y: number } }) => (
-    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none transition-colors duration-300">
-        {/* Dynamic Spotlight - Dark Mode Only */}
-        <div
-            className="absolute inset-0 z-20 pointer-events-none [.light-theme_&]:hidden"
-            style={{
-                background: `radial-gradient(circle 500px at ${mousePosition.x}px ${mousePosition.y}px, transparent 0%, rgba(0, 0, 0, 0.9) 100%)`,
-            }}
-        />
-
-        {/* Global Mask */}
-        <div
-            className="absolute inset-0 z-10 bg-black [.light-theme_&]:bg-[#F7F4EA] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_100%)] [.light-theme_&]:[mask-image:radial-gradient(ellipse_at_center,transparent_20%,white_100%)]"
-        />
-
-        {/* Grid Pattern */}
-        <div
-            className="absolute inset-0 z-0 opacity-[0.1] [.light-theme_&]:opacity-[0.25]"
-            style={{
-                backgroundImage: `linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)`,
-                backgroundSize: '40px 40px',
-                color: 'inherit'
-            }}
-        />
-
-        {/* Animated Background Orbs */}
-        <motion.div
-            animate={{
-                x: [0, 50, 0],
-                y: [0, 30, 0],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-purple-900/10 [.light-theme_&]:bg-purple-300/10 blur-[120px]"
-        />
-        <motion.div
-            animate={{
-                x: [0, -50, 0],
-                y: [0, -30, 0],
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-900/10 [.light-theme_&]:bg-blue-300/10 blur-[120px]"
-        />
-    </div>
-);
-
-const FloatingBadge = ({ text }: { text: string }) => (
-    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900/80 [.light-theme_&]:bg-white/80 border border-zinc-800 [.light-theme_&]:border-black/5 backdrop-blur-md animate-fade-in-up hover:border-zinc-700 [.light-theme_&]:hover:border-black/10 transition-all cursor-default mb-8 group shadow-sm">
-        <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-        </span>
-        <span className="text-sm font-medium text-zinc-300 [.light-theme_&]:text-zinc-600 group-hover:text-white [.light-theme_&]:group-hover:text-zinc-900 transition-colors uppercase tracking-wider text-[10px]">{text}</span>
-    </div>
-);
+const pipeline = [
+  {
+    title: "Student profile scanned",
+    detail: "Skill gaps, target role, time available",
+    icon: GraduationCap,
+    accent: "text-primary",
+  },
+  {
+    title: "AI roadmap generated",
+    detail: "Weekly plan, DSA sets, project briefs",
+    icon: Map,
+    accent: "text-secondary",
+  },
+  {
+    title: "Resume rebuilt",
+    detail: "ATS bullets from verified projects",
+    icon: FileText,
+    accent: "text-accent",
+  },
+  {
+    title: "Job matches unlocked",
+    detail: "Talent pool rank + interview prep",
+    icon: BriefcaseBusiness,
+    accent: "text-primary",
+  },
+];
 
 export function HeroSection() {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  return (
+    <section className="relative isolate flex min-h-[96vh] items-center overflow-hidden bg-bg-dark px-4 pt-28 text-text-primary sm:px-6 lg:px-8">
+      <div className="absolute inset-0 ai-grid opacity-70" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,9,12,0.35),#07090c_88%)]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
 
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({
-                x: e.clientX,
-                y: e.clientY,
-            });
-        };
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+            className="mb-8 inline-flex items-center gap-2 rounded-lg border border-primary/25 bg-primary/10 px-3 py-2 text-xs font-bold uppercase text-primary"
+          >
+            <Sparkles className="h-4 w-4" />
+            AI-powered education for serious learners
+          </motion.div>
 
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, []);
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="max-w-4xl text-5xl font-semibold leading-[1.04] text-ink sm:text-6xl lg:text-7xl"
+          >
+            Learn faster with an AI mentor that turns effort into{" "}
+            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              job-ready proof.
+            </span>
+          </motion.h1>
 
-    return (
-        <section className={`hero-section-bg relative flex flex-col items-center justify-center min-h-[95vh] px-4 overflow-hidden pt-20 transition-colors duration-300 bg-black [.light-theme_&]:bg-[#F7F4EA] text-white [.light-theme_&]:text-zinc-900`}>
-            <GridBackground mousePosition={mousePosition} />
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.16 }}
+            className="mt-7 max-w-2xl text-lg font-medium leading-8 text-text-muted sm:text-xl"
+          >
+            SkillWyn combines adaptive roadmaps, DSA practice, real projects, resume feedback, and mock interviews into one focused learning system.
+          </motion.p>
 
-            <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto space-y-8">
-                {/* Badge */}
-                <FloatingBadge text="New: System Design Bootcamp 2026" />
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.24 }}
+            className="mt-10 flex flex-col gap-4 sm:flex-row"
+          >
+            <Link href="/get-started">
+              <RippleButton
+                className="group rounded-lg bg-primary px-7 py-4 text-base font-extrabold text-bg-dark shadow-[0_20px_60px_rgba(102,227,255,0.22)] transition-all hover:bg-secondary"
+                rippleColor="rgba(7, 9, 12, 0.16)"
+              >
+                <span className="flex items-center justify-center gap-2 whitespace-nowrap">
+                  Start learning
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </RippleButton>
+            </Link>
+            <Link
+              href="/mock-interview"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface/70 px-7 py-4 text-base font-bold text-text-primary transition-colors hover:border-primary/50 hover:text-primary"
+            >
+              <Play className="h-5 w-5" />
+              Try AI interview
+            </Link>
+          </motion.div>
 
-                {/* Main Headline */}
-                <div className="space-y-4">
-                    <h1
-                        className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1] md:leading-[1.1] animate-fade-in-up"
-                        style={{ animationDelay: "100ms" }}
-                    >
-                        Structured chaos into <br className="hidden md:block" />
-                        <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 pb-2">
-                            hireable skills.
-                            <svg className="absolute w-full h-3 -bottom-1 left-0 text-indigo-500/50" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" />
-                            </svg>
-                        </span>
-                    </h1>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.32 }}
+            className="mt-12 grid max-w-2xl grid-cols-3 gap-3"
+          >
+            {signals.map((item) => (
+              <div key={item.label} className="rounded-lg border border-border-subtle bg-bg-card/70 p-4">
+                <div className="font-jetbrains text-2xl font-bold text-ink">{item.value}</div>
+                <div className="mt-1 text-xs font-bold uppercase text-text-muted">{item.label}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.18 }}
+          className="relative"
+        >
+          <div className="theme-card p-3 shadow-[0_30px_120px_rgba(0,0,0,0.55)]">
+            <div className="flex items-center justify-between border-b border-border-subtle px-3 py-3">
+              <div className="flex items-center gap-2">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                  <Bot className="h-5 w-5" />
                 </div>
-
-                {/* Subheading */}
-                <p
-                    className="max-w-2xl text-lg md:text-xl text-zinc-400 [.light-theme_&]:text-zinc-600 animate-fade-in-up leading-relaxed font-medium"
-                    style={{ animationDelay: "200ms" }}
-                >
-                    The all-in-one platform for developers. Interactive roadmaps, LeetCode-style practice, and mentorship to crack MAANG interviews.
-                </p>
-
-                {/* Buttons */}
-                <div
-                    className="flex flex-col sm:flex-row items-center gap-5 animate-fade-in-up pt-6"
-                    style={{ animationDelay: "300ms" }}
-                >
-                    <Link href="/roadmaps">
-                        <RippleButton
-                            className="group bg-white [.light-theme_&]:bg-zinc-900 text-black [.light-theme_&]:text-white rounded-full hover:bg-zinc-200 [.light-theme_&]:hover:bg-black shadow-[0_0_20px_rgba(255,255,255,0.2)] [.light-theme_&]:shadow-[0_0_20px_rgba(0,0,0,0.1)] active:scale-95 px-10 py-5 transition-all"
-                            rippleColor="rgba(0, 0, 0, 0.1)"
-                        >
-                            <span className="flex items-center gap-2 text-lg font-bold whitespace-nowrap">
-                                Start Your Roadmap
-                                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                            </span>
-                        </RippleButton>
-                    </Link>
-
-                    <RippleButton
-                        className="bg-zinc-900/50 [.light-theme_&]:bg-white/50 backdrop-blur-sm text-white [.light-theme_&]:text-zinc-900 rounded-full border border-zinc-800 [.light-theme_&]:border-black/5 hover:bg-zinc-800 [.light-theme_&]:hover:bg-white hover:border-zinc-700 [.light-theme_&]:hover:border-black/10 active:scale-95 px-10 py-5 transition-all"
-                        rippleColor="rgba(255, 255, 255, 0.1)"
-                    >
-                        <span className="flex items-center gap-2 text-lg font-bold whitespace-nowrap">
-                            <PlayCircle className="w-5 h-5 text-zinc-400" />
-                            Watch Demo
-                        </span>
-                    </RippleButton>
+                <div>
+                  <p className="text-sm font-extrabold text-ink">SkillWyn placement engine</p>
+                  <p className="text-xs font-semibold text-text-muted">Roadmap → resume → job shortlist</p>
                 </div>
+              </div>
+              <span className="rounded-lg border border-secondary/30 bg-secondary/10 px-3 py-1 text-xs font-bold uppercase text-secondary">
+                AI active
+              </span>
             </div>
-        </section>
-    );
+
+            <div className="grid gap-3 p-3 lg:grid-cols-[1fr_0.9fr]">
+              <div className="rounded-lg border border-border-subtle bg-surface/60 p-4">
+                <div className="mb-5 flex items-center justify-between">
+                  <p className="text-sm font-extrabold text-ink">Live student journey</p>
+                  <p className="font-jetbrains text-xs text-primary">87% hire-ready</p>
+                </div>
+
+                <div className="relative space-y-4 before:absolute before:left-5 before:top-6 before:h-[calc(100%-3rem)] before:w-px before:bg-border-subtle">
+                  {pipeline.map((step, index) => {
+                    const Icon = step.icon;
+                    return (
+                      <div key={step.title} className="relative flex items-start gap-4">
+                        <div className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-subtle bg-bg-dark">
+                          <Icon className={`h-5 w-5 ${step.accent}`} />
+                        </div>
+                        <div className="min-w-0 flex-1 rounded-lg border border-border-subtle bg-bg-card/70 p-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <p className="text-sm font-extrabold text-ink">{step.title}</p>
+                            <span className="font-jetbrains text-[10px] text-text-muted">0{index + 1}</span>
+                          </div>
+                          <p className="mt-1 text-xs font-semibold leading-5 text-text-muted">{step.detail}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <div className="rounded-lg border border-border-subtle bg-bg-dark p-4">
+                  <p className="text-xs font-bold uppercase text-primary">AI recommendation</p>
+                  <h3 className="mt-2 text-2xl font-semibold leading-snug text-ink">
+                    Frontend + DSA track, then startup-ready full-stack project.
+                  </h3>
+                </div>
+
+                <div className="rounded-lg border border-accent/25 bg-accent/10 p-4">
+                  <p className="text-xs font-bold uppercase text-accent">Resume impact</p>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-ink">
+                    Converts project logs into quantified resume bullets and a verified SkillWyn profile.
+                  </p>
+                </div>
+
+                <div className="rounded-lg border border-secondary/25 bg-secondary/10 p-4">
+                  <div className="mb-3 flex items-center justify-between">
+                    <p className="text-xs font-bold uppercase text-secondary">Job landing score</p>
+                    <CheckCircle2 className="h-4 w-4 text-secondary" />
+                  </div>
+                  <div className="h-2 rounded-full bg-border-subtle">
+                    <div className="h-full w-[87%] rounded-full bg-gradient-to-r from-primary via-secondary to-accent" />
+                  </div>
+                  <p className="mt-3 text-xs font-semibold text-text-muted">Unlocks talent pool after mock interview pass.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

@@ -149,20 +149,20 @@ const SHEETS: Sheet[] = [
         title: "Striver's SDE Sheet",
         description: "Hand-picked problems most frequently asked in MAANG interviews.",
         tag: "Interviews",
-        icon: <BriefcaseIcon className="w-5 h-5 text-blue-500" />,
+        icon: <BriefcaseIcon className="w-5 h-5 text-primary" />,
         progressVal: 0,
         totalVal: 180,
-        color: "bg-blue-500",
+        color: "bg-primary",
     },
     {
         id: "dp-patterns",
         title: "DP Patterns",
         description: "Master the hardest topic: Knapsack, LCS, LIS, and Matrix Chain Multiplication.",
         tag: "Advanced",
-        icon: <BrainCircuitIcon className="w-5 h-5 text-purple-500" />,
+        icon: <BrainCircuitIcon className="w-5 h-5 text-secondary" />,
         progressVal: 12,
         totalVal: 50,
-        color: "bg-purple-500",
+        color: "bg-secondary",
     },
     {
         id: "algo-cram",
@@ -191,30 +191,30 @@ export default function CuratedSheetsSection() {
     const [activeTab, setActiveTab] = useState("Popular");
 
     return (
-        <section id="practice" className="bg-black [.light-theme_&]:bg-[#F7F4EA] text-white [.light-theme_&]:text-zinc-900 py-20 px-4 border-t border-zinc-900 [.light-theme_&]:border-black/5 transition-colors duration-300">
+        <section id="practice" className="border-t border-border-subtle bg-bg-dark px-4 py-20 text-text-primary transition-colors duration-300">
             <div className="max-w-6xl mx-auto space-y-12">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="space-y-4 max-w-2xl">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white [.light-theme_&]:text-zinc-900">Curated DSA Sheets</h2>
-                        <p className="text-zinc-400 [.light-theme_&]:text-zinc-600 text-lg">
-                            Battle-tested problem sets for Competitive Programming and Interview Prep. Track your progress systematically.
+                        <h2 className="text-3xl font-semibold text-ink md:text-4xl">Curated DSA Sheets</h2>
+                        <p className="text-lg leading-8 text-text-muted">
+                            AI-organized problem sets for competitive programming and interview prep. Track your progress systematically.
                         </p>
                     </div>
 
-                    <div className="bg-zinc-900/50 [.light-theme_&]:bg-zinc-200/50 p-1 rounded-lg inline-flex self-start md:self-end border border-zinc-800 [.light-theme_&]:border-black/5 relative transition-colors duration-300">
+                    <div className="relative inline-flex self-start rounded-lg border border-border-subtle bg-surface/70 p-1 transition-colors duration-300 md:self-end">
                         {["Popular", "Topic Wise", "Company"].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === tab
-                                    ? "text-white [.light-theme_&]:text-zinc-900 font-bold"
-                                    : "text-zinc-400 [.light-theme_&]:text-zinc-500 hover:text-white [.light-theme_&]:hover:text-zinc-900"
+                                    ? "text-ink font-bold"
+                                    : "text-text-muted hover:text-primary"
                                     }`}
                             >
                                 {activeTab === tab && (
                                     <motion.span
                                         layoutId="active-tab"
-                                        className="absolute inset-0 bg-zinc-800 [.light-theme_&]:bg-white rounded-md shadow-[0_2px_10px_rgba(0,0,0,0.1)]"
+                                        className="absolute inset-0 rounded-md bg-bg-card shadow-[0_2px_10px_rgba(0,0,0,0.1)]"
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                     />
                                 )}
@@ -229,24 +229,24 @@ export default function CuratedSheetsSection() {
                         <motion.div
                             key={sheet.id}
                             whileHover={{ y: -5 }}
-                            className="group relative bg-zinc-900/40 [.light-theme_&]:bg-white border border-zinc-800/50 [.light-theme_&]:border-black/[0.03] rounded-2xl p-7 transition-all flex flex-col justify-between h-full shadow-[0_4px_20px_-10px_rgba(0,0,0,0.5)] [.light-theme_&]:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.4)] [.light-theme_&]:hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.08)] overflow-hidden"
+                            className="glass-card group relative flex h-full flex-col justify-between overflow-hidden rounded-lg p-7 transition-all hover:border-primary/45"
                         >
                             <div className={`absolute top-0 right-0 w-32 h-32 blur-[60px] opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none ${sheet.color}`} />
 
                             <div className="relative z-10">
                                 <div className="flex justify-between items-start mb-6">
-                                    <div className={`p-3 rounded-xl bg-zinc-950 [.light-theme_&]:bg-zinc-50 border border-zinc-800 [.light-theme_&]:border-black/[0.02] group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}>
+                                    <div className="rounded-lg border border-border-subtle bg-bg-dark p-3 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
                                         {sheet.icon}
                                     </div>
-                                    <span className="text-[10px] uppercase font-bold tracking-[0.1em] px-2.5 py-1.5 rounded-lg bg-zinc-950 [.light-theme_&]:bg-zinc-50 border border-zinc-800 [.light-theme_&]:border-black/[0.02] text-zinc-400 [.light-theme_&]:text-zinc-500 group-hover:text-blue-400 [.light-theme_&]:group-hover:text-blue-600 transition-colors">
+                                    <span className="rounded-lg border border-border-subtle bg-bg-dark px-2.5 py-1.5 text-[10px] font-bold uppercase text-text-muted transition-colors group-hover:text-primary">
                                         {sheet.tag}
                                     </span>
                                 </div>
 
-                                <h3 className="text-xl font-bold mb-3 tracking-tight group-hover:text-blue-400 [.light-theme_&]:group-hover:text-blue-600 transition-colors text-white [.light-theme_&]:text-zinc-900">
+                                <h3 className="mb-3 text-xl font-bold text-ink transition-colors group-hover:text-primary">
                                     {sheet.title}
                                 </h3>
-                                <p className="text-sm text-zinc-400 [.light-theme_&]:text-zinc-600 mb-8 leading-relaxed line-clamp-2">
+                                <p className="mb-8 line-clamp-2 text-sm leading-relaxed text-text-muted">
                                     {sheet.description}
                                 </p>
                             </div>
@@ -254,7 +254,7 @@ export default function CuratedSheetsSection() {
                             <div className="relative z-10 mt-auto">
                                 <Link
                                     href={`/sheets/${sheet.id}`}
-                                    className="inline-flex items-center gap-2 text-sm font-bold text-blue-400 [.light-theme_&]:text-blue-600 hover:text-blue-300 [.light-theme_&]:hover:text-blue-700 transition-colors group/link"
+                                    className="inline-flex items-center gap-2 text-sm font-bold text-primary transition-colors hover:text-secondary group/link"
                                 >
                                     <span>Explore Sheet</span>
                                     <svg className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -262,7 +262,7 @@ export default function CuratedSheetsSection() {
                                     </svg>
                                 </Link>
 
-                                <div className="mt-4 h-px w-full bg-white/5 [.light-theme_&]:bg-black/[0.03]" />
+                                <div className="mt-4 h-px w-full bg-border-subtle/70" />
 
                                 <div className="mt-4 flex items-center justify-between text-[11px] font-bold text-zinc-500 uppercase tracking-widest">
                                     <span>{typeof sheet.totalVal === 'number' ? `${sheet.totalVal} Problems` : sheet.totalVal}</span>

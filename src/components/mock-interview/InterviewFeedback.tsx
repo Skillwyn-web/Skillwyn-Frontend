@@ -17,16 +17,16 @@ export default function InterviewFeedback({ messages, onExit }: { messages: any[
     const overall = Math.round((scores.technical + scores.clarity + scores.confidence) / 3);
 
     return (
-        <div className="min-h-screen bg-[#050505] [.light-theme_&]:bg-[#F7F4EA] flex items-center justify-center p-6 text-white [.light-theme_&]:text-zinc-900 font-sans transition-colors duration-300">
+        <div className="page-shell flex min-h-screen items-center justify-center p-6 transition-colors duration-300">
             <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 className="max-w-2xl w-full bg-zinc-900 [.light-theme_&]:bg-white border border-zinc-800 [.light-theme_&]:border-black/5 rounded-[2.5rem] p-10 md:p-16 shadow-2xl relative overflow-hidden backdrop-blur-3xl transition-all"
             >
-                <div className="absolute top-0 left-0 w-full h-2.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
+                <div className="absolute top-0 left-0 w-full h-2.5 bg-gradient-to-r from-primary via-secondary to-accent" />
 
                 <div className="text-center mb-16">
-                    <div className="inline-block px-4 py-1.5 mb-6 border border-purple-500/20 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-black tracking-[0.2em] uppercase">
+                    <div className="theme-kicker mb-6">
                         AI Performance Analysis
                     </div>
                     <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter">Your Feedback</h2>
@@ -60,7 +60,7 @@ export default function InterviewFeedback({ messages, onExit }: { messages: any[
 
                 <div className="grid grid-cols-3 gap-6 mb-16">
                     <div className="bg-zinc-800/50 [.light-theme_&]:bg-zinc-50 p-6 rounded-[2rem] text-center border border-white/5 [.light-theme_&]:border-black/5 shadow-inner">
-                        <div className="text-blue-400 font-black text-2xl mb-2 tracking-tighter">{scores.technical}%</div>
+                        <div className="text-primary font-black text-2xl mb-2">{scores.technical}%</div>
                         <div className="text-[10px] text-zinc-500 font-black uppercase tracking-widest">Logic</div>
                     </div>
                     <div className="bg-zinc-800/50 [.light-theme_&]:bg-zinc-50 p-6 rounded-[2rem] text-center border border-white/5 [.light-theme_&]:border-black/5 shadow-inner">

@@ -208,7 +208,7 @@ export default function InterviewSession({ settings, onExit }: { settings: Inter
         : 'transparent';
 
     return (
-        <div className="flex h-screen bg-[#050505] [.light-theme_&]:bg-[#F7F4EA] text-white [.light-theme_&]:text-zinc-900 overflow-hidden relative transition-colors duration-300">
+        <div className="page-shell flex h-screen overflow-hidden relative transition-colors duration-300">
             <div className="flex-1 flex flex-col items-center justify-center relative p-8">
                 <motion.div
                     animate={{ scale: avatarScale }}

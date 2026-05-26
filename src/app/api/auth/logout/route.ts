@@ -17,6 +17,12 @@ export async function POST(request: NextRequest) {
 
         const response = NextResponse.json({ success: true });
         clearSessionCookie(response);
+        response.cookies.set({
+            name: 'skillwyn_client_user',
+            value: '',
+            path: '/',
+            expires: new Date(0),
+        });
         return response;
     } catch (error) {
         console.error('Logout error:', error);

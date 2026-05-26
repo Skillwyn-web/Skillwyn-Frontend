@@ -2,27 +2,24 @@ import PricingCard from "./PricingCard";
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="relative overflow-hidden bg-black [.light-theme_&]:bg-[#F7F4EA] py-32 text-white [.light-theme_&]:text-zinc-900 transition-colors duration-300">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-1/4 h-96 w-96 -translate-y-1/2 rounded-full bg-blue-900/20 [.light-theme_&]:bg-blue-400/10 blur-[128px]" />
-      <div className="absolute bottom-0 right-1/4 h-96 w-96 translate-y-1/2 rounded-full bg-purple-900/20 [.light-theme_&]:bg-purple-400/10 blur-[128px]" />
+    <section id="pricing" className="relative overflow-hidden border-t border-border-subtle bg-bg-dark py-32 text-text-primary transition-colors duration-300">
       
       <div
         className="absolute inset-0 z-0 opacity-[0.2] [.light-theme_&]:opacity-[0.4]"
         style={{
           backgroundImage: `radial-gradient(currentColor 1px, transparent 1px)`,
           backgroundSize: '32px 32px',
-          color: 'inherit'
+          color: '#66e3ff'
         }}
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center mb-20 animate-fade-in-up">
-          <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] leading-7 text-blue-400 [.light-theme_&]:text-blue-600 mb-2">Simple, transparent pricing</h2>
-          <p className="mt-2 text-4xl font-black tracking-tight text-white [.light-theme_&]:text-zinc-900 sm:text-6xl uppercase">
-            Accelerate with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Bootcamps</span>
+          <h2 className="mb-2 text-[10px] font-bold uppercase leading-7 text-primary">Simple, transparent pricing</h2>
+          <p className="mt-2 text-4xl font-semibold text-ink sm:text-6xl">
+            Accelerate with <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">AI bootcamps</span>
           </p>
-          <p className="mt-6 text-lg leading-8 text-zinc-400 [.light-theme_&]:text-zinc-600 font-medium">
+          <p className="mt-6 text-lg leading-8 text-text-muted font-medium">
             Intensive, cohort-based learning with placement support. Choose the plan that fits your ambition.
           </p>
         </div>

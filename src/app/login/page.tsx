@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { RippleButton } from "@/components/ui/RippleButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
@@ -47,6 +47,19 @@ export default function LoginPage() {
     const { login } = useAuth();
     const router = useRouter();
 
+    const getNextPath = () => {
+        if (typeof window === "undefined") return "/profile";
+        const next = new URLSearchParams(window.location.search).get("next");
+        return next && next.startsWith("/") ? next : "/profile";
+    };
+
+    useEffect(() => {
+        const oauthError = new URLSearchParams(window.location.search).get("error");
+        if (oauthError) {
+            setError("Google login failed. Check Google OAuth credentials and redirect URI.");
+        }
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
@@ -67,7 +80,8 @@ export default function LoginPage() {
             }
 
             login(data);
-            router.push('/snap-code'); 
+            router.replace(getNextPath());
+            router.refresh();
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -75,28 +89,56 @@ export default function LoginPage() {
         }
     };
 
+    const handleGoogleLogin = () => {
+        const next = encodeURIComponent(getNextPath());
+        window.location.href = `/api/auth/google?next=${next}`;
+    };
+
+    const handleSocialLogin = async (provider: "github") => {
+        setIsLoading(true);
+        setError("");
+
+        try {
+            const res = await fetch("/api/auth/social-demo", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ provider }),
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || "Social login failed");
+            }
+
+            login(data);
+            router.replace(getNextPath());
+            router.refresh();
+        } catch (err: any) {
+            setError(err.message || "Social login failed");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
-        <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black [.light-theme_&]:bg-[#F7F4EA] px-4 py-20 text-white transition-colors duration-300">
-            {/* Background Effects */}
-            <div className="absolute inset-0 z-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/20 [.light-theme_&]:bg-blue-600/10 rounded-full blur-[120px] opacity-40 animate-pulse-slow" />
-                <div className="absolute inset-0 bg-[linear-gradient(#111_1px,transparent_1px),linear-gradient(90deg,#111_1px,transparent_1px)] [.light-theme_&]:bg-[linear-gradient(#eee_1px,transparent_1px),linear-gradient(90deg,#eee_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
+        <section className="page-shell relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20">
+            <div className="pointer-events-none absolute inset-0 z-0 page-grid opacity-50">
             </div>
 
             {/* Login Card */}
             <div className="relative z-10 w-full max-w-md animate-fade-in-up">
                 {/* Brand Logo Floating above */}
                 <div className="flex justify-center mb-8">
-                    <Link href="/" className="group relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white [.light-theme_&]:bg-zinc-900 shadow-[0_0_30px_rgba(255,255,255,0.2)] [.light-theme_&]:shadow-[0_0_30px_rgba(0,0,0,0.1)] transition-transform hover:scale-105">
-                        <span className="text-2xl font-black text-black [.light-theme_&]:text-white">DP</span>
-                        <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-blue-400/20 to-transparent rounded-2xl overflow-hidden" />
+                    <Link href="/" className="group relative flex h-16 w-16 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 shadow-[0_0_30px_rgba(102,227,255,0.16)] transition-transform hover:scale-105">
+                        <span className="text-xl font-black text-primary">SW</span>
                     </Link>
                 </div>
 
-                <div className="overflow-hidden rounded-3xl border border-zinc-800 [.light-theme_&]:border-black/5 bg-zinc-900/50 [.light-theme_&]:bg-white/80 backdrop-blur-xl shadow-2xl p-8 sm:p-10 transition-colors">
+                <div className="theme-card overflow-hidden p-8 sm:p-10">
                     <div className="mb-8 text-center">
-                        <h1 className="text-3xl font-bold tracking-tight text-white [.light-theme_&]:text-zinc-900 mb-2">Welcome Back</h1>
-                        <p className="text-zinc-400 [.light-theme_&]:text-zinc-500">Sign in to continue your journey</p>
+                        <h1 className="mb-2 text-3xl font-bold text-ink">Welcome back</h1>
+                        <p className="text-text-muted">Continue your AI learning journey</p>
                     </div>
 
                     {error && (
@@ -107,12 +149,12 @@ export default function LoginPage() {
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="mb-2 block text-sm font-medium text-zinc-300 [.light-theme_&]:text-zinc-600">Email Address</label>
+                            <label className="mb-2 block text-sm font-bold text-text-muted">Email Address</label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full rounded-xl border border-zinc-700 [.light-theme_&]:border-black/10 bg-zinc-900/50 [.light-theme_&]:bg-white px-4 py-3 text-white [.light-theme_&]:text-zinc-900 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all shadow-sm"
+                                className="theme-input placeholder:text-text-muted"
                                 placeholder="you@example.com"
                                 required
                             />
@@ -120,22 +162,22 @@ export default function LoginPage() {
 
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <label className="text-sm font-medium text-zinc-300 [.light-theme_&]:text-zinc-600">Password</label>
-                                <Link href="#" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">Forgot password?</Link>
+                                <label className="text-sm font-bold text-text-muted">Password</label>
+                                <Link href="#" className="text-xs text-primary hover:text-secondary transition-colors">Forgot password?</Link>
                             </div>
                             <div className="relative">
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full rounded-xl border border-zinc-700 [.light-theme_&]:border-black/10 bg-zinc-900/50 [.light-theme_&]:bg-white px-4 py-3 text-white [.light-theme_&]:text-zinc-900 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all pr-12 shadow-sm"
+                                    className="theme-input pr-12 placeholder:text-text-muted"
                                     placeholder="••••••••"
                                     required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
                                 >
                                     {showPassword ? <EyeOffIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                                 </button>
@@ -143,7 +185,7 @@ export default function LoginPage() {
                         </div>
 
                         <RippleButton
-                            className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 py-3.5 font-bold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="theme-button w-full py-3.5 disabled:opacity-70 disabled:cursor-not-allowed"
                             type="submit"
                             disabled={isLoading}
                         >
@@ -153,27 +195,37 @@ export default function LoginPage() {
 
                     <div className="relative my-8">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-zinc-800 [.light-theme_&]:border-black/5"></div>
+                            <div className="w-full border-t border-border-subtle"></div>
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-[#0e0e11] [.light-theme_&]:bg-white px-3 text-zinc-500 rounded-full font-medium">Or continue with</span>
+                            <span className="rounded-lg bg-bg-card px-3 text-text-muted font-medium">Or continue with</span>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                        <button className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 [.light-theme_&]:border-black/10 bg-zinc-800/50 [.light-theme_&]:bg-white py-2.5 transition-all hover:bg-zinc-800 [.light-theme_&]:hover:bg-zinc-50 text-white [.light-theme_&]:text-zinc-900 shadow-sm">
+                        <button
+                            type="button"
+                            onClick={handleGoogleLogin}
+                            disabled={isLoading}
+                            className="flex items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface/70 py-2.5 text-ink transition-all hover:border-primary/50 shadow-sm disabled:opacity-60"
+                        >
                             <GoogleIcon className="h-5 w-5" />
                             <span className="text-sm font-medium">Google</span>
                         </button>
-                        <button className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 [.light-theme_&]:border-black/10 bg-zinc-800/50 [.light-theme_&]:bg-white py-2.5 transition-all hover:bg-zinc-800 [.light-theme_&]:hover:bg-zinc-50 text-white [.light-theme_&]:text-zinc-900 shadow-sm">
+                        <button
+                            type="button"
+                            onClick={() => handleSocialLogin("github")}
+                            disabled={isLoading}
+                            className="flex items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface/70 py-2.5 text-ink transition-all hover:border-primary/50 shadow-sm disabled:opacity-60"
+                        >
                             <GithubIcon className="h-5 w-5" />
                             <span className="text-sm font-medium">GitHub</span>
                         </button>
                     </div>
 
-                    <p className="mt-8 text-center text-sm text-zinc-400">
+                    <p className="mt-8 text-center text-sm text-text-muted">
                         Don&apos;t have an account?{" "}
-                        <Link href="/signup" className="font-semibold text-blue-400 hover:text-blue-300 transition-colors">
+                        <Link href="/signup" className="font-semibold text-primary hover:text-secondary transition-colors">
                             Sign up
                         </Link>
                     </p>
