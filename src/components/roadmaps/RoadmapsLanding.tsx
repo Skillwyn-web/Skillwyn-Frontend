@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 // Minimal sharp icons
 const Icons = {
     Cpp: () => (
-        <div className="flex items-center justify-center w-full h-full font-black text-blue-500 text-lg">
+        <div className="flex items-center justify-center w-full h-full font-black text-primary text-lg">
             C++
         </div>
     ),
@@ -55,7 +55,7 @@ const domains = [
                 time: "4-6 Months",
                 level: "Mid",
                 icon: <Icons.Cpp />,
-                accent: "decoration-blue-500"
+                accent: "decoration-primary"
             },
             {
                 id: "dsa-java",
@@ -106,7 +106,7 @@ const domains = [
                 time: "12 Months",
                 level: "Expert",
                 icon: <Icons.Fullstack />,
-                accent: "decoration-purple-500"
+                accent: "decoration-secondary"
             },
         ]
     }
@@ -114,21 +114,21 @@ const domains = [
 
 export default function RoadmapsLanding() {
     return (
-        <div className="min-h-screen bg-[#09090b] [.light-theme_&]:bg-[#F7F4EA] text-white [.light-theme_&]:text-zinc-900 p-8 md:p-12 font-sans selection:bg-white selection:text-black transition-colors duration-300">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [.light-theme_&]:bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+        <div className="page-shell relative min-h-screen p-8 transition-colors duration-300 md:p-12">
+            <div className="absolute inset-0 page-grid pointer-events-none opacity-50" />
 
             <div className="max-w-6xl mx-auto relative z-10">
-                <header className="mb-24 pt-16 border-b border-zinc-800 [.light-theme_&]:border-black/5 pb-16">
-                    <Link href="/" className="inline-flex items-center text-[10px] font-black tracking-widest text-zinc-500 hover:text-white [.light-theme_&]:hover:text-zinc-900 mb-10 transition-colors group uppercase">
+                <header className="mb-24 border-b border-border-subtle pb-16 pt-16">
+                    <Link href="/" className="mb-10 inline-flex items-center text-[10px] font-black uppercase text-text-muted transition-colors hover:text-primary group">
                         <svg className="w-3 h-3 mr-2 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
-                        Terminal Index
+                        Back to SkillWyn
                     </Link>
                     <motion.h1
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-6xl md:text-8xl font-black mb-8 tracking-tighter text-white [.light-theme_&]:text-zinc-900 uppercase"
+                        className="mb-8 text-6xl font-black text-ink md:text-8xl"
                     >
                         Roadmaps
                     </motion.h1>
@@ -136,10 +136,9 @@ export default function RoadmapsLanding() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-zinc-500 [.light-theme_&]:text-zinc-600 text-xl md:text-2xl max-w-2xl font-medium leading-relaxed"
+                        className="max-w-2xl text-xl font-medium leading-relaxed text-text-muted md:text-2xl"
                     >
-                        Structured learning vectors designed for elite engineering performance. 
-                        Select a track to initialize.
+                        AI-generated paths for students who want skills, portfolio proof, resume strength, and job-ready confidence.
                     </motion.p>
                 </header>
 
@@ -153,10 +152,10 @@ export default function RoadmapsLanding() {
                                 className="mb-12"
                             >
                                 <div className="flex items-baseline gap-4 mb-4">
-                                    <span className="text-[10px] font-black text-zinc-600 [.light-theme_&]:text-zinc-400 uppercase tracking-[0.3em]">0{domainIdx + 1}</span>
-                                    <h2 className="text-3xl font-black text-white [.light-theme_&]:text-zinc-900 uppercase tracking-tight">{domain.title}</h2>
+                                    <span className="text-[10px] font-black text-text-muted uppercase">0{domainIdx + 1}</span>
+                                    <h2 className="text-3xl font-black text-ink">{domain.title}</h2>
                                 </div>
-                                <p className="text-zinc-500 [.light-theme_&]:text-zinc-600 font-bold uppercase tracking-widest text-[10px] pl-[3.5rem]">{domain.description}</p>
+                                <p className="pl-[3.5rem] text-[10px] font-bold uppercase text-text-muted">{domain.description}</p>
                             </motion.div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -169,28 +168,28 @@ export default function RoadmapsLanding() {
                                         transition={{ delay: trackIdx * 0.1 }}
                                     >
                                         <Link href={`/roadmaps/${track.id}`} className="group block h-full">
-                                            <div className="h-full bg-zinc-900/50 [.light-theme_&]:bg-white border border-zinc-800 [.light-theme_&]:border-black/5 p-8 transition-all duration-300 hover:border-zinc-500 [.light-theme_&]:hover:border-black/10 hover:bg-zinc-800/80 [.light-theme_&]:hover:bg-zinc-50 flex flex-col items-start justify-between rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-1">
+                                            <div className="theme-card flex h-full flex-col items-start justify-between p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:shadow-2xl">
                                                 <div className="w-full">
                                                     <div className="flex justify-between items-start mb-8">
-                                                        <div className={`w-14 h-14 rounded-2xl bg-zinc-950 [.light-theme_&]:bg-zinc-100 border border-zinc-800 [.light-theme_&]:border-black/5 flex items-center justify-center text-zinc-200 [.light-theme_&]:text-zinc-900 group-hover:text-white [.light-theme_&]:group-hover:text-blue-500 transition-colors shadow-inner`}>
+                                                        <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-border-subtle bg-bg-dark text-primary shadow-inner transition-colors group-hover:text-secondary">
                                                             {track.icon}
                                                         </div>
-                                                        <span className="text-[9px] font-black uppercase tracking-widest border border-zinc-800 [.light-theme_&]:border-black/5 rounded-lg px-3 py-1.5 text-zinc-600 shadow-sm">
+                                                        <span className="rounded-lg border border-border-subtle px-3 py-1.5 text-[9px] font-black uppercase text-text-muted shadow-sm">
                                                             {track.level}
                                                         </span>
                                                     </div>
 
-                                                    <h3 className={`text-2xl font-black text-white [.light-theme_&]:text-zinc-900 mb-3 uppercase tracking-tight group-hover:underline ${track.accent} decoration-4 underline-offset-8 transition-all`}>
+                                                    <h3 className={`mb-3 text-2xl font-black text-ink group-hover:underline ${track.accent} decoration-4 underline-offset-8 transition-all`}>
                                                         {track.title}
                                                     </h3>
-                                                    <p className="text-zinc-500 [.light-theme_&]:text-zinc-600 text-xs mb-8 leading-relaxed font-bold uppercase tracking-wider">
+                                                    <p className="mb-8 text-xs font-bold uppercase leading-relaxed text-text-muted">
                                                         {track.subtitle}
                                                     </p>
                                                 </div>
 
-                                                <div className="w-full pt-8 border-t border-zinc-800/50 [.light-theme_&]:border-black/5 flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                                                <div className="flex w-full items-center justify-between border-t border-border-subtle pt-8 text-[10px] font-black uppercase text-text-muted">
                                                     <span>{track.time}</span>
-                                                    <span className="flex items-center gap-2 group-hover:text-white [.light-theme_&]:group-hover:text-zinc-900 transition-colors">
+                                                    <span className="flex items-center gap-2 transition-colors group-hover:text-primary">
                                                         Access
                                                         <svg className="w-3 h-3 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />

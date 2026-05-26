@@ -41,25 +41,26 @@ export default function MockInterviewLanding() {
     }
 
     return (
-        <div className="min-h-screen bg-[#050505] [.light-theme_&]:bg-[#F7F4EA] text-white [.light-theme_&]:text-zinc-900 font-sans selection:bg-purple-500/30 transition-colors duration-300">
-            <div className="max-w-6xl mx-auto px-6 py-12 md:py-20">
+        <div className="page-shell relative min-h-screen transition-colors duration-300">
+            <div className="absolute inset-0 page-grid opacity-40" />
+            <div className="relative z-10 max-w-6xl mx-auto px-6 py-12 md:py-20">
                 <header className="mb-16 text-center max-w-3xl mx-auto">
-                    <div className="inline-block px-3 py-1 mb-4 border border-purple-500/30 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-bold tracking-widest uppercase">
+                    <div className="theme-kicker mb-4">
                         AI-Powered Coaching
                     </div>
                     <motion.h1
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-6xl font-black tracking-tight mb-6"
+                        className="text-5xl md:text-6xl font-black mb-6 text-ink"
                     >
                         Master Your Next <br className="hidden md:block"/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Interview</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">Interview</span>
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-zinc-400 [.light-theme_&]:text-zinc-600 text-lg leading-relaxed font-medium"
+                        className="text-text-muted text-lg leading-relaxed font-medium"
                     >
                         Practice with our advanced AI interviewer. Get real-time feedback, improve your confidence, and land your dream job.
                     </motion.p>
@@ -73,8 +74,8 @@ export default function MockInterviewLanding() {
                         className="lg:col-span-8 space-y-10"
                     >
                         <section>
-                            <h3 className="text-lg font-bold text-white [.light-theme_&]:text-zinc-900 mb-6 flex items-center gap-3">
-                                <span className="w-8 h-8 rounded-lg bg-zinc-800 [.light-theme_&]:bg-zinc-200 flex items-center justify-center text-xs font-bold">1</span>
+                            <h3 className="text-lg font-bold text-ink mb-6 flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center text-xs font-bold">1</span>
                                 Target Role
                             </h3>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -82,9 +83,9 @@ export default function MockInterviewLanding() {
                                     <button
                                         key={role.id}
                                         onClick={() => setSettings({ ...settings, role: role.id })}
-                                        className={`p-5 rounded-2xl border text-left transition-all relative overflow-hidden group ${settings.role === role.id
-                                            ? "bg-white text-black border-white shadow-xl scale-105"
-                                            : "bg-zinc-900 border-zinc-800 [.light-theme_&]:bg-white [.light-theme_&]:border-black/5 text-zinc-400 [.light-theme_&]:text-zinc-500 hover:border-zinc-700 [.light-theme_&]:hover:border-black/10 hover:bg-zinc-800 [.light-theme_&]:hover:bg-zinc-50"
+                                        className={`p-5 rounded-lg border text-left transition-all relative overflow-hidden group ${settings.role === role.id
+                                            ? "bg-primary text-bg-dark border-primary shadow-xl scale-105"
+                                            : "bg-bg-card border-border-subtle text-text-muted hover:border-primary/50 hover:bg-surface"
                                             }`}
                                     >
                                         <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">{role.icon}</div>
@@ -95,8 +96,8 @@ export default function MockInterviewLanding() {
                         </section>
 
                         <section>
-                            <h3 className="text-lg font-bold text-white [.light-theme_&]:text-zinc-900 mb-6 flex items-center gap-3">
-                                <span className="w-8 h-8 rounded-lg bg-zinc-800 [.light-theme_&]:bg-zinc-200 flex items-center justify-center text-xs font-bold">2</span>
+                            <h3 className="text-lg font-bold text-ink mb-6 flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center text-xs font-bold">2</span>
                                 Interview Focus
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -104,13 +105,13 @@ export default function MockInterviewLanding() {
                                     <button
                                         key={type.id}
                                         onClick={() => setSettings({ ...settings, type: type.id })}
-                                        className={`p-6 rounded-2xl border text-left transition-all h-full ${settings.type === type.id
-                                            ? "bg-gradient-to-br from-purple-900/60 to-purple-800/20 border-purple-500 text-white shadow-lg shadow-purple-500/10"
-                                            : "bg-zinc-900 border-zinc-800 [.light-theme_&]:bg-white [.light-theme_&]:border-black/5 text-zinc-400 [.light-theme_&]:text-zinc-500 hover:border-zinc-700 [.light-theme_&]:hover:border-black/10 hover:bg-zinc-800 [.light-theme_&]:hover:bg-zinc-50"
+                                        className={`p-6 rounded-lg border text-left transition-all h-full ${settings.type === type.id
+                                            ? "bg-primary/15 border-primary text-ink shadow-lg shadow-primary/10"
+                                            : "bg-bg-card border-border-subtle text-text-muted hover:border-primary/50 hover:bg-surface"
                                             }`}
                                     >
                                         <div className="font-black text-sm uppercase mb-2 tracking-wide">{type.label}</div>
-                                        <div className={`text-xs leading-relaxed font-medium ${settings.type === type.id ? 'text-purple-200' : 'text-zinc-500'}`}>
+                                        <div className={`text-xs leading-relaxed font-medium ${settings.type === type.id ? 'text-text-muted' : 'text-text-muted'}`}>
                                             {type.desc}
                                         </div>
                                     </button>
@@ -119,18 +120,18 @@ export default function MockInterviewLanding() {
                         </section>
 
                         <section>
-                            <h3 className="text-lg font-bold text-white [.light-theme_&]:text-zinc-900 mb-6 flex items-center gap-3">
-                                <span className="w-8 h-8 rounded-lg bg-zinc-800 [.light-theme_&]:bg-zinc-200 flex items-center justify-center text-xs font-bold">3</span>
+                            <h3 className="text-lg font-bold text-ink mb-6 flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center text-xs font-bold">3</span>
                                 Difficulty Level
                             </h3>
-                            <div className="flex gap-2 p-1.5 bg-zinc-900 [.light-theme_&]:bg-zinc-200 rounded-2xl border border-zinc-800 [.light-theme_&]:border-black/5 w-fit shadow-inner">
+                            <div className="flex gap-2 p-1.5 bg-bg-card rounded-lg border border-border-subtle w-fit shadow-inner">
                                 {difficulties.map((level) => (
                                     <button
                                         key={level}
                                         onClick={() => setSettings({ ...settings, difficulty: level })}
                                         className={`px-8 py-2.5 rounded-xl text-xs font-bold transition-all uppercase tracking-widest ${settings.difficulty === level
-                                            ? "bg-zinc-800 [.light-theme_&]:bg-white text-white [.light-theme_&]:text-zinc-900 shadow-xl"
-                                            : "text-zinc-500 hover:text-zinc-300 [.light-theme_&]:hover:text-zinc-600"
+                                            ? "bg-primary text-bg-dark shadow-xl"
+                                            : "text-text-muted hover:text-primary"
                                             }`}
                                     >
                                         {level}
@@ -140,8 +141,8 @@ export default function MockInterviewLanding() {
                         </section>
 
                         <section>
-                            <h3 className="text-lg font-bold text-white [.light-theme_&]:text-zinc-900 mb-6 flex items-center gap-3">
-                                <span className="w-8 h-8 rounded-lg bg-zinc-800 [.light-theme_&]:bg-zinc-200 flex items-center justify-center text-xs font-bold">4</span>
+                            <h3 className="text-lg font-bold text-ink mb-6 flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center text-xs font-bold">4</span>
                                 Interviewer Persona
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -187,8 +188,8 @@ export default function MockInterviewLanding() {
                         transition={{ delay: 0.3 }}
                         className="lg:col-span-4"
                     >
-                        <div className="sticky top-24 bg-zinc-900/50 [.light-theme_&]:bg-white border border-zinc-800 [.light-theme_&]:border-black/5 rounded-3xl p-8 backdrop-blur-xl shadow-2xl transition-colors">
-                            <h3 className="text-xl font-black mb-8 border-b border-zinc-800 [.light-theme_&]:border-black/5 pb-4">Session Summary</h3>
+                        <div className="theme-card sticky top-24 p-8">
+                            <h3 className="text-xl font-black mb-8 border-b border-border-subtle pb-4 text-ink">Session Summary</h3>
 
                             <div className="space-y-6 mb-10">
                                 <div className="flex justify-between items-center text-xs border-b border-zinc-800/50 [.light-theme_&]:border-black/5 pb-4">
@@ -215,7 +216,7 @@ export default function MockInterviewLanding() {
 
                             <button
                                 onClick={() => setSessionStarted(true)}
-                                className="w-full py-5 rounded-2xl bg-white [.light-theme_&]:bg-zinc-900 text-black [.light-theme_&]:text-white font-black text-sm uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-white/5 [.light-theme_&]:shadow-black/5 flex items-center justify-center gap-3"
+                                className="theme-button flex w-full items-center justify-center gap-3 py-5 text-sm uppercase"
                             >
                                 Start Interview
                                 <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

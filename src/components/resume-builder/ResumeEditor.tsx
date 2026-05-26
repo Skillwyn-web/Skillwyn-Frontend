@@ -521,7 +521,7 @@ export default function ResumeEditor({ initialData, onBack }: { initialData?: an
     const [template, setTemplate] = useState<'modern' | 'classic'>('modern');
 
     return (
-        <div className="flex h-screen bg-[#09090b] [.light-theme_&]:bg-[#F7F4EA] text-white overflow-hidden transition-colors duration-300">
+        <div className="page-shell flex h-screen overflow-hidden transition-colors duration-300">
             {/* Left Panel: EDITOR */}
             <div className="w-1/2 p-8 border-r border-zinc-800 [.light-theme_&]:border-black/5 overflow-y-auto print:hidden">
                 <div className="max-w-xl mx-auto">
