@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Manrope, Sora } from "next/font/google";
 import "../components/layout/globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { AuthProvider } from "@/context/AuthContext";
 
-const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
   display: "swap",
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   display: "swap",
 });
@@ -34,8 +34,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body
-        className={`${instrumentSans.variable} ${plusJakarta.variable} ${geistMono.variable} antialiased bg-bg-dark text-text-primary font-body selection:bg-white/20 selection:text-white`}
+        className={`${sora.variable} ${manrope.variable} ${geistMono.variable} antialiased bg-bg-dark text-text-primary font-body selection:bg-white/20 selection:text-white`}
       >
         <SmoothScroll />
         <AuthProvider>

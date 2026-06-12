@@ -1,5 +1,5 @@
-import AdaptiveRoadmapSystem from "@/components/roadmaps/AdaptiveRoadmapSystem";
+import RoadmapsMvpPage from "@/components/roadmaps/RoadmapsMvpPage";
 
 export default function RoadmapsPage() {
-    return <AdaptiveRoadmapSystem />;
+    return <RoadmapsMvpPage />;
 }

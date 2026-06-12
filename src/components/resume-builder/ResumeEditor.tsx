@@ -121,7 +121,7 @@ const ModernTemplate = ({ data }: { data: ResumeData }) => (
                                     <span className="text-slate-500 text-xs">{exp.duration}</span>
                                 </div>
                                 <div className="text-slate-700 font-medium text-xs mb-1 italic">{exp.role}</div>
-                                <p className="whitespace-pre-line text-slate-600 text-[13px] leading-snug pl-1 border-l-2 border-slate-100">{exp.description}</p>
+                                <p className="whitespace-pre-line text-[#5b6fb3] text-[13px] leading-snug pl-1 border-l-2 border-slate-100">{exp.description}</p>
                             </div>
                         ))}
                     </div>
@@ -139,7 +139,7 @@ const ModernTemplate = ({ data }: { data: ResumeData }) => (
                                     {proj.link && <a href={proj.link} className="text-blue-600 text-xs hover:underline">{proj.link}</a>}
                                 </div>
                                 <div className="text-xs text-slate-500 mb-1 font-mono bg-slate-100 inline-block px-1 rounded">{proj.tech}</div>
-                                <p className="whitespace-pre-line text-slate-600 text-[13px] leading-snug">{proj.description}</p>
+                                <p className="whitespace-pre-line text-[#5b6fb3] text-[13px] leading-snug">{proj.description}</p>
                             </div>
                         ))}
                     </div>
