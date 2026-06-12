@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="light-theme scroll-smooth">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500;600;700;800;900&display=swap"
@@ -41,7 +41,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${sora.variable} ${manrope.variable} ${geistMono.variable} antialiased bg-bg-dark text-text-primary font-body selection:bg-white/20 selection:text-white`}
+        className={`${sora.variable} ${manrope.variable} ${geistMono.variable} light-theme antialiased bg-[#f8f8f5] text-[#111111] font-body selection:bg-[#2563eb]/20 selection:text-[#102a7a]`}
       >
         <SmoothScroll />
         <AuthProvider>

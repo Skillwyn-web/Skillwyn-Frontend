@@ -17,7 +17,6 @@ import {
     Map
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import ThemeToggle from "./ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
@@ -200,7 +199,6 @@ export function Navbar() {
                 </div>
 
                 <div className="hidden items-center gap-4 md:flex">
-                    <ThemeToggle />
                     {loading ? (
                         <div className="h-9 w-32 animate-pulse rounded-lg bg-[#f5f7ff]" />
                     ) : user ? (
@@ -351,10 +349,6 @@ export function Navbar() {
                         );
                     })}
                     <div className="flex flex-col gap-3 pt-4">
-                        <div className="flex items-center justify-between border-b border-[#f0f0f0] py-2">
-                            <span className="text-sm font-medium text-[#1a1a2e]">Theme</span>
-                            <ThemeToggle />
-                        </div>
                         {loading ? (
                             <div className="h-12 w-full animate-pulse rounded-lg bg-[#f5f7ff]" />
                         ) : user ? (

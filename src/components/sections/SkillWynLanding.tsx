@@ -865,13 +865,13 @@ export default function SkillWynLanding() {
               Explore paths
             </Link>
           </div>
-          <div className="mt-8 flex flex-col gap-4 sm:mt-11 sm:flex-row sm:items-center">
-            <div className="flex -space-x-3">
+          <div className="mt-8 inline-flex flex-col gap-4 rounded-[22px] border border-[#dbeafe] bg-white/80 p-4 shadow-[0_18px_45px_rgba(16,42,122,0.08)] sm:mt-11 sm:flex-row sm:items-center">
+            <div className="flex -space-x-2">
               {["Y", "A", "R", "P", "K"].map((item, index) => (
                 <div
                   key={item}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#060708] bg-[var(--color-secondary)] text-xs font-black !text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] [.light-theme_&]:border-white"
-                  style={{ opacity: 1 - index * 0.06 }}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-[#2563eb] text-xs font-black !text-white shadow-[0_10px_26px_rgba(37,99,235,0.20)]"
+                  style={{ transform: `translateY(${index % 2 === 0 ? 0 : 2}px)` }}
                 >
                   {item}
                 </div>
@@ -882,21 +882,21 @@ export default function SkillWynLanding() {
                 className="text-[#102a7a]"
                 style={{
                   fontFamily: "'Outfit', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "14px",
+                  fontWeight: 800,
+                  fontSize: "15px",
                 }}
               >
-                Trusted by 30K+ students
+                Trusted by 30K+ learners
               </p>
               <p
                 className="mt-1 text-[#5b6fb3]"
                 style={{
                   fontFamily: "'Outfit', sans-serif",
-                  fontWeight: 400,
+                  fontWeight: 600,
                   fontSize: "13px",
                 }}
               >
-                From the CodeWithYash learning community
+                Building DSA, resumes, projects, and interview confidence.
               </p>
             </div>
           </div>
