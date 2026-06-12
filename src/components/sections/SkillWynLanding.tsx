@@ -26,7 +26,7 @@ import {
   Swords,
   UserRoundCheck,
 } from "lucide-react";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 
 const journey = [
@@ -127,6 +127,15 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
+const cardReveal: Variants = {
+  hidden: { opacity: 0, y: 26 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
 const stagger = {
   hidden: {},
   visible: {
@@ -165,10 +174,10 @@ function HeroLearningVisual({ loading }: { loading: boolean }) {
       initial={{ opacity: 0, x: 34, scale: 0.98 }}
       animate={{ opacity: loading ? 0 : 1, x: loading ? 34 : 0, scale: loading ? 0.98 : 1 }}
       transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="relative z-[2] mx-auto w-full max-w-[520px] lg:-translate-y-4"
+      className="order-first relative z-[2] mx-auto w-full max-w-[340px] lg:order-none lg:max-w-[520px] lg:-translate-y-4"
     >
-      <div className="relative min-h-[430px] overflow-hidden rounded-[2rem] border border-white/20 bg-[#2563eb] p-4 shadow-[0_34px_100px_rgba(37,99,235,0.28)] sm:min-h-[560px] sm:p-6">
-        <div className="absolute left-1/2 bottom-0 h-[350px] w-[440px] -translate-x-1/2 rounded-t-full bg-[#07136d] sm:h-[430px] sm:w-[530px]" />
+      <div className="relative min-h-[320px] overflow-hidden rounded-[1.5rem] border border-white/20 bg-[#2563eb] p-3 shadow-[0_24px_70px_rgba(37,99,235,0.22)] sm:min-h-[430px] sm:rounded-[2rem] sm:p-4 lg:min-h-[560px] lg:p-6">
+        <div className="absolute left-1/2 bottom-0 h-[260px] w-[340px] -translate-x-1/2 rounded-t-full bg-[#07136d] sm:h-[350px] sm:w-[440px] lg:h-[430px] lg:w-[530px]" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.12)_1px,transparent_1px)] bg-[size:48px_48px] opacity-45" />
 
         {techBadges.map((badge, index) => {
@@ -179,7 +188,7 @@ function HeroLearningVisual({ loading }: { loading: boolean }) {
               key={badge.label}
               animate={{ y: [0, index % 2 === 0 ? -10 : 10, 0] }}
               transition={{ duration: 4.6 + index * 0.35, repeat: Infinity, ease: "easeInOut" }}
-              className={`absolute z-20 flex items-center gap-2 rounded-full border-[0.5px] border-white/70 bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-[0_14px_34px_rgba(15,23,42,0.18)] sm:px-4 sm:text-sm ${badge.className}`}
+            className={`absolute z-20 flex items-center gap-1.5 rounded-full border-[0.5px] border-white/70 bg-white px-2.5 py-1.5 text-[11px] font-black text-slate-700 shadow-[0_14px_34px_rgba(15,23,42,0.18)] sm:gap-2 sm:px-4 sm:py-2 sm:text-sm ${badge.className}`}
             >
               <Icon className="h-4 w-4 text-[#2563eb]" />
               <span>{badge.label}</span>
@@ -204,7 +213,7 @@ function HeroLearningVisual({ loading }: { loading: boolean }) {
             width={520}
             height={520}
             priority
-            className="h-auto w-[82%] max-w-[350px] object-contain drop-shadow-[0_28px_40px_rgba(3,7,18,0.32)] sm:max-w-[420px]"
+            className="h-auto w-[80%] max-w-[250px] object-contain drop-shadow-[0_28px_40px_rgba(3,7,18,0.32)] sm:max-w-[350px] lg:max-w-[420px]"
           />
         </div>
       </div>
@@ -562,7 +571,7 @@ function MosaicArrow({ href, label }: { href: string; label: string }) {
 }
 
 function ProductMosaic() {
-  const cardClass = "group relative overflow-hidden rounded-[1.5rem] bg-gradient-to-b from-[#fbfdff] to-[#f0f6ff] border border-blue-100/50 p-7 shadow-[0_12px_40px_rgba(37,99,235,0.03)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_25px_60px_rgba(37,99,235,0.12)] hover:border-blue-200/80";
+  const cardClass = "group relative overflow-hidden rounded-[1.5rem] border border-blue-100/70 bg-[#fbfdff] p-7 shadow-[0_12px_34px_rgba(15,23,42,0.055)]";
   const titleClass = "text-[23px] font-bold leading-tight tracking-[-0.03em] text-[#102a7a]";
   const bodyClass = "mt-3 max-w-[95%] text-[13px] font-semibold leading-snug text-[#001447]/80";
 
@@ -571,12 +580,12 @@ function ProductMosaic() {
       variants={stagger}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, margin: "-80px", amount: 0.18 }}
       className="mx-auto grid max-w-7xl gap-6 grid-cols-6"
     >
       {/* Row 1: 3 Columns on large screens */}
       {/* Card 1: AI Resume Analyzer */}
-      <motion.div variants={fadeUp} className={`${cardClass} col-span-6 md:col-span-3 lg:col-span-2 min-h-[380px] flex flex-col justify-between`}>
+      <motion.div variants={cardReveal} className={`${cardClass} col-span-6 md:col-span-3 lg:col-span-2 min-h-[380px] flex flex-col justify-between`}>
         <div>
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -602,7 +611,7 @@ function ProductMosaic() {
       </motion.div>
 
       {/* Card 2: AI Roadmap Selection */}
-      <motion.div variants={fadeUp} className={`${cardClass} col-span-6 md:col-span-3 lg:col-span-2 min-h-[380px] flex flex-col justify-between`}>
+      <motion.div variants={cardReveal} className={`${cardClass} col-span-6 md:col-span-3 lg:col-span-2 min-h-[380px] flex flex-col justify-between`}>
         <div>
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -628,7 +637,7 @@ function ProductMosaic() {
       </motion.div>
 
       {/* Card 3: AI Mock Interviews */}
-      <motion.div variants={fadeUp} className={`${cardClass} col-span-6 md:col-span-6 lg:col-span-2 min-h-[380px] flex flex-col justify-between`}>
+      <motion.div variants={cardReveal} className={`${cardClass} col-span-6 md:col-span-6 lg:col-span-2 min-h-[380px] flex flex-col justify-between`}>
         <div>
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -655,7 +664,7 @@ function ProductMosaic() {
 
       {/* Row 2: 2 Columns on medium/large screens */}
       {/* Card 4: Resources Hub */}
-      <motion.div variants={fadeUp} className={`${cardClass} col-span-6 md:col-span-3 min-h-[360px] flex flex-col justify-between`}>
+      <motion.div variants={cardReveal} className={`${cardClass} col-span-6 md:col-span-3 min-h-[360px] flex flex-col justify-between`}>
         <div>
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -681,7 +690,7 @@ function ProductMosaic() {
       </motion.div>
 
       {/* Card 5: AI Project Builder */}
-      <motion.div variants={fadeUp} className={`${cardClass} col-span-6 md:col-span-3 min-h-[360px] flex flex-col justify-between`}>
+      <motion.div variants={cardReveal} className={`${cardClass} col-span-6 md:col-span-3 min-h-[360px] flex flex-col justify-between`}>
         <div>
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -729,20 +738,21 @@ export default function SkillWynLanding() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -18, filter: "blur(10px)" }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#060708]"
+            className="fixed inset-0 z-[100] flex items-center justify-center"
+            style={{ backgroundColor: "#000000" }}
           >
             <div className="relative flex flex-col items-center gap-7">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: 190 }}
                 transition={{ duration: 1.05, ease: [0.76, 0, 0.24, 1] }}
-                className="h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)] to-transparent"
+                className="relative h-px bg-white/70"
               />
               <motion.div
                 initial={{ opacity: 0, y: 8, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.75, delay: 0.15 }}
-                className="flex items-center gap-4"
+                className="relative flex items-center gap-4"
               >
                 <Image
                   src="/skillwyn-logo.png"
@@ -752,7 +762,13 @@ export default function SkillWynLanding() {
                   priority
                   className="h-16 w-16 object-contain md:h-20 md:w-20"
                 />
-                <span className="text-4xl font-semibold tracking-[-0.04em] text-white md:text-6xl">
+                <span
+                  className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl"
+                  style={{
+                    color: "#ffffff",
+                    textShadow: "none",
+                  }}
+                >
                   SkillWyn
                 </span>
               </motion.div>
@@ -760,7 +776,8 @@ export default function SkillWynLanding() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.45, delay: 0.85 }}
-                className="font-jetbrains text-[10px] uppercase text-white/50"
+                className="relative font-jetbrains text-[10px] uppercase tracking-[0.28em]"
+                style={{ color: "rgba(248,251,255,0.78)" }}
               >
                 launching learning engine
               </motion.p>
@@ -780,7 +797,7 @@ export default function SkillWynLanding() {
 
       <motion.section
         style={{ y: heroY }}
-        className="relative z-10 mx-auto grid min-h-[calc(100vh-120px)] max-w-7xl items-center gap-10 overflow-hidden px-6 pb-6 pt-10 lg:grid-cols-[1fr_0.82fr] lg:gap-16 lg:px-10 lg:pb-8 lg:pt-10"
+        className="relative z-10 mx-auto grid max-w-7xl items-center gap-8 overflow-hidden px-5 pb-10 pt-6 sm:px-6 lg:min-h-[calc(100vh-120px)] lg:grid-cols-[1fr_0.82fr] lg:gap-16 lg:px-10 lg:pb-8 lg:pt-10"
       >
         <motion.div
           initial={{ opacity: 0, y: 26 }}
@@ -794,20 +811,20 @@ export default function SkillWynLanding() {
             style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 500,
-              fontSize: "clamp(58px, 6.6vw, 88px)",
+              fontSize: "clamp(44px, 11vw, 88px)",
               lineHeight: 1.04,
               letterSpacing: "-0.02em",
             }}
           >
-            One <span style={{ color: "#102a7a" }}>Platform.</span><br />
-            Infinite Careers.
+            One Platform.<br />
+            Infinite <span style={{ color: "#102a7a" }}>Careers.</span>
           </h1>
           <p
-            className="mt-8 text-[#5b6fb3]"
+            className="mt-5 text-[#5b6fb3] sm:mt-8"
             style={{
               fontFamily: "'Outfit', sans-serif",
               fontWeight: 500,
-              fontSize: "17px",
+              fontSize: "clamp(15px, 3.7vw, 17px)",
               lineHeight: 1.72,
               letterSpacing: "-0.01em",
               maxWidth: "560px",
@@ -815,7 +832,7 @@ export default function SkillWynLanding() {
           >
             SkillWyn is your AI-powered career OS for personalized roadmaps, DSA mastery, resume building, mock interviews, and real skill scores.
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
             <Link
               href="/get-started"
               className="group inline-flex items-center justify-center gap-2 uppercase !text-white shadow-[0_24px_80px_rgba(36,87,255,0.24)] transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_28px_90px_rgba(36,87,255,0.36)] active:translate-y-0 active:scale-[0.99]"
@@ -827,7 +844,7 @@ export default function SkillWynLanding() {
                 background: "#2563eb",
                 color: "#ffffff",
                 borderRadius: "100px",
-                padding: "14px 28px",
+                padding: "13px 24px",
               }}
             >
               Launch journey <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -842,13 +859,13 @@ export default function SkillWynLanding() {
                 background: "transparent",
                 border: "1.5px solid #e2e8f0",
                 borderRadius: "100px",
-                padding: "14px 28px",
+                padding: "13px 24px",
               }}
             >
               Explore paths
             </Link>
           </div>
-          <div className="mt-11 flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col gap-4 sm:mt-11 sm:flex-row sm:items-center">
             <div className="flex -space-x-3">
               {["Y", "A", "R", "P", "K"].map((item, index) => (
                 <div
@@ -1431,6 +1448,72 @@ export default function SkillWynLanding() {
           </Link>
         </Reveal>
       </section>
+
+      <footer className="relative z-10 border-t border-[#dbeafe] bg-[#fbfcff] px-6 py-14 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_1.6fr]">
+            <div>
+              <Link href="/" className="inline-flex items-center gap-3">
+                <Image src="/skillwyn-logo.png" alt="SkillWyn" width={42} height={42} className="h-10 w-10 object-contain" />
+                <span className="text-xl font-black text-[#102a7a]" style={{ fontFamily: "'Outfit', sans-serif" }}>SkillWyn</span>
+              </Link>
+              <p className="mt-5 max-w-md text-sm font-medium leading-7 text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                AI-powered roadmaps, resume help, mock interviews, resources, and project proof for career-focused developers.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {["30K+ learners", "AI roadmaps", "Resume ready"].map((item) => (
+                  <span key={item} className="rounded-full border border-[#dbeafe] bg-white px-3 py-2 text-xs font-bold text-[#102a7a]">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-8 sm:grid-cols-3">
+              {[
+                ["Platform", [["Roadmaps", "/roadmaps"], ["Resources", "/resources"], ["Resume Analyzer", "/resume"], ["Mock Interview", "/mock-interview"]]],
+                ["Careers", [["DSA Prep", "/dsa"], ["Interview Questions", "/interview-questions"], ["Resume Builder", "/resume-builder"], ["Get Started", "/get-started"]]],
+                ["Company", [["About", "/about"], ["Pricing", "/pricing"], ["Snap Code", "/snap-code"], ["Profile", "/profile"]]],
+              ].map(([title, links]) => (
+                <div key={title as string}>
+                  <h3 className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]" style={{ fontFamily: "'Outfit', sans-serif" }}>{title as string}</h3>
+                  <ul className="mt-5 space-y-3">
+                    {(links as string[][]).map(([label, href]) => (
+                      <li key={label}>
+                        <Link href={href} className="text-sm font-semibold text-[#5b6fb3] transition-colors hover:text-[#102a7a]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-col gap-5 border-t border-[#dbeafe] pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs font-semibold text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+              © {new Date().getFullYear()} SkillWyn. Built for students becoming job-ready developers.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                ["Instagram", "https://instagram.com/codewithyash3"],
+                ["YouTube", "#"],
+                ["LinkedIn", "#"],
+              ].map(([label, href]) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb]"
+                  style={{ fontFamily: "'Outfit', sans-serif" }}
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
