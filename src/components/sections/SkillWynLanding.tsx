@@ -26,7 +26,7 @@ import {
   Swords,
   UserRoundCheck,
 } from "lucide-react";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 
 const journey = [
@@ -127,12 +127,12 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
-const cardReveal = {
+const cardReveal: Variants = {
   hidden: { opacity: 0, y: 26 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
