@@ -2,21 +2,21 @@
 
 @theme {
   --color-primary: #ffffff;
-  --color-secondary: #d8d8d8;
-  --color-accent: #9b9b9b;
-  --color-bg-dark: #030303;
-  --color-bg-card: #0b0b0b;
-  --color-surface: #111111;
-  --color-ink: #f5f5f0;
-  --color-text-primary: #f5f5f0;
-  --color-text-muted: #8b8b86;
-  --color-border-subtle: #242424;
+  --color-secondary: #2457ff;
+  --color-accent: #dfe7ff;
+  --color-bg-dark: #060708;
+  --color-bg-card: #0d0f10;
+  --color-surface: #151819;
+  --color-ink: #fbfbf8;
+  --color-text-primary: #fbfbf8;
+  --color-text-muted: #9ea4a6;
+  --color-border-subtle: #25292b;
 
-  --font-display: var(--font-instrument), "sans-serif";
-  --font-body: var(--font-jakarta), "sans-serif";
+  --font-display: var(--font-sora), "sans-serif";
+  --font-body: var(--font-manrope), "sans-serif";
   --font-jetbrains: var(--font-geist-mono), "monospace";
-  --font-space: var(--font-instrument), "sans-serif";
-  --font-inter: var(--font-jakarta), "sans-serif";
+  --font-space: var(--font-sora), "sans-serif";
+  --font-inter: var(--font-manrope), "sans-serif";
 
   --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
   --animate-float-slow: float 6s ease-in-out infinite;
@@ -54,20 +54,20 @@
   }
 
   body {
-    background: #030303;
+    background: #060708;
     color: var(--color-text-primary);
     font-family: var(--font-body);
   }
 
   html.light-theme,
   body.light-theme {
-    background: #f4f1ea;
+    background: #f8f8f5;
     color: #111111;
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    letter-spacing: -0.035em;
+    letter-spacing: -0.02em;
   }
   
   ::selection {
@@ -86,18 +86,18 @@
   }
 
   .glass-card {
-    background: linear-gradient(180deg, rgba(17, 17, 17, 0.9), rgba(8, 8, 8, 0.94));
+    background: linear-gradient(180deg, rgba(18, 19, 20, 0.92), rgba(8, 9, 10, 0.96));
     border: 1px solid var(--color-border-subtle);
     box-shadow: 0 18px 70px rgba(0, 0, 0, 0.42);
     backdrop-filter: blur(18px);
   }
   
   .glow-accent {
-    box-shadow: 0 0 24px rgba(255, 255, 255, 0.08), 0 0 80px rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 24px rgba(36, 87, 255, 0.16), 0 0 80px rgba(255, 255, 255, 0.06);
   }
   
   .glow-text {
-    text-shadow: 0 0 18px rgba(102, 227, 255, 0.45);
+    text-shadow: 0 0 18px rgba(36, 87, 255, 0.3);
   }
 
   .ai-grid {
@@ -115,8 +115,8 @@
   .page-shell {
     min-height: 100vh;
     background:
-      radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.09), transparent 26rem),
-      linear-gradient(180deg, #030303 0%, #080808 48%, #030303 100%);
+      radial-gradient(circle at 50% 0%, rgba(36, 87, 255, 0.12), transparent 26rem),
+      linear-gradient(180deg, #060708 0%, #111314 48%, #060708 100%);
     color: var(--color-text-primary);
   }
 
@@ -129,7 +129,7 @@
 
   .theme-card {
     border: 1px solid var(--color-border-subtle);
-    background: linear-gradient(180deg, rgba(17, 17, 17, 0.9), rgba(7, 7, 7, 0.94));
+    background: linear-gradient(180deg, rgba(18, 19, 20, 0.92), rgba(8, 9, 10, 0.96));
     border-radius: 0.5rem;
     box-shadow: 0 18px 70px rgba(0, 0, 0, 0.32);
     backdrop-filter: blur(18px);
@@ -175,13 +175,13 @@
 
   .theme-button:hover {
     background: var(--color-secondary);
-    box-shadow: 0 18px 55px rgba(255, 255, 255, 0.12);
+    box-shadow: 0 18px 55px rgba(255, 255, 255, 0.14);
   }
 
   .light-theme .page-shell {
     background:
-      radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.055), transparent 26rem),
-      linear-gradient(180deg, #f4f1ea 0%, #ece7da 48%, #f4f1ea 100%);
+      radial-gradient(circle at 50% 0%, rgba(36, 87, 255, 0.08), transparent 26rem),
+      linear-gradient(180deg, #f8f8f5 0%, #f1f1ee 48%, #f8f8f5 100%);
     color: #111111;
   }
 
@@ -193,7 +193,7 @@
 
   .light-theme .theme-card,
   .light-theme .glass-card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 241, 234, 0.96));
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 248, 245, 0.98));
     border-color: rgba(0, 0, 0, 0.12);
     box-shadow: 0 18px 70px rgba(0, 0, 0, 0.14);
     color: #111111;
@@ -213,13 +213,13 @@
 
   .light-theme main,
   .light-theme section {
-    background-color: #f4f1ea;
+    background-color: #f8f8f5;
     color: #111111;
   }
 
   .light-theme [class*="bg-[#030303]"],
   .light-theme [class*="bg-[#050505]"] {
-    background-color: #f4f1ea !important;
+    background-color: #f8f8f5 !important;
   }
 
   .light-theme [class*="bg-[#080808]"],
@@ -253,4 +253,13 @@
   .light-theme .backdrop-blur-2xl {
     background-color: rgba(255, 255, 255, 0.72) !important;
   }
+
+  .text-white-force {
+    color: #ffffff !important;
+  }
+
+  .text-white-force-muted {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
 }
+
