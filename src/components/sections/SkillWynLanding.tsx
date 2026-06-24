@@ -519,54 +519,48 @@ function ProductPreviewShowcase({ title }: { title: string }) {
 }
 
 function FeatureArrow({ href, label, tone = "dark" }: { href: string; label: string; tone?: "dark" | "light" | "blue" }) {
-  const [hovered, setHovered] = useState(false);
   const isLight = tone === "light";
 
   return (
-    <Link
-      href={href}
-      aria-label={label}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+    <div
+      aria-label="Coming Soon"
       style={{
-        width: "36px",
-        height: "36px",
-        borderRadius: "50%",
-        background: hovered ? (isLight ? "rgba(37,99,235,0.08)" : "rgba(255,255,255,0.15)") : "transparent",
+        padding: "6px 14px",
+        borderRadius: "100px",
+        background: isLight ? "rgba(37,99,235,0.08)" : "rgba(255,255,255,0.15)",
         border: `1.5px solid ${isLight ? "rgba(0,0,0,0.15)" : tone === "blue" ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.3)"}`,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        cursor: "pointer",
-        transition: "all 0.3s ease",
+        cursor: "not-allowed",
+        opacity: 0.7,
       }}
     >
-      <ArrowRight
-        className="-rotate-45"
+      <span
         style={{
-          width: "18px",
-          height: "18px",
+          fontSize: "10px",
+          fontWeight: 900,
+          textTransform: "uppercase",
+          letterSpacing: "0.1em",
           color: isLight ? "#0f172a" : "#ffffff",
-          transform: hovered ? "translate(3px, -3px) scale(1.1)" : "translate(0,0)",
-          transition: "transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)",
-          opacity: hovered ? 1 : 0.7,
         }}
-        strokeWidth={2.6}
-      />
-    </Link>
+      >
+        Soon
+      </span>
+    </div>
   );
 }
 
 function MosaicArrow({ href, label }: { href: string; label: string }) {
   return (
-    <Link
-      href={href}
-      aria-label={label}
-      className="grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-[#c7d4e8] bg-white text-[#0f172a] shadow-[0_10px_30px_rgba(15,23,42,0.12)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-[#2563eb] group-hover:shadow-[0_14px_36px_rgba(37,99,235,0.18)]"
+    <div
+      aria-label="Coming Soon"
+      className="flex cursor-not-allowed items-center justify-center rounded-full border border-blue-200 bg-blue-50/50 px-3 py-1.5 opacity-80"
     >
-      <ArrowRight className="h-4.5 w-4.5 -rotate-45 transition-all duration-300 ease-in group-hover:translate-x-5 group-hover:-translate-y-5 group-hover:opacity-0" strokeWidth={2.5} />
-      <ArrowRight className="absolute h-4.5 w-4.5 -translate-x-5 translate-y-5 -rotate-45 opacity-0 transition-all delay-150 duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" strokeWidth={2.5} />
-    </Link>
+      <span className="text-[10px] font-black uppercase tracking-widest text-[#2563eb]">
+        Soon
+      </span>
+    </div>
   );
 }
 
@@ -730,7 +724,7 @@ export default function SkillWynLanding() {
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#060708] text-[#fbfbf8] [.light-theme_&]:bg-[#f8f8f5] [.light-theme_&]:text-[#111111]">
+    <main className="relative min-h-screen bg-[#060708] text-[#fbfbf8] [.light-theme_&]:bg-[#f8f8f5] [.light-theme_&]:text-[#111111]">
       <AnimatePresence>
         {loading ? (
           <motion.div
@@ -809,7 +803,7 @@ export default function SkillWynLanding() {
           <h1
             className="text-white [.light-theme_&]:text-[#0f172a]"
             style={{
-              fontFamily: "'Playfair Display', serif",
+              
               fontWeight: 500,
               fontSize: "clamp(44px, 11vw, 88px)",
               lineHeight: 1.04,
@@ -822,7 +816,7 @@ export default function SkillWynLanding() {
           <p
             className="mt-5 text-[#5b6fb3] sm:mt-8"
             style={{
-              fontFamily: "'Outfit', sans-serif",
+              
               fontWeight: 500,
               fontSize: "clamp(15px, 3.7vw, 17px)",
               lineHeight: 1.72,
@@ -834,10 +828,10 @@ export default function SkillWynLanding() {
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
             <Link
-              href="/get-started"
+              href="/algorithmic-vault"
               className="group inline-flex items-center justify-center gap-2 uppercase !text-white shadow-[0_24px_80px_rgba(36,87,255,0.24)] transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_28px_90px_rgba(36,87,255,0.36)] active:translate-y-0 active:scale-[0.99]"
               style={{
-                fontFamily: "'Outfit', sans-serif",
+                
                 fontWeight: 700,
                 fontSize: "14px",
                 letterSpacing: "0.02em",
@@ -847,13 +841,12 @@ export default function SkillWynLanding() {
                 padding: "13px 24px",
               }}
             >
-              Launch journey <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+              Explore Masterclass <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
-            <Link
-              href="/roadmaps"
-              className="inline-flex items-center justify-center uppercase transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_55px_rgba(15,23,42,0.12)] active:translate-y-0"
+            <div
+              className="inline-flex cursor-not-allowed items-center justify-center uppercase transition-all duration-200 opacity-60"
               style={{
-                fontFamily: "'Outfit', sans-serif",
+                
                 fontWeight: 600,
                 fontSize: "14px",
                 background: "transparent",
@@ -862,8 +855,8 @@ export default function SkillWynLanding() {
                 padding: "13px 24px",
               }}
             >
-              Explore paths
-            </Link>
+              Explore paths <span className="ml-2 rounded-full bg-slate-100 px-2 py-0.5 text-[9px] font-bold text-slate-500">Coming Soon</span>
+            </div>
           </div>
           <div className="mt-8 inline-flex flex-col gap-4 rounded-[22px] border border-[#dbeafe] bg-white/80 p-4 shadow-[0_18px_45px_rgba(16,42,122,0.08)] sm:mt-11 sm:flex-row sm:items-center">
             <div className="flex -space-x-2">
@@ -881,7 +874,7 @@ export default function SkillWynLanding() {
               <p
                 className="text-[#102a7a]"
                 style={{
-                  fontFamily: "'Outfit', sans-serif",
+                  
                   fontWeight: 800,
                   fontSize: "15px",
                 }}
@@ -891,7 +884,7 @@ export default function SkillWynLanding() {
               <p
                 className="mt-1 text-[#5b6fb3]"
                 style={{
-                  fontFamily: "'Outfit', sans-serif",
+                  
                   fontWeight: 600,
                   fontSize: "13px",
                 }}
@@ -908,13 +901,13 @@ export default function SkillWynLanding() {
 
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-8 lg:px-10 lg:pt-10">
         <Reveal className="mx-auto mb-10 max-w-3xl text-center">
-          <p className="mb-5 uppercase tracking-[0.2em] text-[var(--color-secondary)]" style={{ fontFamily: "'Outfit', sans-serif", fontSize: "12px", fontWeight: 700 }}>
+          <p className="mb-5 uppercase tracking-[0.2em] text-[var(--color-secondary)]" style={{  fontSize: "12px", fontWeight: 700 }}>
             EVERYTHING YOU NEED
           </p>
           <h2
             className="mx-auto max-w-4xl text-white [.light-theme_&]:text-[#0f172a]"
             style={{
-              fontFamily: "'Playfair Display', serif",
+              
               fontWeight: 500,
               fontSize: "clamp(40px, 4.2vw, 48px)",
               lineHeight: 1.06,
@@ -928,7 +921,7 @@ export default function SkillWynLanding() {
           <p
             className="mx-auto mt-5 max-w-2xl text-white/58 [.light-theme_&]:text-[#5b6fb3]"
             style={{
-              fontFamily: "'Outfit', sans-serif",
+              
               fontSize: "17px",
               lineHeight: 1.65,
               letterSpacing: "-0.01em",
@@ -954,7 +947,7 @@ export default function SkillWynLanding() {
               <FileText className="h-5 w-5 text-[#60a5fa]" />
               AI Resume Analyzer
             </div>
-            <h3 className="relative z-10 mt-6 max-w-2xl text-[clamp(34px,3.4vw,48px)] font-medium leading-[1.04]" style={{ fontFamily: "'Playfair Display', serif", color: "#ffffff" }}>
+            <h3 className="relative z-10 mt-6 max-w-2xl text-[clamp(34px,3.4vw,48px)] font-medium leading-[1.04]" style={{  color: "#ffffff" }}>
               ATS score. Missing keywords. Fixed in 30 seconds.
             </h3>
             <div className="relative z-10 mt-10">
@@ -1053,7 +1046,7 @@ export default function SkillWynLanding() {
           <motion.div variants={fadeUp} className="group relative min-h-[360px] overflow-hidden rounded-[20px] bg-[#f0f7ff] p-8 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.15)] lg:col-span-4">
             <div className="absolute right-6 top-6 z-20"><FeatureArrow href="/roadmaps" label="Open AI Roadmap Builder" tone="light" /></div>
             <Map className="h-7 w-7 text-[#2563eb]" />
-            <h3 className="mt-6 text-3xl font-medium leading-[1.05] text-[#0f172a]" style={{ fontFamily: "'Playfair Display', serif" }}>AI Roadmap Selection</h3>
+            <h3 className="mt-6 text-3xl font-medium leading-[1.05] text-[#0f172a]" >AI Roadmap Selection</h3>
             <div className="mt-7 overflow-hidden rounded-2xl border border-blue-100 bg-white p-2 shadow-[0_18px_50px_rgba(37,99,235,0.14)]">
               <Image
                 src="/roadmap-selection-card-crop.png"
@@ -1069,7 +1062,7 @@ export default function SkillWynLanding() {
           <motion.div variants={fadeUp} className="group relative min-h-[360px] overflow-hidden rounded-[20px] border border-[#e8edf5] bg-white p-8 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.15)] lg:col-span-4">
             <div className="absolute right-6 top-6 z-20"><FeatureArrow href="/resources" label="Open Resources Hub" tone="light" /></div>
             <BookOpen className="h-7 w-7 text-[#2563eb]" />
-            <h3 className="mt-6 text-3xl font-medium leading-[1.05] text-[#0f172a]" style={{ fontFamily: "'Playfair Display', serif" }}>Every resource. One place.</h3>
+            <h3 className="mt-6 text-3xl font-medium leading-[1.05] text-[#0f172a]" >Every resource. One place.</h3>
             <div className="relative mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-[#f8fbff] p-4 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
               <div className="rounded-xl bg-white px-4 py-3 text-xs font-bold text-slate-400 shadow-sm">Search DSA, React, interviews...</div>
               <div className="mt-4 grid grid-cols-2 gap-2">
@@ -1100,7 +1093,7 @@ export default function SkillWynLanding() {
             <div className="pointer-events-none absolute -right-16 top-0 h-48 w-48 rounded-full bg-[#2563eb]/20 blur-3xl" />
             <div className="absolute right-6 top-6 z-20"><FeatureArrow href="/resources" label="Open AI Project Builder" /></div>
             <Code2 className="h-7 w-7 text-[#60a5fa]" />
-            <h3 className="relative z-10 mt-6 text-3xl font-medium leading-[1.05]" style={{ fontFamily: "'Playfair Display', serif", color: "#ffffff" }}>Skills &rarr; Portfolio. Automatically.</h3>
+            <h3 className="relative z-10 mt-6 text-3xl font-medium leading-[1.05]" style={{  color: "#ffffff" }}>Skills &rarr; Portfolio. Automatically.</h3>
             <div className="relative z-10 mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-4">
               <div className="mb-3 rounded-xl bg-[#2563eb] px-3 py-2 text-[10px] font-black text-white">AI generated project workspace</div>
               <div className="grid grid-cols-3 gap-2">
@@ -1187,14 +1180,14 @@ export default function SkillWynLanding() {
       <section id="score" className="relative z-10 bg-white py-[92px]">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <Reveal className="mx-auto max-w-4xl text-center">
-            <p className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-[#2563eb]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <p className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-[#2563eb]" >
               WHY COMPANIES TRUST SKILLWYN
             </p>
-            <h2 className="text-[38px] font-medium leading-[1.16] text-[#102a7a] md:text-[52px]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <h2 className="text-[38px] font-medium leading-[1.16] text-[#102a7a] md:text-[52px]" >
               Improve Hiring Shortlists Using<br className="hidden sm:block" />
               SkillWyn Profile Signals
             </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-7 text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-7 text-[#5b6fb3]" >
               The verified profile students and companies both deserve — but resumes alone can&apos;t deliver.
             </p>
           </Reveal>
@@ -1212,17 +1205,17 @@ export default function SkillWynLanding() {
                 <div className="relative rounded-[20px] border border-[#bfdbfe] bg-white p-5 shadow-[0_24px_65px_rgba(15,42,122,0.20)]">
                   <div className="flex items-start justify-between gap-5">
                     <div className="flex items-center gap-4">
-                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-[#2563eb] text-base font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-[#2563eb] text-base font-bold text-white" >
                         AS
                       </div>
                       <div>
-                        <h3 className="text-lg font-extrabold text-[#0f172a]" style={{ fontFamily: "'Outfit', sans-serif" }}>Aarav Sharma</h3>
-                        <p className="mt-1 text-sm font-semibold text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>Frontend + DSA Track</p>
+                        <h3 className="text-lg font-extrabold text-[#0f172a]" >Aarav Sharma</h3>
+                        <p className="mt-1 text-sm font-semibold text-[#5b6fb3]" >Frontend + DSA Track</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>GLOBAL RANK</p>
-                      <p className="mt-1 text-3xl font-extrabold text-[#2563eb]" style={{ fontFamily: "'Outfit', sans-serif" }}>#184</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-[#5b6fb3]" >GLOBAL RANK</p>
+                      <p className="mt-1 text-3xl font-extrabold text-[#2563eb]" >#184</p>
                     </div>
                   </div>
 
@@ -1234,8 +1227,8 @@ export default function SkillWynLanding() {
                       ["DSA Consistency", "41 day streak"],
                     ].map(([label, value]) => (
                       <div key={label} className="rounded-xl border border-[#dbeafe] bg-[#f0f7ff] p-4 shadow-[0_8px_22px_rgba(37,99,235,0.08)]">
-                        <p className="text-[11px] font-semibold text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>{label}</p>
-                        <p className="mt-2 text-base font-bold text-[#2563eb]" style={{ fontFamily: "'Outfit', sans-serif" }}>{value}</p>
+                        <p className="text-[11px] font-semibold text-[#5b6fb3]" >{label}</p>
+                        <p className="mt-2 text-base font-bold text-[#2563eb]" >{value}</p>
                       </div>
                     ))}
                   </div>
@@ -1248,9 +1241,9 @@ export default function SkillWynLanding() {
                     ["Groww", "SDE Intern", "79%"],
                   ].map(([company, role, match]) => (
                     <div key={company} className="rounded-[14px] border border-white/70 bg-white p-4 shadow-[0_16px_38px_rgba(3,18,62,0.22)]">
-                      <p className="text-sm font-bold text-[#102a7a]" style={{ fontFamily: "'Outfit', sans-serif" }}>{company}</p>
-                      <p className="mt-1 text-xs font-semibold text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>{role}</p>
-                      <p className="mt-3 text-lg font-extrabold text-[#2563eb]" style={{ fontFamily: "'Outfit', sans-serif" }}>{match}</p>
+                      <p className="text-sm font-bold text-[#102a7a]" >{company}</p>
+                      <p className="mt-1 text-xs font-semibold text-[#5b6fb3]" >{role}</p>
+                      <p className="mt-3 text-lg font-extrabold text-[#2563eb]" >{match}</p>
                     </div>
                   ))}
                 </div>
@@ -1278,8 +1271,8 @@ export default function SkillWynLanding() {
                       <SignalIcon className="h-6 w-6" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold text-[#102a7a]" style={{ fontFamily: "'Outfit', sans-serif" }}>{title as string}</h3>
-                      <p className="mt-2 text-base font-medium leading-7 text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>{detail as string}</p>
+                      <h3 className="text-base font-bold text-[#102a7a]" >{title as string}</h3>
+                      <p className="mt-2 text-base font-medium leading-7 text-[#5b6fb3]" >{detail as string}</p>
                     </div>
                   </motion.div>
                 );
@@ -1293,11 +1286,11 @@ export default function SkillWynLanding() {
         <div className="pointer-events-none absolute left-1/2 top-20 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#dbeafe]/70 blur-3xl" />
         <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[0.92fr_1.08fr]">
           <Reveal className="self-center">
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-[#2563eb]" style={{ fontFamily: "'Outfit', sans-serif" }}>COMMUNITY TRUST</p>
-            <h2 className="max-w-2xl text-[clamp(42px,4.6vw,66px)] font-medium leading-[1.03] text-[#111827]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-[#2563eb]" >COMMUNITY TRUST</p>
+            <h2 className="max-w-2xl text-[clamp(42px,4.6vw,66px)] font-medium leading-[1.03] text-[#111827]" >
               Thousands already trust the <span className="text-[#102a7a]">voice behind SkillWyn.</span>
             </h2>
-            <p className="mt-6 max-w-xl text-base font-medium leading-8 text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <p className="mt-6 max-w-xl text-base font-medium leading-8 text-[#5b6fb3]" >
               CodeWithYash is more than an audience. It is a community of students learning DSA, building projects, fixing resumes, preparing for interviews, and showing up every week for career direction.
             </p>
 
@@ -1307,15 +1300,15 @@ export default function SkillWynLanding() {
                 ["100K+", "Monthly Reach"],
               ].map(([value, label]) => (
                 <div key={label} className="rounded-[22px] border border-[#dbeafe] bg-white/80 p-5 shadow-[0_18px_45px_rgba(16,42,122,0.08)] backdrop-blur">
-                  <p className="text-3xl font-black leading-none text-[#102a7a]" style={{ fontFamily: "'Outfit', sans-serif" }}>{value}</p>
-                  <p className="mt-2 text-xs font-bold uppercase tracking-[0.12em] text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>{label}</p>
+                  <p className="text-3xl font-black leading-none text-[#102a7a]" >{value}</p>
+                  <p className="mt-2 text-xs font-bold uppercase tracking-[0.12em] text-[#5b6fb3]" >{label}</p>
                 </div>
               ))}
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               {["DSA learners", "Resume reviews", "Project builders", "Interview prep"].map((item) => (
-                <span key={item} className="rounded-full border border-[#dbeafe] bg-[#f0f7ff] px-4 py-2 text-xs font-bold text-[#102a7a]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                <span key={item} className="rounded-full border border-[#dbeafe] bg-[#f0f7ff] px-4 py-2 text-xs font-bold text-[#102a7a]" >
                   {item}
                 </span>
               ))}
@@ -1441,10 +1434,10 @@ export default function SkillWynLanding() {
             </h2>
           </div>
           <Link
-            href="/get-started"
+            href="/algorithmic-vault"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-secondary)] px-6 py-4 text-sm font-black uppercase !text-white transition-transform hover:-translate-y-0.5"
           >
-            Join early access <ArrowRight className="h-4 w-4" />
+            Explore Live Masterclass <ArrowRight className="h-4 w-4" />
           </Link>
         </Reveal>
       </section>
@@ -1455,9 +1448,9 @@ export default function SkillWynLanding() {
             <div>
               <Link href="/" className="inline-flex items-center gap-3">
                 <Image src="/skillwyn-logo.png" alt="SkillWyn" width={42} height={42} className="h-10 w-10 object-contain" />
-                <span className="text-xl font-black text-[#102a7a]" style={{ fontFamily: "'Outfit', sans-serif" }}>SkillWyn</span>
+                <span className="text-xl font-black text-[#102a7a]" >SkillWyn</span>
               </Link>
-              <p className="mt-5 max-w-md text-sm font-medium leading-7 text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+              <p className="mt-5 max-w-md text-sm font-medium leading-7 text-[#5b6fb3]" >
                 AI-powered roadmaps, resume help, mock interviews, resources, and project proof for career-focused developers.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
@@ -1476,11 +1469,11 @@ export default function SkillWynLanding() {
                 ["Company", [["About", "/about"], ["Pricing", "/pricing"], ["Snap Code", "/snap-code"], ["Profile", "/profile"]]],
               ].map(([title, links]) => (
                 <div key={title as string}>
-                  <h3 className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]" style={{ fontFamily: "'Outfit', sans-serif" }}>{title as string}</h3>
+                  <h3 className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]" >{title as string}</h3>
                   <ul className="mt-5 space-y-3">
                     {(links as string[][]).map(([label, href]) => (
                       <li key={label}>
-                        <Link href={href} className="text-sm font-semibold text-[#5b6fb3] transition-colors hover:text-[#102a7a]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                        <Link href={href} className="text-sm font-semibold text-[#5b6fb3] transition-colors hover:text-[#102a7a]" >
                           {label}
                         </Link>
                       </li>
@@ -1492,7 +1485,7 @@ export default function SkillWynLanding() {
           </div>
 
           <div className="mt-12 flex flex-col gap-5 border-t border-[#dbeafe] pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs font-semibold text-[#5b6fb3]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <p className="text-xs font-semibold text-[#5b6fb3]" >
               © {new Date().getFullYear()} SkillWyn. Built for students becoming job-ready developers.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -1505,7 +1498,7 @@ export default function SkillWynLanding() {
                   key={label}
                   href={href}
                   className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb]"
-                  style={{ fontFamily: "'Outfit', sans-serif" }}
+                  
                 >
                   {label}
                 </a>

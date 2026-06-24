@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Manrope, Sora } from "next/font/google";
+import { Open_Sans, Geist_Mono } from "next/font/google";
 import "../components/layout/globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { AuthProvider } from "@/context/AuthContext";
+import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 
-const sora = Sora({
-  variable: "--font-sora",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope",
+const openSans = Open_Sans({
+  variable: "--font-open-sans",
   subsets: ["latin"],
   display: "swap",
 });
@@ -34,17 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light-theme scroll-smooth">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body
-        className={`${sora.variable} ${manrope.variable} ${geistMono.variable} light-theme antialiased bg-[#f8f8f5] text-[#111111] font-body selection:bg-[#2563eb]/20 selection:text-[#102a7a]`}
+        className={`${openSans.variable} ${geistMono.variable} font-sans light-theme antialiased bg-[#f8f8f5] text-[#111111] selection:bg-[#2563eb]/20 selection:text-[#102a7a]`}
       >
         <SmoothScroll />
         <AuthProvider>
+          <AnnouncementBar />
           {children}
         </AuthProvider>
       </body>

@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+python-multipart
+sentence-transformers
+faiss-cpu
+python-docx
+pymupdf
+pdf2image
+pillow
+pytesseract
+openai
+pinecone-client
+langchain
+reportlab
+pydantic
+requests

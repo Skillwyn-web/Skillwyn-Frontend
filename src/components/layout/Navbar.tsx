@@ -27,54 +27,18 @@ export function Navbar() {
 
     const navLinks = [
         { name: "Home", href: "/" },
-        { name: "Roadmaps", href: "/roadmaps" },
-        {
-            name: "Resources",
-            dropdown: [
-                { 
-                    name: "DSA Revision", 
-                    href: "/dsa", 
-                    description: "Learn, practice flashcards, and test topic mastery.",
-                    icon: BookOpenCheck 
-                },
-                { 
-                    name: "Resources Hub", 
-                    href: "/resources", 
-                    description: "Free sheets, PDFs, courses, and prep links.",
-                    icon: Map 
-                },
-                { 
-                    name: "Resume Analyzer", 
-                    href: "/resume", 
-                    description: "Upload a resume and get ATS-style AI feedback.",
-                    icon: FileText 
-                },
-                { 
-                    name: "Interview Questions", 
-                    href: "/interview-questions", 
-                    description: "Real Q&As, topic prep, and company interview patterns.",
-                    icon: FileQuestion 
-                },
-                { 
-                    name: "AI Mock Interview", 
-                    href: "/mock-interview", 
-                    description: "Practice technical and behavioral rounds with instant AI feedback.",
-                    icon: MessageSquareText 
-                },
-                { 
-                    name: "AI Resume Builder", 
-                    href: "/resume-builder", 
-                    description: "Convert projects into ATS-ready bullet points.",
-                    icon: FileText 
-                },
-            ]
-        },
-        { name: "Pricing", href: "/pricing" },
-        { name: "About", href: "/about" },
+        { name: "The Algorithmic Vault", href: "/algorithmic-vault", isHighlight: true },
+        // { name: "Roadmaps", href: "#", comingSoon: true },
+        // {
+        //     name: "Resources",
+        //     dropdown: [ ... ]
+        // },
+        // { name: "Pricing", href: "#", comingSoon: true },
+        // { name: "About", href: "#", comingSoon: true },
     ];
 
     return (
-        <nav className="sticky top-0 z-50 h-16 border-b border-[#f0f0f0] bg-white">
+        <nav className="sticky top-[40px] z-50 h-16 border-b border-[#f0f0f0] bg-white">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
                 <Link href="/" className="group flex items-center gap-1.5">
                     <div className="flex h-14 w-14 items-center justify-center overflow-visible">
@@ -89,7 +53,7 @@ export function Navbar() {
                     </div>
                     <span
                         style={{
-                            fontFamily: "'Outfit', sans-serif",
+                            
                             fontWeight: 800,
                             fontSize: "18px",
                             letterSpacing: "-0.04em",
@@ -120,7 +84,7 @@ export function Navbar() {
                                             event.currentTarget.style.color = "#374151";
                                         }}
                                         style={{
-                                            fontFamily: "'Outfit', sans-serif",
+                                            
                                             fontWeight: 500,
                                             fontSize: "15px",
                                             color: "#374151",
@@ -154,14 +118,21 @@ export function Navbar() {
                                                                 event.currentTarget.style.color = "#374151";
                                                             }}
                                                             style={{
-                                                                fontFamily: "'Outfit', sans-serif",
+                                                                
                                                                 fontWeight: 500,
                                                                 fontSize: "14px",
                                                                 color: "#374151",
                                                                 textDecoration: "none",
                                                             }}
                                                         >
-                                                            {subLink.name}
+                                                            <div className="flex items-center justify-between">
+                                                                <span>{subLink.name}</span>
+                                                                {subLink.comingSoon && (
+                                                                    <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-blue-700">
+                                                                        Soon
+                                                                    </span>
+                                                                )}
+                                                            </div>
                                                         </Link>
                                                     );
                                                 })}
@@ -176,15 +147,24 @@ export function Navbar() {
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className="transition-colors hover:text-[#2563eb]"
+                                className={`transition-all duration-200 ${(link as any).isHighlight ? "flex items-center gap-2 rounded-full bg-blue-50 px-3.5 py-1.5 text-blue-700 shadow-[0_2px_10px_rgba(37,99,235,0.12)] hover:-translate-y-0.5 hover:bg-blue-100 hover:shadow-[0_4px_15px_rgba(37,99,235,0.18)]" : "hover:text-[#2563eb]"}`}
                                 onMouseEnter={(event) => {
-                                    event.currentTarget.style.color = "#2563eb";
+                                    if (!(link as any).isHighlight) {
+                                        event.currentTarget.style.color = "#2563eb";
+                                    }
                                 }}
                                 onMouseLeave={(event) => {
-                                    event.currentTarget.style.color = "#374151";
+                                    if (!(link as any).isHighlight) {
+                                        event.currentTarget.style.color = "#374151";
+                                    }
                                 }}
-                                style={{
-                                    fontFamily: "'Outfit', sans-serif",
+                                style={(link as any).isHighlight ? {
+                                    fontWeight: 800,
+                                    fontSize: "13px",
+                                    letterSpacing: "0.02em",
+                                    textTransform: "uppercase",
+                                    textDecoration: "none",
+                                } : {
                                     fontWeight: 500,
                                     fontSize: "15px",
                                     color: "#374151",
@@ -192,7 +172,14 @@ export function Navbar() {
                                     textDecoration: "none",
                                 }}
                             >
-                                {link.name}
+                                <div className="flex items-center gap-1.5">
+                                    {link.name}
+                                    {(link as any).comingSoon && (
+                                        <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-blue-700">
+                                            Soon
+                                        </span>
+                                    )}
+                                </div>
                             </Link>
                         );
                     })}
@@ -213,7 +200,7 @@ export function Navbar() {
                                     event.currentTarget.style.color = "#374151";
                                 }}
                                 style={{
-                                    fontFamily: "'Outfit', sans-serif",
+                                    
                                     fontWeight: 600,
                                     fontSize: "14px",
                                     color: "#374151",
@@ -238,7 +225,7 @@ export function Navbar() {
                                     event.currentTarget.style.color = "#374151";
                                 }}
                                 style={{
-                                    fontFamily: "'Outfit', sans-serif",
+                                    
                                     fontWeight: 600,
                                     fontSize: "14px",
                                     color: "#374151",
@@ -263,7 +250,7 @@ export function Navbar() {
                                     event.currentTarget.style.color = "#374151";
                                 }}
                                 style={{
-                                    fontFamily: "'Outfit', sans-serif",
+                                    
                                     fontWeight: 600,
                                     fontSize: "14px",
                                     color: "#374151",
@@ -278,7 +265,7 @@ export function Navbar() {
                                 href="/get-started"
                                 className="group flex items-center gap-2 uppercase transition-colors hover:bg-[#1d4ed8]"
                                 style={{
-                                    fontFamily: "'Outfit', sans-serif",
+                                    
                                     fontWeight: 600,
                                     fontSize: "14px",
                                     background: "#2563eb",
