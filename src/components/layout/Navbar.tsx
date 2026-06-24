@@ -25,7 +25,7 @@ export function Navbar() {
     const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false);
     const { user, loading, logout } = useAuth();
 
-    const navLinks = [
+    const navLinks: any[] = [
         { name: "Home", href: "/" },
         { name: "The Algorithmic Vault", href: "/algorithmic-vault", isHighlight: true },
         // { name: "Roadmaps", href: "#", comingSoon: true },
@@ -105,7 +105,7 @@ export function Navbar() {
                                                 transition={{ duration: 0.15 }}
                                                 className="absolute left-1/2 top-full flex w-60 -translate-x-1/2 flex-col rounded-lg border border-[#f0f0f0] bg-white py-2 text-left normal-case tracking-normal shadow-[0_18px_48px_rgba(15,23,42,0.12)]"
                                             >
-                                                {link.dropdown.map((subLink) => {
+                                                {link.dropdown.map((subLink: any) => {
                                                     return (
                                                         <Link
                                                             key={subLink.name}
@@ -306,7 +306,7 @@ export function Navbar() {
                                     </button>
                                     {isMobileResourcesOpen && (
                                         <div className="mt-2 flex flex-col gap-1 pb-2 pl-4">
-                                            {link.dropdown.map((subLink) => {
+                                            {link.dropdown.map((subLink: any) => {
                                                 return (
                                                     <Link
                                                         key={subLink.name}
