@@ -399,28 +399,28 @@ function DsaDashboard() {
         </div>
 
         {/* Screen Content */}
-        <div className="overflow-hidden rounded-lg bg-white">
+        <div className="flex flex-col aspect-[4/3] sm:aspect-[16/10] lg:aspect-video overflow-hidden rounded-lg bg-white">
           {/* Toolbar */}
-          <div className="flex items-center justify-between border-b border-slate-100 bg-white px-4 py-3">
+          <div className="flex shrink-0 items-center justify-between border-b border-slate-100 bg-white px-3 py-2 sm:px-4 sm:py-3">
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5">
-                <div className="h-3 w-3 rounded-full bg-[#ff5f56] shadow-sm" />
-                <div className="h-3 w-3 rounded-full bg-[#ffbd2e] shadow-sm" />
-                <div className="h-3 w-3 rounded-full bg-[#27c93f] shadow-sm" />
+              <div className="flex items-center gap-1 sm:gap-1.5">
+                <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-[#ff5f56] shadow-sm" />
+                <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-[#ffbd2e] shadow-sm" />
+                <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-[#27c93f] shadow-sm" />
               </div>
-              <span className="ml-4 font-mono text-[11px] font-medium text-slate-500">
+              <span className="ml-2 sm:ml-4 font-mono text-[9px] sm:text-[11px] font-medium text-slate-500">
                 SkillWyn · DSA Vault
               </span>
             </div>
-            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#102a7a]">
+            <span className="rounded-full bg-blue-50 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[8px] sm:text-[10px] font-bold uppercase tracking-wider text-[#102a7a]">
               50 Problems
             </span>
           </div>
 
-          <div className="grid grid-cols-[140px_1fr] sm:grid-cols-[170px_1fr]">
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-[150px_1fr] md:grid-cols-[170px_1fr] overflow-hidden">
             {/* Sidebar */}
-            <div className="border-r border-slate-100 bg-slate-50/60 p-4">
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            <div className="hidden sm:block border-r border-slate-100 bg-slate-50/60 p-3 lg:p-4 overflow-y-auto">
+              <p className="mb-2 lg:mb-3 text-[9px] lg:text-[10px] font-bold uppercase tracking-widest text-slate-400">
                 Topics
               </p>
               <div className="space-y-1">
@@ -428,14 +428,14 @@ function DsaDashboard() {
                   <button
                     key={t.name}
                     onClick={() => setActiveTopic(i)}
-                    className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-semibold transition-colors ${
+                    className={`flex w-full items-center justify-between rounded-md px-2 py-1.5 lg:px-3 lg:py-2 text-left text-[10px] lg:text-xs font-semibold transition-colors ${
                       activeTopic === i
                         ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-200/50"
                         : "text-slate-500 hover:bg-white/60"
                     }`}
                   >
                     <span className="truncate">{t.name}</span>
-                    <span className="ml-1 shrink-0 text-[10px] text-slate-400">
+                    <span className="ml-1 shrink-0 text-[9px] lg:text-[10px] text-slate-400">
                       {t.count}
                     </span>
                   </button>
@@ -444,14 +444,14 @@ function DsaDashboard() {
             </div>
 
             {/* Main Panel */}
-            <div className="h-[380px] overflow-y-auto scrollbar-hide p-5">
+            <div className="flex-1 overflow-y-auto scrollbar-hide p-3 sm:p-4 lg:p-5">
               {/* Problem tabs */}
-              <div className="flex gap-2 overflow-x-auto pb-3">
+              <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-3 scrollbar-hide">
                 {topic.problems.map((p, i) => (
                   <button
                     key={p.id}
                     onClick={() => setActiveProblem(i)}
-                    className={`shrink-0 rounded-full px-4 py-1.5 text-[11px] font-semibold transition-all ${
+                    className={`shrink-0 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 text-[10px] sm:text-[11px] font-semibold transition-all ${
                       activeProblem === i
                         ? "bg-slate-900 text-white"
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -463,38 +463,38 @@ function DsaDashboard() {
               </div>
 
               {/* Pattern + difficulty */}
-              <div className="mt-4 flex items-center justify-between">
-                <div className="rounded-lg bg-blue-50 px-3 py-2">
-                  <p className="text-[9px] font-bold uppercase tracking-wider text-[#102a7a]">
+              <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
+                <div className="rounded-lg bg-blue-50 px-2.5 py-1.5 sm:px-3 sm:py-2">
+                  <p className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-[#102a7a]">
                     Pattern
                   </p>
-                  <p className="text-sm font-bold text-[#102a7a]">
+                  <p className="text-xs sm:text-sm font-bold text-[#102a7a] truncate">
                     {problem.pattern}
                   </p>
                 </div>
                 <span
-                  className={`rounded-full px-3 py-1.5 text-[11px] font-bold ${diffColor}`}
+                  className={`self-start sm:self-auto rounded-full px-2.5 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[11px] font-bold ${diffColor}`}
                 >
                   {problem.difficulty}
                 </span>
               </div>
 
               {/* Visual Logic */}
-              <div className="mt-5">
-                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              <div className="mt-4 sm:mt-5">
+                <p className="mb-1.5 sm:mb-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Intuition
                 </p>
-                <p className="rounded-lg border border-slate-100 bg-slate-50 p-3.5 font-mono text-xs leading-relaxed text-slate-600">
+                <p className="rounded-lg border border-slate-100 bg-slate-50 p-2.5 sm:p-3.5 font-mono text-[10px] sm:text-xs leading-relaxed text-slate-600">
                   {problem.visualLogic}
                 </p>
               </div>
 
               {/* Code */}
-              <div className="mt-5">
-                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              <div className="mt-4 sm:mt-5 pb-4">
+                <p className="mb-1.5 sm:mb-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Optimal Solution
                 </p>
-                <pre className="overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-[11px] leading-relaxed text-slate-200 shadow-inner">
+                <pre className="overflow-x-auto rounded-xl bg-slate-900 p-3 sm:p-4 font-mono text-[9px] sm:text-[11px] leading-relaxed text-slate-200 shadow-inner scrollbar-hide">
                   <code>{problem.code}</code>
                 </pre>
               </div>
