@@ -159,7 +159,7 @@ function Reveal({
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-90px" }}
+      viewport={{ once: true, margin: "-20px" }}
       transition={{ duration: 0.78, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
@@ -574,7 +574,7 @@ function ProductMosaic() {
       variants={stagger}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px", amount: 0.18 }}
+      viewport={{ once: true, margin: "0px", amount: 0.05 }}
       className="mx-auto grid max-w-7xl gap-6 grid-cols-6"
     >
       {/* Row 1: 3 Columns on large screens */}

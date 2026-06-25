@@ -122,39 +122,38 @@ export default function LoginPage() {
     };
 
     return (
-        <section className="page-shell relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20">
-            <div className="pointer-events-none absolute inset-0 z-0 page-grid opacity-50">
-            </div>
+        <section className="page-shell relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20 !bg-[#102a7a]">
+            <div className="pointer-events-none absolute inset-0 z-0 page-grid opacity-30 mix-blend-overlay"></div>
 
             {/* Login Card */}
             <div className="relative z-10 w-full max-w-md animate-fade-in-up">
                 {/* Brand Logo Floating above */}
                 <div className="flex justify-center mb-8">
-                    <Link href="/" className="group relative flex h-16 w-16 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 shadow-[0_0_30px_rgba(102,227,255,0.16)] transition-transform hover:scale-105">
-                        <span className="text-xl font-black text-primary">SW</span>
+                    <Link href="/" className="group relative flex h-16 w-16 items-center justify-center rounded-xl border border-white/20 bg-white shadow-[0_0_40px_rgba(0,0,0,0.2)] transition-transform hover:scale-105">
+                        <span className="text-2xl font-black text-[#102a7a]">SW</span>
                     </Link>
                 </div>
 
-                <div className="theme-card overflow-hidden p-8 sm:p-10">
+                <div className="overflow-hidden p-8 sm:p-10 rounded-[2rem] bg-white shadow-[0_24px_80px_rgba(0,0,0,0.3)]">
                     <div className="mb-8 text-center">
-                        <h1 className="mb-2 text-3xl font-bold text-ink">Welcome back</h1>
-                        <p className="text-text-muted">Continue your AI learning journey</p>
+                        <h1 className="mb-2 text-3xl font-bold !text-[#102a7a]">Welcome back</h1>
+                        <p className="font-medium !text-slate-500">Continue your AI learning journey</p>
                     </div>
 
                     {error && (
-                        <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-sm text-center">
+                        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-medium">
                             {error}
                         </div>
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="mb-2 block text-sm font-bold text-text-muted">Email Address</label>
+                            <label className="mb-2 block text-sm font-bold !text-[#102a7a]">Email Address</label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="theme-input placeholder:text-text-muted"
+                                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/20"
                                 placeholder="you@example.com"
                                 required
                             />
@@ -162,22 +161,22 @@ export default function LoginPage() {
 
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <label className="text-sm font-bold text-text-muted">Password</label>
-                                <Link href="#" className="text-xs text-primary hover:text-secondary transition-colors">Forgot password?</Link>
+                                <label className="text-sm font-bold !text-[#102a7a]">Password</label>
+                                <Link href="#" className="text-xs font-bold !text-[#2563eb] hover:text-[#102a7a] transition-colors">Forgot password?</Link>
                             </div>
                             <div className="relative">
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="theme-input pr-12 placeholder:text-text-muted"
+                                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-12 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/20"
                                     placeholder="••••••••"
                                     required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#102a7a] transition-colors cursor-pointer"
                                 >
                                     {showPassword ? <EyeOffIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                                 </button>
@@ -185,7 +184,7 @@ export default function LoginPage() {
                         </div>
 
                         <RippleButton
-                            className="theme-button w-full py-3.5 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#2563eb] px-4 py-4 text-[16px] font-bold !text-white shadow-[0_12px_24px_rgba(37,99,235,0.25)] transition-all hover:-translate-y-0.5 hover:bg-[#1d4ed8] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                             type="submit"
                             disabled={isLoading}
                         >
@@ -195,10 +194,10 @@ export default function LoginPage() {
 
                     <div className="relative my-8">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-border-subtle"></div>
+                            <div className="w-full border-t border-slate-200"></div>
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                            <span className="rounded-lg bg-bg-card px-3 text-text-muted font-medium">Or continue with</span>
+                            <span className="rounded-full bg-white px-3 font-bold tracking-wider !text-slate-400">Or continue with</span>
                         </div>
                     </div>
 
@@ -207,25 +206,25 @@ export default function LoginPage() {
                             type="button"
                             onClick={handleGoogleLogin}
                             disabled={isLoading}
-                            className="flex items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface/70 py-2.5 text-ink transition-all hover:border-primary/50 shadow-sm disabled:opacity-60"
+                            className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white py-3 text-slate-700 transition-all hover:bg-slate-50 hover:border-slate-300 disabled:opacity-60"
                         >
                             <GoogleIcon className="h-5 w-5" />
-                            <span className="text-sm font-medium">Google</span>
+                            <span className="text-sm font-bold">Google</span>
                         </button>
                         <button
                             type="button"
                             onClick={() => handleSocialLogin("github")}
                             disabled={isLoading}
-                            className="flex items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface/70 py-2.5 text-ink transition-all hover:border-primary/50 shadow-sm disabled:opacity-60"
+                            className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white py-3 text-slate-700 transition-all hover:bg-slate-50 hover:border-slate-300 disabled:opacity-60"
                         >
                             <GithubIcon className="h-5 w-5" />
-                            <span className="text-sm font-medium">GitHub</span>
+                            <span className="text-sm font-bold">GitHub</span>
                         </button>
                     </div>
 
-                    <p className="mt-8 text-center text-sm text-text-muted">
+                    <p className="mt-8 text-center text-sm font-medium !text-slate-500">
                         Don&apos;t have an account?{" "}
-                        <Link href="/signup" className="font-semibold text-primary hover:text-secondary transition-colors">
+                        <Link href="/signup" className="font-bold !text-[#2563eb] hover:underline">
                             Sign up
                         </Link>
                     </p>
