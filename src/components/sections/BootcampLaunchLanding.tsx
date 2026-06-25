@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import Script from "next/script";
 import {
   ArrowRight,
   Brain,
@@ -21,6 +23,7 @@ import {
   TrendingUp,
   Users,
   Zap,
+  X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
@@ -59,7 +62,7 @@ const dsaTopics: DsaTopic[] = [
     problems: [
       {
         id: "arr-1",
-        title: "Two Sum — Optimal Pattern",
+        title: "Two Sum: Optimal Pattern",
         difficulty: "Easy",
         pattern: "Hash Map / Complement Tracking",
         visualLogic:
@@ -120,7 +123,7 @@ const dsaTopics: DsaTopic[] = [
     problems: [
       {
         id: "dp-1",
-        title: "Coin Change — Tabulation",
+        title: "Coin Change: Tabulation",
         difficulty: "Medium",
         pattern: "Bottom-Up DP",
         visualLogic:
@@ -409,7 +412,7 @@ function DsaDashboard() {
                 SkillWyn · DSA Vault
               </span>
             </div>
-            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-600">
+            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#102a7a]">
               50 Problems
             </span>
           </div>
@@ -454,7 +457,7 @@ function DsaDashboard() {
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
                   >
-                    {p.title.split("—")[0].trim()}
+                    {p.title.split("-")[0].trim()}
                   </button>
                 ))}
               </div>
@@ -462,10 +465,10 @@ function DsaDashboard() {
               {/* Pattern + difficulty */}
               <div className="mt-4 flex items-center justify-between">
                 <div className="rounded-lg bg-blue-50 px-3 py-2">
-                  <p className="text-[9px] font-bold uppercase tracking-wider text-blue-400">
+                  <p className="text-[9px] font-bold uppercase tracking-wider text-[#102a7a]">
                     Pattern
                   </p>
-                  <p className="text-sm font-bold text-blue-700">
+                  <p className="text-sm font-bold text-[#102a7a]">
                     {problem.pattern}
                   </p>
                 </div>
@@ -528,14 +531,14 @@ function ToolCard({
   return (
     <Reveal delay={delay}>
       <div className="group flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:border-slate-300 hover:shadow-sm">
-        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-slate-50 text-slate-500 transition-colors group-hover:bg-blue-50 group-hover:text-blue-600">
+        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-slate-50 text-slate-500 transition-colors group-hover:bg-blue-50 group-hover:text-[#102a7a]">
           <Icon className="h-5 w-5" />
         </div>
         <div>
           <div className="flex items-center gap-2">
             <p className="text-[14px] font-semibold text-slate-800">{title}</p>
             {badge && (
-              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-blue-500">
+              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#102a7a]">
                 {badge}
               </span>
             )}
@@ -590,26 +593,73 @@ function FaqItem({
     </div>
   );
 }
-
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function BootcampLaunchLanding() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState(0);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [email, setEmail] = useState("");
 
-  const handleCheckout = (tier: "standard" | "vip") => {
-    const links = {
-      standard: process.env.NEXT_PUBLIC_RAZORPAY_VAULT_LINK || "https://rzp.io/l/placeholder-vault",
-      vip: process.env.NEXT_PUBLIC_RAZORPAY_VIP_LINK || "https://rzp.io/l/placeholder-vip",
-    };
-    window.open(links[tier], "_blank");
+  const handleCheckout = async () => {
+    if (!email) {
+      alert("Please enter your email to get the Notion link.");
+      return;
+    }
+    setIsProcessing(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const order = await res.json();
+
+      if (order.error) {
+        alert("Error creating order");
+        setIsProcessing(false);
+        return;
+      }
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_YourTestKey",
+        amount: order.amount,
+        currency: order.currency,
+        name: "SkillWyn",
+        description: "The Algorithmic Vault",
+        order_id: order.id,
+        handler: function (response: any) {
+          alert("Payment Successful! The Notion link has been sent to " + email);
+        },
+        prefill: {
+          name: "SkillWyn Learner",
+          email: email,
+        },
+        theme: {
+          color: "#2563eb",
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on("payment.failed", function (response: any) {
+        alert("Payment failed: " + response.error.description);
+      });
+      rzp.open();
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
-    <main className="min-h-screen bg-white font-body text-slate-900 antialiased">
+    <main className="min-h-screen bg-[#f8f8f5] text-[#111111] selection:bg-[#2563eb]/20 selection:text-[#102a7a]">
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       <Navbar />
 
       {/* ─── SECTION 1 · HERO ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1d4ed8] via-[#0b1f61] to-[#020a24] pb-24 pt-20 lg:pt-28">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#1d4ed8] via-[#0b1f61] to-[#020a24] pb-24 pt-10 lg:pt-14">
         {/* Glows to match the Guidix style */}
         <div className="absolute -left-32 -top-32 h-[600px] w-[600px] rounded-full bg-[#60a5fa]/40 blur-[120px]" />
         <div className="absolute -bottom-32 right-0 h-[500px] w-[500px] rounded-full bg-[#3b82f6]/20 blur-[100px]" />
@@ -630,7 +680,7 @@ export default function BootcampLaunchLanding() {
           >
             {/* Headline */}
             <h1
-              className="mx-auto mt-6 max-w-5xl text-[clamp(32px,5vw,56px)] font-bold leading-[1.12] tracking-tight text-[#ffffff]"
+              className="mx-auto max-w-5xl text-[clamp(32px,5vw,56px)] font-bold leading-[1.12] tracking-tight text-[#ffffff]"
             >
               Master DSA & Build Real Projects in
               <br />
@@ -640,49 +690,26 @@ export default function BootcampLaunchLanding() {
             {/* Subheadline */}
             <p className="mx-auto mt-4 max-w-xl text-[16px] leading-[1.7] text-[#ffffff]/90">
               DSA mastery, industry-level projects, live mentorship, and premium AI
-              tools — in one launch bundle built for serious coding careers.
+              tools in one launch bundle built for serious coding careers.
             </p>
-
-            {/* Feature pills */}
-            <div className="mt-6 flex flex-wrap justify-center gap-2">
-              {[
-                { icon: Code2, label: "50 DSA Problems" },
-                { icon: FolderGit2, label: "3 Industry Projects" },
-                { icon: Users, label: "2 Live Sessions" },
-                { icon: Sparkles, label: "1 Month AI Access" },
-              ].map(({ icon: Icon, label }) => (
-                <div
-                  key={label}
-                  className="flex items-center gap-2 rounded-full border border-[#ffffff]/20 bg-[#ffffff]/10 px-4 py-2 text-[13px] font-semibold text-[#ffffff] shadow-sm backdrop-blur-md"
-                >
-                  <Icon className="h-4 w-4 text-[#ffffff]" />
-                  {label}
-                </div>
-              ))}
-            </div>
 
             {/* CTAs */}
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <a
                 href="#pricing"
-                className="group inline-flex items-center gap-2 rounded-full bg-[#2563eb] px-7 py-3.5 text-[14px] font-bold text-[#ffffff] shadow-[0_8px_30px_rgba(37,99,235,0.3)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#3b82f6] hover:shadow-[0_12px_36px_rgba(37,99,235,0.4)]"
+                className="group inline-flex items-center gap-2 rounded-full bg-[#ffffff] px-8 py-3.5 text-[15px] font-bold tracking-wide text-[#102a7a] shadow-[0_8px_30px_rgba(255,255,255,0.15)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-[0_12px_36px_rgba(255,255,255,0.25)]"
               >
                 Claim Launch Access
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1" />
               </a>
               <a
                 href="#included"
-                className="inline-flex items-center gap-2 rounded-full border border-[#ffffff]/20 bg-[#ffffff]/10 px-7 py-3.5 text-[14px] font-semibold text-[#ffffff] transition-all hover:bg-[#ffffff]/20"
+                className="inline-flex items-center gap-2 rounded-full border border-[#ffffff]/20 bg-[#ffffff]/10 px-8 py-3.5 text-[15px] font-semibold tracking-wide text-[#ffffff] transition-all hover:bg-[#ffffff]/20"
               >
                 View Everything Included
               </a>
             </div>
 
-            {/* Countdown */}
-            <div className="mt-6 flex items-center justify-center gap-3">
-              <Clock className="h-3.5 w-3.5 text-[#ffffff]/80" />
-              <CountdownTimer />
-            </div>
           </motion.div>
 
           {/* Stats strip */}
@@ -690,21 +717,27 @@ export default function BootcampLaunchLanding() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-[1px] overflow-hidden rounded-2xl border border-[#ffffff]/10 bg-[#ffffff]/10 backdrop-blur-sm sm:grid-cols-4"
+            className="relative mx-auto mt-16 grid max-w-3xl grid-cols-2 overflow-hidden rounded-2xl border border-[#ffffff]/40 bg-[#ffffff]/10 shadow-[0_8px_32px_rgba(255,255,255,0.1)] backdrop-blur-md sm:grid-cols-4"
           >
+            {/* Subtle inner highlight */}
+            <div className="pointer-events-none absolute inset-0 rounded-2xl border border-[#ffffff]/20" />
+            
             {[
               { value: "50", label: "DSA Problems" },
               { value: "3", label: "Real Projects" },
               { value: "2", label: "Live Sessions" },
               { value: "1 mo", label: "AI Access" },
-            ].map(({ value, label }) => (
-              <div key={label} className="bg-[#0b1f61]/60 px-6 py-5 text-center backdrop-blur-md">
-                <p
-                  className="text-[22px] font-bold text-[#ffffff]"
-                >
+            ].map(({ value, label }, i) => (
+              <div 
+                key={label} 
+                className={`relative px-6 py-6 text-center ${
+                  i < 3 ? "border-[#ffffff]/20 max-sm:border-b sm:border-r" : ""
+                } ${i % 2 === 0 ? "max-sm:border-r" : ""}`}
+              >
+                <p className="text-[26px] font-bold tracking-tight text-[#ffffff] drop-shadow-md">
                   {value}
                 </p>
-                <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wider text-[#ffffff]/80">
+                <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.15em] text-[#ffffff]/80">
                   {label}
                 </p>
               </div>
@@ -725,13 +758,13 @@ export default function BootcampLaunchLanding() {
             <SectionBadge>What's included</SectionBadge>
             <SectionHeading className="mt-6 text-4xl md:text-5xl font-bold tracking-tight text-slate-900">
               Everything You Need To Start{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">
+              <span className="text-[#102a7a]">
                 Your Coding Career
               </span>
             </SectionHeading>
             <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-relaxed text-slate-500">
               Four high-impact deliverables, carefully curated to close the gap
-              between college and industry. No more endless tutorial loops—just action.
+              between college and industry. No more endless tutorial loops, just action.
             </p>
           </Reveal>
 
@@ -740,7 +773,7 @@ export default function BootcampLaunchLanding() {
               {
                 icon: Code2,
                 title: "Top 50 DSA Problems",
-                desc: "Every question that actually shows up in tech interviews — not 450 random problems.",
+                desc: "Every question that actually shows up in tech interviews, not 450 random problems.",
                 outcomes: [
                   "Problem statement & interview-style intuition",
                   "Flowchart → Pseudocode → Optimal code",
@@ -789,7 +822,7 @@ export default function BootcampLaunchLanding() {
                     <div>
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <div className="flex items-center gap-2 text-[#2563eb]">
+                          <div className="flex items-center gap-2 text-[#102a7a]">
                             <Icon className="h-5 w-5" />
                             <h3 className="text-[23px] font-bold leading-tight tracking-[-0.03em] text-[#102a7a]">
                               {card.title}
@@ -814,7 +847,7 @@ export default function BootcampLaunchLanding() {
                             className="flex items-start gap-3 text-[14px] font-medium text-[#001447]/70"
                           >
                             <div className="mt-[3px] flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#dbeafe]">
-                              <Check className="h-2.5 w-2.5 text-[#2563eb]" strokeWidth={3} />
+                              <Check className="h-2.5 w-2.5 text-[#102a7a]" strokeWidth={3} />
                             </div>
                             <span className="leading-snug">{o}</span>
                           </li>
@@ -840,7 +873,7 @@ export default function BootcampLaunchLanding() {
               </SectionHeading>
               <p className="mt-5 text-[16px] leading-relaxed text-slate-600">
                 Not a random 450-problem list. Every question is hand-picked from
-                real interview rounds — with full breakdown so you understand the
+                real interview rounds, with full breakdown so you understand the
                 pattern, not just the answer.
               </p>
               <ul className="mt-8 space-y-4">
@@ -852,7 +885,7 @@ export default function BootcampLaunchLanding() {
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-[15px] font-medium text-slate-800">
                     <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-100">
-                      <Check className="h-3 w-3 text-blue-600" strokeWidth={3} />
+                      <Check className="h-3 w-3 text-[#102a7a]" strokeWidth={3} />
                     </div>
                     {item}
                   </li>
@@ -908,7 +941,7 @@ export default function BootcampLaunchLanding() {
               </SectionHeading>
               <p className="mt-5 text-[16px] leading-relaxed text-slate-600">
                 A massive real-world blueprint designed to solve actual business
-                problems — not clone tutorials that look the same on every resume.
+                problems, not clone tutorials that look the same on every resume.
               </p>
 
               {/* Stack tags */}
@@ -916,7 +949,7 @@ export default function BootcampLaunchLanding() {
                 {projects[0].stack.map((s: string) => (
                   <span
                     key={s}
-                    className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700"
+                    className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-[#102a7a]"
                   >
                     {s}
                   </span>
@@ -925,7 +958,7 @@ export default function BootcampLaunchLanding() {
 
               {/* Resume impact */}
               <div className="mt-6 rounded-2xl bg-slate-50 p-5 border border-slate-100">
-                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-blue-600">
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-[#102a7a]">
                   Resume Impact
                 </p>
                 <p className="text-[13px] leading-relaxed text-slate-700">
@@ -938,7 +971,7 @@ export default function BootcampLaunchLanding() {
                 {projects[0].outcomes.map((o: string) => (
                   <li key={o} className="flex items-center gap-3 text-[14px] font-medium text-slate-700">
                     <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-100">
-                      <Check className="h-3 w-3 text-blue-600" strokeWidth={3} />
+                      <Check className="h-3 w-3 text-[#102a7a]" strokeWidth={3} />
                     </div>
                     {o}
                   </li>
@@ -970,10 +1003,10 @@ export default function BootcampLaunchLanding() {
               <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50">
-                    <Terminal className="h-5 w-5 text-blue-600" />
+                    <Terminal className="h-5 w-5 text-[#102a7a]" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-blue-500">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#102a7a]">
                       Session 1
                     </span>
                     <h3 className="text-[17px] font-semibold text-slate-900">
@@ -1015,21 +1048,14 @@ export default function BootcampLaunchLanding() {
 
             {/* Right Side: Image / Mockup */}
             <div className="order-1 lg:order-2 w-full perspective-[2000px]">
-              <div className="relative overflow-hidden rounded-t-[1.25rem] border-[10px] border-[#0f172a] bg-[#0f172a] shadow-[0_28px_80px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 transition-transform duration-500 hover:rotate-x-[2deg]">
-                <div className="absolute left-1/2 top-0 z-20 flex h-4 w-24 -translate-x-1/2 items-center justify-center rounded-b-xl bg-[#0f172a]">
-                  <div className="h-1.5 w-1.5 rounded-full bg-[#030712] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
-                </div>
-                <div className="relative aspect-[4/3] sm:aspect-video w-full overflow-hidden rounded-lg bg-white">
+              <div className="relative overflow-hidden rounded-[1.25rem] shadow-[0_20px_60px_rgba(16,42,122,0.15)] ring-1 ring-slate-900/5 transition-transform duration-500 hover:rotate-x-[2deg]">
+                <div className="relative aspect-[4/3] sm:aspect-video w-full overflow-hidden bg-white">
                   <img
-                    src="/images/live_sessions_mockup_1782323897633.png"
+                    src="/images/career_coding_new.png"
                     alt="Live Sessions"
                     className="h-full w-full object-cover"
                   />
                 </div>
-              </div>
-
-              <div className="relative mx-auto h-5 sm:h-6 w-[104%] -translate-x-[2%] rounded-b-[20px] rounded-t-sm bg-gradient-to-b from-[#e2e4e9] to-[#b3b7c3] shadow-[0_20px_40px_rgba(0,0,0,0.15)] border-t border-[#f1f3f5]">
-                <div className="absolute left-1/2 top-0 h-1.5 sm:h-2 w-24 sm:w-32 -translate-x-1/2 rounded-b-lg bg-[#c8cbd2] shadow-inner" />
               </div>
             </div>
           </Reveal>
@@ -1038,21 +1064,14 @@ export default function BootcampLaunchLanding() {
           <Reveal className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
             {/* Left Side: Image / Mockup */}
             <div className="order-1 lg:order-1 w-full perspective-[2000px]">
-              <div className="relative overflow-hidden rounded-t-[1.25rem] border-[10px] border-[#0f172a] bg-[#0f172a] shadow-[0_28px_80px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 transition-transform duration-500 hover:rotate-y-[2deg]">
-                <div className="absolute left-1/2 top-0 z-20 flex h-4 w-24 -translate-x-1/2 items-center justify-center rounded-b-xl bg-[#0f172a]">
-                  <div className="h-1.5 w-1.5 rounded-full bg-[#030712] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
-                </div>
-                <div className="relative aspect-[4/3] sm:aspect-video w-full overflow-hidden rounded-lg bg-white">
+              <div className="relative overflow-hidden rounded-[1.25rem] shadow-[0_20px_60px_rgba(16,42,122,0.15)] ring-1 ring-slate-900/5 transition-transform duration-500 hover:rotate-y-[2deg]">
+                <div className="relative aspect-[4/3] sm:aspect-video w-full overflow-hidden bg-white">
                   <img
-                    src="/images/seo_freelance_mockup_1782324738893.png"
+                    src="/images/freelance_industry_new.png"
                     alt="Freelancing Session"
                     className="h-full w-full object-cover"
                   />
                 </div>
-              </div>
-
-              <div className="relative mx-auto h-5 sm:h-6 w-[104%] -translate-x-[2%] rounded-b-[20px] rounded-t-sm bg-gradient-to-b from-[#e2e4e9] to-[#b3b7c3] shadow-[0_20px_40px_rgba(0,0,0,0.15)] border-t border-[#f1f3f5]">
-                <div className="absolute left-1/2 top-0 h-1.5 sm:h-2 w-24 sm:w-32 -translate-x-1/2 rounded-b-lg bg-[#c8cbd2] shadow-inner" />
               </div>
             </div>
 
@@ -1060,11 +1079,11 @@ export default function BootcampLaunchLanding() {
             <div className="order-2 lg:order-2 lg:pl-8 xl:pl-12">
               <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-purple-50">
-                    <Zap className="h-5 w-5 text-purple-600" />
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50">
+                    <Zap className="h-5 w-5 text-[#102a7a]" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-purple-500">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#102a7a]">
                       Session 2
                     </span>
                     <h3 className="text-[17px] font-semibold text-slate-900">
@@ -1082,15 +1101,15 @@ export default function BootcampLaunchLanding() {
                     },
                     {
                       title: "Freelancing starter blueprint",
-                      out: "Pick a service, find clients, price your work — step by step",
+                      out: "Pick a service, find clients, price your work, step by step",
                     },
                     {
                       title: "Industry signing & workflow",
-                      out: "Scope, proposals, milestones, handover — the full client cycle",
+                      out: "Scope, proposals, milestones, handover, the full client cycle",
                     },
                   ].map((item, i) => (
                     <div key={i} className="relative">
-                      <div className="absolute -left-[17px] top-[5px] h-2 w-2 rounded-full border-2 border-purple-500 bg-white" />
+                      <div className="absolute -left-[17px] top-[5px] h-2 w-2 rounded-full border-2 border-blue-500 bg-white" />
                       <p className="text-[14px] font-semibold text-slate-800">
                         {item.title}
                       </p>
@@ -1115,7 +1134,7 @@ export default function BootcampLaunchLanding() {
               Early Access To SkillWyn Premium
             </SectionHeading>
             <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-slate-500">
-              Get 1 month free access to the full AI platform — before it opens
+              Get 1 month free access to the full AI platform before it opens
               to the public.
             </p>
             <span className="mt-4 inline-block rounded-full bg-emerald-100/50 px-4 py-1.5 text-[12px] font-semibold text-emerald-700">
@@ -1133,10 +1152,10 @@ export default function BootcampLaunchLanding() {
                 <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
                   <div className="mb-6 flex items-center gap-3">
                     <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50">
-                      <FileText className="h-5 w-5 text-blue-600" />
+                      <FileText className="h-5 w-5 text-[#102a7a]" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-blue-500">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#102a7a]">
                         Premium Feature
                       </span>
                       <h3 className="text-[17px] font-semibold text-slate-900">
@@ -1239,7 +1258,7 @@ export default function BootcampLaunchLanding() {
                     </div>
                   </div>
                   <p className="mb-8 text-[14px] leading-[1.6] text-slate-500">
-                    Chat directly with your resume. Treat it like a personal career advisor — ask what to improve, how to align with a specific job, and rewrite bullets interactively.
+                    Chat directly with your resume. Treat it like a personal career advisor: ask what to improve, how to align with a specific job, and rewrite bullets interactively.
                   </p>
 
                   <div className="relative space-y-6 pl-4">
@@ -1386,7 +1405,7 @@ export default function BootcampLaunchLanding() {
                     </div>
                   </div>
                   <p className="mb-8 text-[14px] leading-[1.6] text-slate-500">
-                    Curated, topic-wise sheets built for interview prep — not dumped lists. Master the underlying logic rather than memorizing random solutions.
+                    Curated, topic-wise sheets built for interview prep, not dumped lists. Master the underlying logic rather than memorizing random solutions.
                   </p>
 
                   <div className="relative space-y-6 pl-4">
@@ -1424,6 +1443,78 @@ export default function BootcampLaunchLanding() {
         </div>
       </section>
 
+      {/* ─── PRICING ────────────────────────────────────────────────────────── */}
+      <section id="pricing" className="relative z-10 py-24 px-6">
+        <div className="mx-auto max-w-5xl text-center">
+          <Reveal>
+            <h2 className="text-[clamp(32px,4vw,48px)] font-bold text-[#111827] leading-tight">
+              Unlock The <span className="text-[#102a7a]">Algorithmic Vault</span>
+            </h2>
+            <p className="mt-4 text-base font-medium text-[#5b6fb3]">
+              Everything you need to crack top product companies.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="mx-auto mt-12 grid max-w-5xl overflow-hidden rounded-[2rem] bg-[#102a7a] shadow-[0_24px_80px_rgba(16,42,122,0.2)] md:grid-cols-[1.2fr_1fr]">
+              
+              {/* Left Side: Pricing & Features */}
+              <div className="flex flex-col justify-center p-8 text-left md:p-12">
+                <div className="mb-8 inline-flex w-fit items-center gap-2 rounded-full bg-blue-500/20 px-3 py-1 text-[12px] font-bold uppercase tracking-widest !text-[#93c5fd] ring-1 ring-inset ring-blue-500/30">
+                  <Sparkles className="h-3.5 w-3.5 !text-[#93c5fd]" />
+                  <span className="!text-[#93c5fd]">Limited Offer</span>
+                </div>
+                
+                <div className="flex items-baseline gap-x-2">
+                  <span className="text-3xl font-semibold !text-white opacity-80">₹</span>
+                  <span className="text-5xl font-bold tracking-tight !text-white">159</span>
+                  <span className="ml-2 text-xl font-medium !text-white line-through decoration-white/70 decoration-1">₹1500</span>
+                </div>
+                <p className="mt-2 text-[13px] font-medium !text-[#93c5fd]">
+                  Valid for the first 30 learners only.
+                </p>
+                
+                <div className="my-8 h-px w-full bg-white/10" />
+                
+                <ul className="space-y-4 text-[14px] font-medium">
+                  <li className="flex items-center gap-x-3 !text-white"><Check className="h-4 w-4 shrink-0 !text-[#93c5fd]" /> <span className="!text-white">Full access to 50+ Premium DSA questions</span></li>
+                  <li className="flex items-center gap-x-3 !text-white"><Check className="h-4 w-4 shrink-0 !text-[#93c5fd]" /> <span className="!text-white">3 Enterprise-grade Project Blueprints</span></li>
+                  <li className="flex items-center gap-x-3 !text-white"><Check className="h-4 w-4 shrink-0 !text-[#93c5fd]" /> <span className="!text-white">Exclusive Live Doubt-Clearing Session</span></li>
+                  <li className="flex items-center gap-x-3 !text-white"><Check className="h-4 w-4 shrink-0 !text-[#93c5fd]" /> <span className="!text-white">1-Month Free Access to Premium AI Features</span></li>
+                </ul>
+              </div>
+
+              {/* Right Side: Checkout Action */}
+              <div className="flex flex-col justify-center bg-[#fdfbf7] p-8 md:p-12">
+                <h3 className="mb-2 text-xl font-bold !text-slate-900">Ready to start?</h3>
+                <p className="mb-8 text-[14px] leading-relaxed !text-slate-500">
+                  Enter your email below. After secure payment, you will instantly receive the Notion Vault link in your inbox.
+                </p>
+                
+                <div className="mt-2">
+                  <input 
+                    type="email" 
+                    placeholder="name@example.com" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mb-4 w-full rounded-xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-[#102a7a] placeholder-slate-400 shadow-sm outline-none transition-all focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/10"
+                  />
+                  <button
+                    onClick={handleCheckout}
+                    disabled={isProcessing}
+                    className="group cursor-pointer relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-[#2563eb] px-6 py-4 text-[14px] font-bold tracking-wide !text-white shadow-[0_12px_24px_rgba(37,99,235,0.25)] transition-all hover:-translate-y-0.5 hover:bg-[#1d4ed8] disabled:pointer-events-none disabled:opacity-50"
+                  >
+                    {isProcessing ? "Processing..." : "Enroll & Get Access"}
+                    {!isProcessing && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
 
 
       {/* ─── FAQs ─────────────────────────────────────────────────────────── */}
@@ -1451,38 +1542,68 @@ export default function BootcampLaunchLanding() {
       </section>
 
       {/* ─── FOOTER ───────────────────────────────────────────────────────── */}
-      <footer className="border-t border-slate-100 bg-white py-12">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 sm:flex-row lg:px-10">
-          <div className="flex items-center gap-2">
-            <span
-              className="text-[16px] font-bold text-slate-900"
-              
-            >
-              Skill<span className="text-blue-600">Wyn</span>
-            </span>
-            <span className="text-slate-300">|</span>
-            <span className="text-[12px] text-slate-400">
-              © {new Date().getFullYear()} codewithyash. All rights reserved.
-            </span>
+      <footer className="relative z-10 border-t border-[#dbeafe] bg-[#fbfcff] px-6 py-14 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_1.6fr]">
+            <div>
+              <Link href="/" className="inline-flex items-center gap-3">
+                <Image src="/skillwyn-logo.png" alt="SkillWyn" width={42} height={42} className="h-10 w-10 object-contain" />
+                <span className="text-xl font-black text-[#102a7a]" >SkillWyn</span>
+              </Link>
+              <p className="mt-5 max-w-md text-sm font-medium leading-7 text-[#5b6fb3]" >
+                AI-powered roadmaps, resume help, mock interviews, resources, and project proof for career-focused developers.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {["35K+ learners", "AI roadmaps", "Resume ready"].map((item) => (
+                  <span key={item} className="rounded-full border border-[#dbeafe] bg-white px-3 py-2 text-xs font-bold text-[#102a7a]">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-8 sm:grid-cols-3">
+              {[
+                ["Platform", [["Roadmaps", "/roadmaps"], ["Resources", "/resources"], ["Resume Analyzer", "/resume"], ["Mock Interview", "/mock-interview"]]],
+                ["Careers", [["DSA Prep", "/dsa"], ["Interview Questions", "/interview-questions"], ["Resume Builder", "/resume-builder"], ["Get Started", "/get-started"]]],
+                ["Company", [["About", "/about"], ["Pricing", "/pricing"], ["Snap Code", "/snap-code"], ["Profile", "/profile"]]],
+              ].map(([title, links]) => (
+                <div key={title as string}>
+                  <h3 className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]" >{title as string}</h3>
+                  <ul className="mt-5 space-y-3">
+                    {(links as string[][]).map(([label, href]) => (
+                      <li key={label}>
+                        <Link href={href} className="text-sm font-semibold text-[#5b6fb3] transition-colors hover:text-[#102a7a]" >
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="flex gap-5 text-[12px] font-semibold text-slate-500">
-            <a
-              href="https://instagram.com/codewithyash3"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Instagram
-            </a>
-            <a href="#included" className="hover:text-blue-600 transition-colors">
-              What's Included
-            </a>
-            <a href="#pricing" className="hover:text-blue-600 transition-colors">
-              Pricing
-            </a>
-            <a href="#faqs" className="hover:text-blue-600 transition-colors">
-              FAQs
-            </a>
+
+          <div className="mt-12 flex flex-col gap-5 border-t border-[#dbeafe] pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs font-semibold text-[#5b6fb3]" >
+              © {new Date().getFullYear()} SkillWyn. Built for students becoming job-ready developers.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                ["Instagram", "https://instagram.com/codewithyash3"],
+                ["YouTube", "#"],
+                ["LinkedIn", "#"],
+              ].map(([label, href]) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb]"
+                  
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </footer>

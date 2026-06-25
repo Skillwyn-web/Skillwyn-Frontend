@@ -16,7 +16,7 @@ export default function PricingPage() {
     },
     {
       q: "Is there a free trial?",
-      a: "We offer a 7-day money-back guarantee for the Learner tier. However, for the Job-Ready Program, spots are extremely limited per cohort, so we don't offer free trials — but you get full transparent access to what exactly you will build before paying."
+      a: "We offer a 7-day money-back guarantee for the Learner tier. However, for the Job-Ready Program, spots are extremely limited per cohort, so we don't offer free trials, but you get full transparent access to what exactly you will build before paying."
     },
     {
       q: "How does the Talent Pool work?",
@@ -111,7 +111,7 @@ export default function PricingPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-12 md:gap-24 text-center">
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-ink font-display mb-1">30K+</div>
+              <div className="text-2xl md:text-3xl font-bold text-ink font-display mb-1">35K+</div>
               <div className="text-sm font-medium tracking-widest text-text-muted uppercase">Community</div>
             </div>
             <div>

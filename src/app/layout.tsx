@@ -4,6 +4,7 @@ import "../components/layout/globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { AuthProvider } from "@/context/AuthContext";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
+import { OfferPopup } from "@/components/ui/OfferPopup";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
         <AuthProvider>
           <AnnouncementBar />
           {children}
+          <OfferPopup />
         </AuthProvider>
       </body>
     </html>

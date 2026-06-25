@@ -4,7 +4,7 @@ import { Navigation, Code, Shield, Link as LinkIcon, Users as UsersIcon, Target,
 
 export default function AboutPage() {
   const team = [
-    { name: "Yash", role: "Founder & CEO", av: "Y", bio: "Former developer, created codewithyash community of 30K+." },
+    { name: "Yash", role: "Founder & CEO", av: "Y", bio: "Former developer, created codewithyash community of 35K+." },
     { name: "Priya", role: "Lead Product Architect", av: "P", bio: "Ex-FAANG engineer, built scalable ed-tech platforms." },
     { name: "Rahul", role: "Head of Placement Strategy", av: "R", bio: "10 years in technical recruitment. Knows what HRs want." },
     { name: "Ananya", role: "AI Systems Engineering Lead", av: "A", bio: "Built the AI mock interview engine and Career GPS." },
@@ -48,7 +48,7 @@ export default function AboutPage() {
                 <div className="w-24 h-24 rounded-full bg-accent/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   <span className="text-4xl">👑</span>
                 </div>
-                <div className="text-5xl font-black font-space mb-2 group-hover:text-accent transition-colors">30K+</div>
+                <div className="text-5xl font-black font-space mb-2 group-hover:text-accent transition-colors">35K+</div>
                 <div className="text-xl text-text-muted font-bold tracking-wider uppercase">Members Strong</div>
               </div>
             </div>

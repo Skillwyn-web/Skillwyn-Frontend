@@ -372,7 +372,7 @@ function QuizTimer() {
 function ScoreCard({ score, total, topic, onRetry, onSwitchTopic }: { score: number; total: number; topic: TopicKey; onRetry: () => void; onSwitchTopic: () => void }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-[#eff6ff] p-6 text-center">
-      <h2 className="text-3xl font-bold text-[#102a7a]">{score}/{total} — Strong on {topic}!</h2>
+      <h2 className="text-3xl font-bold text-[#102a7a]">{score}/{total} - Strong on {topic}!</h2>
       <p className="mt-3 text-[#5b6fb3]">Breakdown: patterns strong, edge cases need one more revision pass.</p>
       <div className="mt-6 flex justify-center gap-3">
         <button onClick={onRetry} className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#2563eb]">

@@ -188,7 +188,7 @@ function HeroLearningVisual({ loading }: { loading: boolean }) {
               key={badge.label}
               animate={{ y: [0, index % 2 === 0 ? -10 : 10, 0] }}
               transition={{ duration: 4.6 + index * 0.35, repeat: Infinity, ease: "easeInOut" }}
-            className={`absolute z-20 flex items-center gap-1.5 rounded-full border-[0.5px] border-white/70 bg-white px-2.5 py-1.5 text-[11px] font-black text-slate-700 shadow-[0_14px_34px_rgba(15,23,42,0.18)] sm:gap-2 sm:px-4 sm:py-2 sm:text-sm ${badge.className}`}
+              className={`absolute z-20 flex items-center gap-1.5 rounded-full border-[0.5px] border-white/70 bg-white px-2.5 py-1.5 text-[11px] font-black text-slate-700 shadow-[0_14px_34px_rgba(15,23,42,0.18)] sm:gap-2 sm:px-4 sm:py-2 sm:text-sm ${badge.className}`}
             >
               <Icon className="h-4 w-4 text-[#2563eb]" />
               <span>{badge.label}</span>
@@ -663,7 +663,7 @@ function ProductMosaic() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 text-[#2563eb]">
-                  <LibraryBig className="h-5 w-5" />
+                <LibraryBig className="h-5 w-5" />
                 <h3 className={titleClass}>Resources Hub</h3>
               </div>
               <p className={bodyClass}>DSA sheets, notes, templates, and interview kits in one place</p>
@@ -689,7 +689,7 @@ function ProductMosaic() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 text-[#2563eb]">
-                  <FolderKanban className="h-5 w-5" />
+                <FolderKanban className="h-5 w-5" />
                 <h3 className={titleClass}>AI Project Builder</h3>
               </div>
               <p className={bodyClass}>Turn skills into portfolio-ready projects and resume proof</p>
@@ -713,72 +713,13 @@ function ProductMosaic() {
 }
 
 export default function SkillWynLanding() {
-  const [loading, setLoading] = useState(true);
+  const loading = false;
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 0.22], [0, -90]);
   const glowY = useTransform(scrollYProgress, [0, 1], [0, 260]);
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => setLoading(false), 1450);
-    return () => window.clearTimeout(timer);
-  }, []);
-
   return (
     <main className="relative min-h-screen bg-[#060708] text-[#fbfbf8] [.light-theme_&]:bg-[#f8f8f5] [.light-theme_&]:text-[#111111]">
-      <AnimatePresence>
-        {loading ? (
-          <motion.div
-            key="loader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -18, filter: "blur(10px)" }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[100] flex items-center justify-center"
-            style={{ backgroundColor: "#000000" }}
-          >
-            <div className="relative flex flex-col items-center gap-7">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: 190 }}
-                transition={{ duration: 1.05, ease: [0.76, 0, 0.24, 1] }}
-                className="relative h-px bg-white/70"
-              />
-              <motion.div
-                initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.75, delay: 0.15 }}
-                className="relative flex items-center gap-4"
-              >
-                <Image
-                  src="/skillwyn-logo.png"
-                  alt="SkillWyn logo"
-                  width={76}
-                  height={76}
-                  priority
-                  className="h-16 w-16 object-contain md:h-20 md:w-20"
-                />
-                <span
-                  className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl"
-                  style={{
-                    color: "#ffffff",
-                    textShadow: "none",
-                  }}
-                >
-                  SkillWyn
-                </span>
-              </motion.div>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.45, delay: 0.85 }}
-                className="relative font-jetbrains text-[10px] uppercase tracking-[0.28em]"
-                style={{ color: "rgba(248,251,255,0.78)" }}
-              >
-                launching learning engine
-              </motion.p>
-            </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
 
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(36,87,255,0.055)_1px,transparent_1px)] bg-[size:84px_84px] opacity-55 [.light-theme_&]:opacity-35" />
@@ -800,99 +741,99 @@ export default function SkillWynLanding() {
           className="relative z-[2]"
         >
           <div className="relative z-[2]">
-          <h1
-            className="text-white [.light-theme_&]:text-[#0f172a]"
-            style={{
-              
-              fontWeight: 500,
-              fontSize: "clamp(44px, 11vw, 88px)",
-              lineHeight: 1.04,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            One Platform.<br />
-            Infinite <span style={{ color: "#102a7a" }}>Careers.</span>
-          </h1>
-          <p
-            className="mt-5 text-[#5b6fb3] sm:mt-8"
-            style={{
-              
-              fontWeight: 500,
-              fontSize: "clamp(15px, 3.7vw, 17px)",
-              lineHeight: 1.72,
-              letterSpacing: "-0.01em",
-              maxWidth: "560px",
-            }}
-          >
-            SkillWyn is your AI-powered career OS for personalized roadmaps, DSA mastery, resume building, mock interviews, and real skill scores.
-          </p>
-          <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
-            <Link
-              href="/algorithmic-vault"
-              className="group inline-flex items-center justify-center gap-2 uppercase !text-white shadow-[0_24px_80px_rgba(36,87,255,0.24)] transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_28px_90px_rgba(36,87,255,0.36)] active:translate-y-0 active:scale-[0.99]"
+            <h1
+              className="text-white [.light-theme_&]:text-[#0f172a]"
               style={{
-                
-                fontWeight: 700,
-                fontSize: "14px",
-                letterSpacing: "0.02em",
-                background: "#2563eb",
-                color: "#ffffff",
-                borderRadius: "100px",
-                padding: "13px 24px",
+
+                fontWeight: 500,
+                fontSize: "clamp(44px, 11vw, 88px)",
+                lineHeight: 1.04,
+                letterSpacing: "-0.02em",
               }}
             >
-              Explore Masterclass <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-            </Link>
-            <div
-              className="inline-flex cursor-not-allowed items-center justify-center uppercase transition-all duration-200 opacity-60"
+              One Platform.<br />
+              Infinite <span style={{ color: "#102a7a" }}>Careers.</span>
+            </h1>
+            <p
+              className="mt-5 text-[#5b6fb3] sm:mt-8"
               style={{
-                
-                fontWeight: 600,
-                fontSize: "14px",
-                background: "transparent",
-                border: "1.5px solid #e2e8f0",
-                borderRadius: "100px",
-                padding: "13px 24px",
+
+                fontWeight: 500,
+                fontSize: "clamp(15px, 3.7vw, 17px)",
+                lineHeight: 1.72,
+                letterSpacing: "-0.01em",
+                maxWidth: "560px",
               }}
             >
-              Explore paths <span className="ml-2 rounded-full bg-slate-100 px-2 py-0.5 text-[9px] font-bold text-slate-500">Coming Soon</span>
-            </div>
-          </div>
-          <div className="mt-8 inline-flex flex-col gap-4 rounded-[22px] border border-[#dbeafe] bg-white/80 p-4 shadow-[0_18px_45px_rgba(16,42,122,0.08)] sm:mt-11 sm:flex-row sm:items-center">
-            <div className="flex -space-x-2">
-              {["Y", "A", "R", "P", "K"].map((item, index) => (
-                <div
-                  key={item}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-[#2563eb] text-xs font-black !text-white shadow-[0_10px_26px_rgba(37,99,235,0.20)]"
-                  style={{ transform: `translateY(${index % 2 === 0 ? 0 : 2}px)` }}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-            <div>
-              <p
-                className="text-[#102a7a]"
+              SkillWyn is your AI-powered career OS for personalized roadmaps, DSA mastery, resume building, mock interviews, and real skill scores.
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
+              <Link
+                href="/algorithmic-vault"
+                className="group inline-flex items-center justify-center gap-2 uppercase !text-white shadow-[0_24px_80px_rgba(36,87,255,0.24)] transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_28px_90px_rgba(36,87,255,0.36)] active:translate-y-0 active:scale-[0.99]"
                 style={{
-                  
-                  fontWeight: 800,
-                  fontSize: "15px",
+
+                  fontWeight: 700,
+                  fontSize: "14px",
+                  letterSpacing: "0.02em",
+                  background: "#2563eb",
+                  color: "#ffffff",
+                  borderRadius: "100px",
+                  padding: "13px 24px",
                 }}
               >
-                Trusted by 30K+ learners
-              </p>
-              <p
-                className="mt-1 text-[#5b6fb3]"
+                The Algorithmic Vault <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+              <div
+                className="inline-flex cursor-not-allowed items-center justify-center uppercase transition-all duration-200 opacity-60"
                 style={{
-                  
+
                   fontWeight: 600,
-                  fontSize: "13px",
+                  fontSize: "14px",
+                  background: "transparent",
+                  border: "1.5px solid #e2e8f0",
+                  borderRadius: "100px",
+                  padding: "13px 24px",
                 }}
               >
-                Building DSA, resumes, projects, and interview confidence.
-              </p>
+                Explore paths <span className="ml-2 rounded-full bg-slate-100 px-2 py-0.5 text-[9px] font-bold text-slate-500">Coming Soon</span>
+              </div>
             </div>
-          </div>
+            <div className="mt-8 inline-flex flex-col gap-4 rounded-[22px] border border-[#dbeafe] bg-white/80 p-4 shadow-[0_18px_45px_rgba(16,42,122,0.08)] sm:mt-11 sm:flex-row sm:items-center">
+              <div className="flex -space-x-2">
+                {["Y", "A", "R", "P", "K"].map((item, index) => (
+                  <div
+                    key={item}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-[#2563eb] text-xs font-black !text-white shadow-[0_10px_26px_rgba(37,99,235,0.20)]"
+                    style={{ transform: `translateY(${index % 2 === 0 ? 0 : 2}px)` }}
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <div>
+                <p
+                  className="text-[#102a7a]"
+                  style={{
+
+                    fontWeight: 800,
+                    fontSize: "15px",
+                  }}
+                >
+                  Trusted by 35K+ learners
+                </p>
+                <p
+                  className="mt-1 text-[#5b6fb3]"
+                  style={{
+
+                    fontWeight: 600,
+                    fontSize: "13px",
+                  }}
+                >
+                  Building DSA, resumes, projects, and interview confidence.
+                </p>
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -901,13 +842,13 @@ export default function SkillWynLanding() {
 
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-8 lg:px-10 lg:pt-10">
         <Reveal className="mx-auto mb-10 max-w-3xl text-center">
-          <p className="mb-5 uppercase tracking-[0.2em] text-[var(--color-secondary)]" style={{  fontSize: "12px", fontWeight: 700 }}>
+          <p className="mb-5 uppercase tracking-[0.2em] text-[var(--color-secondary)]" style={{ fontSize: "12px", fontWeight: 700 }}>
             EVERYTHING YOU NEED
           </p>
           <h2
             className="mx-auto max-w-4xl text-white [.light-theme_&]:text-[#0f172a]"
             style={{
-              
+
               fontWeight: 500,
               fontSize: "clamp(40px, 4.2vw, 48px)",
               lineHeight: 1.06,
@@ -921,7 +862,7 @@ export default function SkillWynLanding() {
           <p
             className="mx-auto mt-5 max-w-2xl text-white/58 [.light-theme_&]:text-[#5b6fb3]"
             style={{
-              
+
               fontSize: "17px",
               lineHeight: 1.65,
               letterSpacing: "-0.01em",
@@ -947,7 +888,7 @@ export default function SkillWynLanding() {
               <FileText className="h-5 w-5 text-[#60a5fa]" />
               AI Resume Analyzer
             </div>
-            <h3 className="relative z-10 mt-6 max-w-2xl text-[clamp(34px,3.4vw,48px)] font-medium leading-[1.04]" style={{  color: "#ffffff" }}>
+            <h3 className="relative z-10 mt-6 max-w-2xl text-[clamp(34px,3.4vw,48px)] font-medium leading-[1.04]" style={{ color: "#ffffff" }}>
               ATS score. Missing keywords. Fixed in 30 seconds.
             </h3>
             <div className="relative z-10 mt-10">
@@ -1093,7 +1034,7 @@ export default function SkillWynLanding() {
             <div className="pointer-events-none absolute -right-16 top-0 h-48 w-48 rounded-full bg-[#2563eb]/20 blur-3xl" />
             <div className="absolute right-6 top-6 z-20"><FeatureArrow href="/resources" label="Open AI Project Builder" /></div>
             <Code2 className="h-7 w-7 text-[#60a5fa]" />
-            <h3 className="relative z-10 mt-6 text-3xl font-medium leading-[1.05]" style={{  color: "#ffffff" }}>Skills &rarr; Portfolio. Automatically.</h3>
+            <h3 className="relative z-10 mt-6 text-3xl font-medium leading-[1.05]" style={{ color: "#ffffff" }}>Skills &rarr; Portfolio. Automatically.</h3>
             <div className="relative z-10 mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-4">
               <div className="mb-3 rounded-xl bg-[#2563eb] px-3 py-2 text-[10px] font-black text-white">AI generated project workspace</div>
               <div className="grid grid-cols-3 gap-2">
@@ -1188,7 +1129,7 @@ export default function SkillWynLanding() {
               SkillWyn Profile Signals
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-7 text-[#5b6fb3]" >
-              The verified profile students and companies both deserve — but resumes alone can&apos;t deliver.
+              The verified profile students and companies both deserve, but resumes alone can&apos;t deliver.
             </p>
           </Reveal>
 
@@ -1200,50 +1141,50 @@ export default function SkillWynLanding() {
               transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden rounded-[24px] border border-[#dbeafe] bg-[#eaf2ff] shadow-[0_24px_80px_rgba(15,42,122,0.20)]"
             >
-              <div className="relative min-h-[460px] bg-[linear-gradient(135deg,#ffffff,#dcebff)] p-7">
-                <div className="absolute inset-x-0 bottom-0 h-44 bg-[#0f2d86]" />
-                <div className="relative rounded-[20px] border border-[#bfdbfe] bg-white p-5 shadow-[0_24px_65px_rgba(15,42,122,0.20)]">
-                  <div className="flex items-start justify-between gap-5">
-                    <div className="flex items-center gap-4">
-                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-[#2563eb] text-base font-bold text-white" >
+              <div className="relative bg-[linear-gradient(135deg,#ffffff,#dcebff)] p-4 sm:p-7">
+                <div className="absolute inset-x-0 bottom-0 top-[40%] sm:top-auto sm:h-44 bg-[#0f2d86]" />
+                <div className="relative rounded-[20px] border border-[#bfdbfe] bg-white p-4 sm:p-5 shadow-[0_24px_65px_rgba(15,42,122,0.20)]">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-5">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="grid h-10 w-10 sm:h-12 sm:w-12 shrink-0 place-items-center rounded-[14px] bg-[#2563eb] text-sm sm:text-base font-bold text-white" >
                         AS
                       </div>
                       <div>
-                        <h3 className="text-lg font-extrabold text-[#0f172a]" >Aarav Sharma</h3>
-                        <p className="mt-1 text-sm font-semibold text-[#5b6fb3]" >Frontend + DSA Track</p>
+                        <h3 className="text-base sm:text-lg font-extrabold text-[#0f172a]" >Aarav Sharma</h3>
+                        <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm font-semibold text-[#5b6fb3]" >Frontend + DSA Track</p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-[#5b6fb3]" >GLOBAL RANK</p>
-                      <p className="mt-1 text-3xl font-extrabold text-[#2563eb]" >#184</p>
+                    <div className="text-left sm:text-right">
+                      <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#5b6fb3]" >GLOBAL RANK</p>
+                      <p className="mt-0.5 sm:mt-1 text-2xl sm:text-3xl font-extrabold text-[#2563eb]" >#184</p>
                     </div>
                   </div>
 
-                  <div className="mt-6 grid grid-cols-2 gap-3">
+                  <div className="mt-5 sm:mt-6 grid grid-cols-2 gap-2 sm:gap-3">
                     {[
                       ["Resume Strength", "ATS ✓"],
                       ["Project Proof", "3 builds"],
                       ["Interview Ready", "8 rounds"],
                       ["DSA Consistency", "41 day streak"],
                     ].map(([label, value]) => (
-                      <div key={label} className="rounded-xl border border-[#dbeafe] bg-[#f0f7ff] p-4 shadow-[0_8px_22px_rgba(37,99,235,0.08)]">
-                        <p className="text-[11px] font-semibold text-[#5b6fb3]" >{label}</p>
-                        <p className="mt-2 text-base font-bold text-[#2563eb]" >{value}</p>
+                      <div key={label} className="rounded-xl border border-[#dbeafe] bg-[#f0f7ff] p-3 sm:p-4 shadow-[0_8px_22px_rgba(37,99,235,0.08)]">
+                        <p className="text-[10px] sm:text-[11px] font-semibold text-[#5b6fb3]" >{label}</p>
+                        <p className="mt-1 sm:mt-2 text-sm sm:text-base font-bold text-[#2563eb]" >{value}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="relative mt-5 grid gap-3 sm:grid-cols-3">
+                <div className="relative mt-4 sm:mt-5 grid gap-3 sm:grid-cols-3">
                   {[
                     ["Razorpay", "Frontend Intern", "86%"],
                     ["CRED", "React Dev", "82%"],
                     ["Groww", "SDE Intern", "79%"],
                   ].map(([company, role, match]) => (
-                    <div key={company} className="rounded-[14px] border border-white/70 bg-white p-4 shadow-[0_16px_38px_rgba(3,18,62,0.22)]">
+                    <div key={company} className="rounded-[14px] border border-white/70 bg-white p-3 sm:p-4 shadow-[0_16px_38px_rgba(3,18,62,0.22)]">
                       <p className="text-sm font-bold text-[#102a7a]" >{company}</p>
-                      <p className="mt-1 text-xs font-semibold text-[#5b6fb3]" >{role}</p>
-                      <p className="mt-3 text-lg font-extrabold text-[#2563eb]" >{match}</p>
+                      <p className="mt-0.5 sm:mt-1 text-xs font-semibold text-[#5b6fb3]" >{role}</p>
+                      <p className="mt-2 sm:mt-3 text-base sm:text-lg font-extrabold text-[#2563eb]" >{match}</p>
                     </div>
                   ))}
                 </div>
@@ -1392,7 +1333,7 @@ export default function SkillWynLanding() {
               <div className="mt-5 rounded-[20px] border border-[#dbeafe] bg-[#f8fbff] p-4">
                 <p className="text-xs font-black text-[#111827]">Skillwyn | Newato AI | Building Tech Products</p>
                 <p className="mt-2 text-xs font-semibold leading-5 text-[#5b6fb3]">
-                  Teaching code - Launching Newato AI Soon - Building Skillwyn
+                  Teaching code • Launching Newato AI Soon • Building Skillwyn
                 </p>
                 <p className="mt-2 text-xs font-black text-[#2563eb]">labs.skillwyn.com</p>
               </div>
@@ -1425,22 +1366,7 @@ export default function SkillWynLanding() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl border-t border-white/10 px-6 py-24 [.light-theme_&]:border-black/10 lg:px-10">
-        <Reveal className="grid gap-10 overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.045] p-8 backdrop-blur-xl [.light-theme_&]:border-black/10 [.light-theme_&]:bg-white/78 md:grid-cols-[1fr_auto] md:items-center md:p-12">
-          <div>
-            <p className="mb-4 font-jetbrains text-[10px] uppercase text-[var(--color-secondary)]">MVP promise</p>
-            <h2 className="max-w-3xl text-4xl font-medium leading-[1.04] text-white [.light-theme_&]:text-black md:text-5xl">
-              From learning content to hiring signal in one platform.
-            </h2>
-          </div>
-          <Link
-            href="/algorithmic-vault"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-secondary)] px-6 py-4 text-sm font-black uppercase !text-white transition-transform hover:-translate-y-0.5"
-          >
-            Explore Live Masterclass <ArrowRight className="h-4 w-4" />
-          </Link>
-        </Reveal>
-      </section>
+
 
       <footer className="relative z-10 border-t border-[#dbeafe] bg-[#fbfcff] px-6 py-14 lg:px-10">
         <div className="mx-auto max-w-7xl">
@@ -1498,7 +1424,7 @@ export default function SkillWynLanding() {
                   key={label}
                   href={href}
                   className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb]"
-                  
+
                 >
                   {label}
                 </a>

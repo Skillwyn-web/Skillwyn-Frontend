@@ -16,9 +16,9 @@ const roles: { label: Role; icon: React.ComponentType<{ className?: string }> }[
 ];
 
 const frontendPhases = [
-  { title: "Phase 1 — Foundations (4 weeks)", topics: ["HTML/CSS basics", "Flexbox/Grid", "JS fundamentals", "DOM", "Git basics"] },
-  { title: "Phase 2 — React Projects (5 weeks)", topics: ["React", "State management", "React Router", "REST APIs", "Tailwind"] },
-  { title: "Phase 3 — Job Ready (6 weeks)", topics: ["Next.js", "Performance", "Testing basics", "DSA (Blind 75)", "System Design intro"] },
+  { title: "Phase 1: Foundations (4 weeks)", topics: ["HTML/CSS basics", "Flexbox/Grid", "JS fundamentals", "DOM", "Git basics"] },
+  { title: "Phase 2: React Projects (5 weeks)", topics: ["React", "State management", "React Router", "REST APIs", "Tailwind"] },
+  { title: "Phase 3: Job Ready (6 weeks)", topics: ["Next.js", "Performance", "Testing basics", "DSA (Blind 75)", "System Design intro"] },
 ];
 
 export default function RoadmapsMvpPage() {
@@ -98,7 +98,7 @@ export default function RoadmapsMvpPage() {
           </div>
         ) : (
           <div className="mx-auto mt-8 max-w-xl rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm">
-            <h2 className="text-2xl font-bold">Coming soon — be the first to know</h2>
+            <h2 className="text-2xl font-bold">Coming soon: be the first to know</h2>
             <p className="mt-2 text-[#5b6fb3]">We are building the {role} roadmap next.</p>
             <form
               className="mt-5 flex gap-2"
