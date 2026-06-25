@@ -26,7 +26,10 @@ export async function POST(req: Request) {
 
     const order = await razorpay.orders.create(options);
 
-    return NextResponse.json(order);
+    return NextResponse.json({
+      ...order,
+      key_id: process.env.RAZORPAY_KEY_ID
+    });
   } catch (error: any) {
     console.error("Error creating Razorpay order:", error);
     return NextResponse.json(
