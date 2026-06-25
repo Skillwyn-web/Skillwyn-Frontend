@@ -48,7 +48,7 @@ export async function POST(req: Request) {
         
         // Send email via Resend
         await resend.emails.send({
-          from: "SkillWyn <hello@skillwyn.com>", // Make sure hello@skillwyn.com is verified in your Resend dashboard!
+          from: "SkillWyn <teams@skillwyn.com>", 
           to: email,
           subject: "Welcome to The Algorithmic Vault - Access Details Inside 🚀",
           html: `
