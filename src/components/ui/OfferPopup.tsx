@@ -65,6 +65,18 @@ export function OfferPopup() {
     }
   };
 
+  // Lock body scroll when popup is open
+  useEffect(() => {
+    if (showPopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showPopup]);
+
   return (
     <AnimatePresence>
       {showPopup && (
@@ -93,7 +105,7 @@ export function OfferPopup() {
               onClick={() => {
                 setShowPopup(false);
               }}
-              className="absolute z-20 right-4 top-4 sm:right-6 sm:top-6 cursor-pointer rounded-full p-2 !text-white transition-colors hover:bg-white/20"
+              className="absolute z-20 right-4 top-4 sm:right-6 sm:top-6 cursor-pointer rounded-full p-2 bg-slate-100 text-slate-500 sm:bg-transparent sm:text-white transition-colors hover:bg-slate-200 sm:hover:bg-white/20"
             >
               <X className="h-6 w-6 sm:h-7 sm:w-7" />
             </motion.button>
