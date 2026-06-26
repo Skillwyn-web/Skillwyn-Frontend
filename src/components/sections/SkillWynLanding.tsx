@@ -37,33 +37,33 @@ const journey = [
 
 const mvpFeatures = [
   {
-    title: "Interactive AI Roadmaps",
-    text: "Role-based paths for DSA, frontend, backend, full-stack and interview readiness.",
+    title: "AI Roadmaps That Get You Shortlisted",
+    text: "Stop guessing your path. Follow exact role-based paths for DSA, frontend, and backend that align with what tech companies actually hire for.",
     icon: Map,
   },
   {
-    title: "DSA Sheets & Materials",
-    text: "Curated sheets, topic notes, resources, and top-company preparation packs.",
+    title: "The 50 Patterns That Crack MAANG",
+    text: "Don't grind 500 random problems. Master the exact curated patterns our students use to clear interviews at top product companies.",
     icon: BookOpen,
   },
   {
-    title: "AI Resume Builder",
-    text: "Convert projects and skills into clean ATS bullets with a stronger hiring narrative.",
+    title: "Resumes That Pass The ATS Trap",
+    text: "Convert your projects and skills into clean, high-impact ATS bullets that recruiters actively look for. Never get auto-rejected again.",
     icon: FileText,
   },
   {
-    title: "AI Mock Interviews",
-    text: "Practice technical, HR, and system-design rounds with structured feedback.",
+    title: "Mock Interviews To Build Real Confidence",
+    text: "Practice technical, HR, and system-design rounds with AI. Get structured feedback and eliminate interview anxiety before the real call.",
     icon: MessageSquareText,
   },
   {
-    title: "SkillWyn Profile",
-    text: "Each student gets a verified public profile with score, rank, and proof of work.",
+    title: "A Profile That Proves Your Worth",
+    text: "Degrees don't matter as much as proof of work. Get a verified public profile with a competitive rank that proves you can build real things.",
     icon: BadgeCheck,
   },
   {
-    title: "Live Battles & Contests",
-    text: "Coding battles, leaderboard pressure, global ranking, and competitive growth loops.",
+    title: "Live Battles To Forge Problem Solvers",
+    text: "Compete under pressure in live coding battles. Develop the speed and accuracy required to clear tough Online Assessment (OA) rounds.",
     icon: Swords,
   },
 ];
@@ -751,8 +751,8 @@ export default function SkillWynLanding() {
                 letterSpacing: "-0.02em",
               }}
             >
-              One Platform.<br />
-              Infinite <span style={{ color: "#102a7a" }}>Careers.</span>
+              Stop Learning.<br />
+              Start Getting <span style={{ color: "#102a7a" }}>Placed.</span>
             </h1>
             <p
               className="mt-5 text-[#5b6fb3] sm:mt-8"
@@ -765,7 +765,7 @@ export default function SkillWynLanding() {
                 maxWidth: "560px",
               }}
             >
-              SkillWyn is your AI-powered career OS for personalized roadmaps, DSA mastery, resume building, mock interviews, and real skill scores.
+              The ultimate AI ecosystem that forces you to build proof of work, master MAANG-level DSA, and clear interviews with absolute confidence.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
               <Link
@@ -855,9 +855,9 @@ export default function SkillWynLanding() {
               letterSpacing: "-0.02em",
             }}
           >
-            Stop Waiting For Opportunities.
+            Stop Applying Into The Void.
             <br />
-            <span style={{ color: "#102a7a" }}>Start Creating Them With AI.</span>
+            <span style={{ color: "#102a7a" }}>Build A Profile That Gets Shortlisted.</span>
           </h2>
           <p
             className="mx-auto mt-5 max-w-2xl text-white/58 [.light-theme_&]:text-[#5b6fb3]"
@@ -1082,7 +1082,7 @@ export default function SkillWynLanding() {
           <div>
             <p className="mb-4 font-jetbrains text-[10px] uppercase text-[var(--color-secondary)]">Phase 01 MVP</p>
             <h2 className="max-w-xl text-4xl font-medium leading-[1.04] text-white [.light-theme_&]:text-black md:text-5xl">
-              The first version is built around outcomes, not lectures.
+              Built around placing you, not selling endless tutorials.
             </h2>
           </div>
           <p className="max-w-2xl self-end text-base font-medium leading-8 text-white/56 [.light-theme_&]:text-[#5b6fb3] md:text-lg">
@@ -1227,12 +1227,12 @@ export default function SkillWynLanding() {
         <div className="pointer-events-none absolute left-1/2 top-20 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#dbeafe]/70 blur-3xl" />
         <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[0.92fr_1.08fr]">
           <Reveal className="self-center">
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-[#2563eb]" >COMMUNITY TRUST</p>
-            <h2 className="max-w-2xl text-[clamp(42px,4.6vw,66px)] font-medium leading-[1.03] text-[#111827]" >
+            <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#2563eb]" >COMMUNITY TRUST</p>
+            <h2 className="max-w-2xl text-[clamp(40px,4.5vw,56px)] font-bold tracking-tight leading-[1.05] text-[#0f172a]" >
               Thousands already trust the <span className="text-[#102a7a]">voice behind SkillWyn.</span>
             </h2>
-            <p className="mt-6 max-w-xl text-base font-medium leading-8 text-[#5b6fb3]" >
-              CodeWithYash is more than an audience. It is a community of students learning DSA, building projects, fixing resumes, preparing for interviews, and showing up every week for career direction.
+            <p className="mt-6 max-w-xl text-[16px] font-medium leading-[1.7] text-slate-500" >
+              CodeWithYash isn't just an audience—it's a community of serious developers. We learn DSA, build real projects, and crack top tech interviews together every single day.
             </p>
 
             <div className="mt-10 grid max-w-md gap-3 sm:grid-cols-2">

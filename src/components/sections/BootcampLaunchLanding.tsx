@@ -659,7 +659,7 @@ export default function BootcampLaunchLanding() {
       <Navbar />
 
       {/* ─── SECTION 1 · HERO ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1d4ed8] via-[#0b1f61] to-[#020a24] pb-24 pt-10 lg:pt-14">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#1d4ed8] via-[#0b1f61] to-[#020a24] pb-28 pt-6 lg:pt-8 min-h-[90vh] flex flex-col justify-center">
         {/* Glows to match the Guidix style */}
         <div className="absolute -left-32 -top-32 h-[600px] w-[600px] rounded-full bg-[#60a5fa]/40 blur-[120px]" />
         <div className="absolute -bottom-32 right-0 h-[500px] w-[500px] rounded-full bg-[#3b82f6]/20 blur-[100px]" />
@@ -682,15 +682,14 @@ export default function BootcampLaunchLanding() {
             <h1
               className="mx-auto max-w-5xl text-[clamp(32px,5vw,56px)] font-bold leading-[1.12] tracking-tight text-[#ffffff]"
             >
-              Master DSA & Build Real Projects in
+              The Exact Playbook Our Students Use To
               <br />
-              <span className="text-[#ffffff]">The Algorithmic Vault.</span>
+              <span className="text-[#ffffff]">Crack Top Product Companies.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="mx-auto mt-4 max-w-xl text-[16px] leading-[1.7] text-[#ffffff]/90">
-              DSA mastery, industry-level projects, live mentorship, and premium AI
-              tools in one launch bundle built for serious coding careers.
+              Stop wasting time on endless tutorials. The Algorithmic Vault gives you the exact DSA patterns, production-grade projects, and AI tools to get shortlisted and hired.
             </p>
 
             {/* CTAs */}
@@ -717,7 +716,7 @@ export default function BootcampLaunchLanding() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="relative mx-auto mt-16 grid max-w-3xl grid-cols-2 overflow-hidden rounded-2xl border border-[#ffffff]/40 bg-[#ffffff]/10 shadow-[0_8px_32px_rgba(255,255,255,0.1)] backdrop-blur-md sm:grid-cols-4"
+            className="relative mx-auto mt-10 grid max-w-3xl grid-cols-2 overflow-hidden rounded-2xl border border-[#ffffff]/40 bg-[#ffffff]/10 shadow-[0_8px_32px_rgba(255,255,255,0.1)] backdrop-blur-md sm:grid-cols-4"
           >
             {/* Subtle inner highlight */}
             <div className="pointer-events-none absolute inset-0 rounded-2xl border border-[#ffffff]/20" />
@@ -744,6 +743,29 @@ export default function BootcampLaunchLanding() {
             ))}
           </motion.div>
         </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 1 }}
+          className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+        >
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#ffffff]/50">
+            Scroll for offer
+          </span>
+          <motion.div
+            animate={{ y: [0, 5, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="flex h-8 w-5 justify-center rounded-full border border-[#ffffff]/20 pt-1"
+          >
+            <motion.div 
+              animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="h-1.5 w-1.5 rounded-full bg-[#ffffff]/50" 
+            />
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* ─── SECTION 2 · WHAT'S INCLUDED ──────────────────────────────────── */}
@@ -757,9 +779,9 @@ export default function BootcampLaunchLanding() {
           <Reveal className="mb-16 text-center">
             <SectionBadge>What's included</SectionBadge>
             <SectionHeading className="mt-6 text-4xl md:text-5xl font-bold tracking-tight text-slate-900">
-              Everything You Need To Start{" "}
+              The Arsenal That Builds{" "}
               <span className="text-[#102a7a]">
-                Your Coding Career
+                Unfair Hiring Advantages
               </span>
             </SectionHeading>
             <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-relaxed text-slate-500">
@@ -772,45 +794,45 @@ export default function BootcampLaunchLanding() {
             {[
               {
                 icon: Code2,
-                title: "Top 50 DSA Problems",
-                desc: "Every question that actually shows up in tech interviews, not 450 random problems.",
+                title: "The 50 Problems That Placed Our Students",
+                desc: "Don't grind 500 random problems. We give you the exact 50 questions that consistently show up in MAANG and top product startup interviews.",
                 outcomes: [
-                  "Problem statement & interview-style intuition",
-                  "Flowchart → Pseudocode → Optimal code",
-                  "Time & space complexity for every solution",
+                  "Exact patterns that interviewers look for",
+                  "Visual intuition before jumping to code",
+                  "Optimal solutions to clear technical rounds",
                 ],
                 delay: 0,
               },
               {
                 icon: FolderGit2,
-                title: "3 Industry Projects",
-                desc: "Resume-worthy blueprints built around real business problems, not clone tutorials.",
+                title: "3 Projects That Guarantee Shortlists",
+                desc: "Stop building to-do list clones. Build 3 production-grade blueprints that prove to recruiters you can handle real industry architecture.",
                 outcomes: [
-                  "Real-world architecture & implementation",
-                  "ATS-ready resume bullet per project",
-                  "Technologies used in actual company stacks",
+                  "Architecture mimicking real-world systems",
+                  "Proven ATS-ready resume bullet points",
+                  "Tech stack actually used by hiring companies",
                 ],
                 delay: 0.05,
               },
               {
                 icon: Users,
-                title: "2 Live Group Sessions",
-                desc: "Batch-wise live guidance covering career clarity, DSA doubts, freelancing & more.",
+                title: "Live Mentorship & Insider Secrets",
+                desc: "Get direct access to our live sessions where we break down exactly how to crack placements, freelance for clients, and build a high-income career.",
                 outcomes: [
-                  "Session 1: Roadmap, career, internship & DSA",
-                  "Session 2: Freelancing, client work & SEO",
-                  "Live Q&A with the creator",
+                  "Insider strategies for internships & full-time",
+                  "Freelancing secrets to earn while learning",
+                  "Direct Q&A to solve your specific career blocks",
                 ],
                 delay: 0.1,
               },
               {
                 icon: Sparkles,
-                title: "1 Month SkillWyn Premium",
-                desc: "Early access to the full SkillWyn AI platform before it opens to the public.",
+                title: "1-Month 'Unfair Advantage' Access",
+                desc: "Early access to the full SkillWyn AI platform. Let our AI fix your resume and conduct mock interviews before recruiters test you.",
                 outcomes: [
-                  "AI Resume Analyzer + Resume Chat",
-                  "AI Mock Interviews",
-                  "Premium DSA Sheets & upcoming tools",
+                  "Resume Analyzer that bypasses the ATS trap",
+                  "AI Mock Interviews to eliminate anxiety",
+                  "Premium tools to accelerate your hiring speed",
                 ],
                 delay: 0.15,
               },

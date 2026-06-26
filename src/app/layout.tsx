@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light-theme scroll-smooth">
       <body
-        className={`${openSans.variable} ${geistMono.variable} font-sans light-theme antialiased bg-[#f8f8f5] text-[#111111] selection:bg-[#2563eb]/20 selection:text-[#102a7a]`}
+        className={`${openSans.variable} ${geistMono.variable} font-sans light-theme antialiased bg-[#f8f8f5] text-[#111111] selection:bg-[#2563eb]/20 selection:text-[#102a7a] overflow-x-hidden w-full relative`}
       >
         <SmoothScroll />
         <AuthProvider>
