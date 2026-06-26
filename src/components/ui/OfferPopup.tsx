@@ -98,21 +98,21 @@ export function OfferPopup() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="relative z-10 w-full max-w-4xl max-h-[85vh] overflow-y-auto overflow-x-hidden rounded-[1.5rem] sm:rounded-[2rem] bg-white shadow-[0_24px_80px_rgba(16,42,122,0.3)] ring-1 ring-slate-200"
+            className="relative z-10 w-full max-w-[360px] sm:max-w-4xl max-h-[85vh] overflow-y-auto overflow-x-hidden rounded-[1.5rem] sm:rounded-[2rem] bg-white shadow-[0_24px_80px_rgba(16,42,122,0.3)] ring-1 ring-slate-200"
           >
             <motion.button
               whileTap={{ scale: 0.85 }}
               onClick={() => {
                 setShowPopup(false);
               }}
-              className="absolute z-20 right-4 top-4 sm:right-6 sm:top-6 cursor-pointer rounded-full p-2 bg-slate-100 text-slate-500 sm:bg-transparent sm:text-white transition-colors hover:bg-slate-200 sm:hover:bg-white/20"
+              className="absolute z-20 right-4 top-4 sm:right-6 sm:top-6 cursor-pointer rounded-full p-2 bg-white/10 text-white transition-colors hover:bg-white/20"
             >
-              <X className="h-6 w-6 sm:h-7 sm:w-7" />
+              <X className="h-5 w-5 sm:h-6 sm:w-6" />
             </motion.button>
 
             <div className="flex flex-col sm:flex-row">
               {/* Left Side: Trust Building */}
-              <div className="flex-1 p-6 sm:p-12 sm:pr-10">
+              <div className="hidden sm:block flex-1 p-6 sm:p-12 sm:pr-10">
                 <div className="mb-5 sm:mb-8 flex items-center gap-3">
                   <div className="flex -space-x-3">
                     {["CY", "HW", "AS"].map((initial, i) => (

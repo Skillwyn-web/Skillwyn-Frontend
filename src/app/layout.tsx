@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light-theme scroll-smooth">
+    <html lang="en" className="light-theme scroll-smooth overflow-x-hidden">
       <body
         className={`${openSans.variable} ${geistMono.variable} font-sans light-theme antialiased bg-[#f8f8f5] text-[#111111] selection:bg-[#2563eb]/20 selection:text-[#102a7a] overflow-x-hidden w-full relative`}
       >
