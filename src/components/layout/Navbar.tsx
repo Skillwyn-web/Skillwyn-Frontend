@@ -26,7 +26,7 @@ export function Navbar() {
     ];
 
     return (
-        <nav
+        <header
             className={`sticky top-[40px] z-[100] h-[60px] transition-all duration-300 ${
                 scrolled
                     ? "border-b border-gray-200/80 bg-white/95 shadow-sm backdrop-blur-xl"
@@ -209,12 +209,19 @@ export function Navbar() {
             {/* ── Mobile Menu ── */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
+                    <>
+                    <style dangerouslySetInnerHTML={{ __html: `
+                        #mobile-nav-menu {
+                            background-color: #ffffff !important;
+                        }
+                    `}} />
                     <motion.div
+                        id="mobile-nav-menu"
                         initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="absolute inset-x-3 top-[calc(100%+6px)] z-[100] flex flex-col rounded-2xl border border-gray-200/80 bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.1)] md:hidden"
+                        className="absolute inset-x-3 top-[calc(100%+6px)] z-[100] flex flex-col rounded-2xl border border-gray-200/80 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.1)] md:hidden"
                     >
                         {/* Nav links */}
                         <div className="flex flex-col gap-0.5">
@@ -321,8 +328,9 @@ export function Navbar() {
                             </div>
                         )}
                     </motion.div>
+                    </>
                 )}
             </AnimatePresence>
-        </nav>
+        </header>
     );
 }
