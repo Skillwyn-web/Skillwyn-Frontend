@@ -35,19 +35,18 @@ export function Navbar() {
         >
             <div className="mx-auto flex h-[60px] max-w-7xl items-center justify-between px-5 lg:px-8">
 
-                {/* ── Logo ── */}
                 <Link href="/home" className="group flex shrink-0 items-center gap-2.5">
-                    <div className="relative flex h-8 w-8 shrink-0 items-center justify-center">
+                    <div className="relative flex h-12 w-12 shrink-0 items-center justify-center">
                         <Image
                             src="/skillwyn-logo.png"
                             alt="SkillWyn"
-                            width={32}
-                            height={32}
-                            className="h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-110"
+                            width={48}
+                            height={48}
+                            className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
                             priority
                         />
                     </div>
-                    <span className="text-[17px] font-bold leading-none tracking-tight text-gray-900">
+                    <span className="text-[20px] font-bold leading-none tracking-tight text-gray-900">
                         Skill<span className="text-blue-600">Wyn</span>
                     </span>
                 </Link>

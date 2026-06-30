@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SkillWyn | AI-powered learning for job-ready developers",
+  title: "Stop Learning. Start Getting Placed | skillwyn.com",
   description: "SkillWyn blends AI-guided learning, real projects, interview practice, and placement support for ambitious developers.",
 };
 
