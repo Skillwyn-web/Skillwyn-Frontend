@@ -27,6 +27,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -600,8 +602,21 @@ export default function BootcampLaunchLanding() {
   const [activeTab, setActiveTab] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [email, setEmail] = useState("");
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user?.email && !email) {
+      setEmail(user.email);
+    }
+  }, [user]);
 
   const handleCheckout = async () => {
+    if (!user) {
+      router.push("/login?redirect=/algorithmic-vault");
+      return;
+    }
+
     if (!email) {
       alert("Please enter your email to get the Notion link.");
       return;
