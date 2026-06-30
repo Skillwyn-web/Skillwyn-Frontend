@@ -296,10 +296,10 @@ function Reveal({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 42, filter: "blur(10px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.78, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -673,30 +673,30 @@ export default function BootcampLaunchLanding() {
         
         <div className="relative mx-auto max-w-7xl px-6 text-center lg:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 32, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center gap-4"
           >
             {/* Headline */}
             <h1
-              className="mx-auto max-w-5xl text-[clamp(32px,5vw,56px)] font-bold leading-[1.12] tracking-tight text-[#ffffff]"
+              className="mx-auto max-w-5xl text-[28px] sm:text-[clamp(32px,5vw,56px)] font-bold leading-[1.2] sm:leading-[1.12] tracking-tight text-[#ffffff]"
             >
               The Exact Playbook Our Students Use To
-              <br />
-              <span className="text-[#ffffff]">Crack Top Product Companies.</span>
+              <br className="hidden sm:block" />
+              <span className="text-[#ffffff]"> Crack Top Product Companies.</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="mx-auto mt-4 max-w-xl text-[16px] leading-[1.7] text-[#ffffff]/90">
+            <p className="mx-auto mt-3 sm:mt-4 max-w-xl text-[14px] sm:text-[16px] leading-[1.6] sm:leading-[1.7] text-[#ffffff]/90 px-2 sm:px-0">
               Stop wasting time on endless tutorials. The Algorithmic Vault gives you the exact DSA patterns, production-grade projects, and AI tools to get shortlisted and hired.
             </p>
 
             {/* CTAs */}
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <div className="mt-6 sm:mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <a
                 href="#pricing"
-                className="group inline-flex items-center gap-2 rounded-full bg-[#ffffff] px-8 py-3.5 text-[15px] font-bold tracking-wide text-[#102a7a] shadow-[0_8px_30px_rgba(255,255,255,0.15)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-[0_12px_36px_rgba(255,255,255,0.25)]"
+                className="group w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-full bg-[#ffffff] px-8 py-3.5 text-[14px] sm:text-[15px] font-bold tracking-wide text-[#102a7a] shadow-[0_8px_30px_rgba(255,255,255,0.15)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-[0_12px_36px_rgba(255,255,255,0.25)]"
               >
                 Claim Launch Access
                 <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1" />
@@ -729,14 +729,16 @@ export default function BootcampLaunchLanding() {
             ].map(({ value, label }, i) => (
               <div 
                 key={label} 
-                className={`relative px-6 py-6 text-center ${
-                  i < 3 ? "border-[#ffffff]/20 max-sm:border-b sm:border-r" : ""
-                } ${i % 2 === 0 ? "max-sm:border-r" : ""}`}
+                className={`relative px-4 py-4 sm:px-6 sm:py-6 text-center border-[#ffffff]/20 ${
+                  i < 3 ? "sm:border-r" : ""
+                } ${i < 2 ? "max-sm:border-b" : ""} ${
+                  i % 2 === 0 ? "max-sm:border-r" : ""
+                }`}
               >
-                <p className="text-[26px] font-bold tracking-tight text-[#ffffff] drop-shadow-md">
+                <p className="text-[22px] sm:text-[26px] font-bold tracking-tight text-[#ffffff] drop-shadow-md">
                   {value}
                 </p>
-                <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.15em] text-[#ffffff]/80">
+                <p className="mt-1 text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.15em] text-[#ffffff]/80">
                   {label}
                 </p>
               </div>
@@ -769,14 +771,14 @@ export default function BootcampLaunchLanding() {
       </section>
 
       {/* ─── SECTION 2 · WHAT'S INCLUDED ──────────────────────────────────── */}
-      <section id="included" className="relative border-t border-slate-100 bg-[#f8f8f5] py-24 overflow-hidden">
+      <section id="included" className="relative border-t border-slate-100 bg-[#f8f8f5] py-16 md:py-24 overflow-hidden">
         {/* Soft background glow */}
         <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
           <div className="h-[400px] w-[800px] rounded-full bg-blue-400/5 blur-[100px]" />
         </div>
         
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10 z-10">
-          <Reveal className="mb-16 text-center">
+          <Reveal className="mb-10 md:mb-16 text-center">
             <SectionBadge>What's included</SectionBadge>
             <SectionHeading className="mt-6 text-4xl md:text-5xl font-bold tracking-tight text-slate-900">
               The Arsenal That Builds{" "}
@@ -840,35 +842,35 @@ export default function BootcampLaunchLanding() {
               const Icon = card.icon;
               return (
                 <Reveal key={card.title} delay={card.delay}>
-                  <div className="group relative overflow-hidden rounded-[1.5rem] border border-blue-100/70 bg-[#fbfdff] p-7 shadow-[0_12px_34px_rgba(15,23,42,0.055)] flex flex-col justify-between h-full transition-transform duration-300 hover:-translate-y-1">
+                  <div className="group relative overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem] border border-blue-100/70 bg-[#fbfdff] p-5 sm:p-7 shadow-[0_12px_34px_rgba(15,23,42,0.055)] flex flex-col justify-between h-full transition-transform duration-300 hover:-translate-y-1">
                     <div>
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <div className="flex items-center gap-2 text-[#102a7a]">
-                            <Icon className="h-5 w-5" />
-                            <h3 className="text-[23px] font-bold leading-tight tracking-[-0.03em] text-[#102a7a]">
+                      <div className="flex items-start justify-between gap-3 sm:gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-start sm:items-center gap-2 sm:gap-2.5 text-[#102a7a]">
+                            <Icon className="mt-1 sm:mt-0 h-5 w-5 shrink-0" />
+                            <h3 className="text-[18px] sm:text-[20px] lg:text-[23px] font-bold leading-[1.2] tracking-[-0.03em] text-[#102a7a]">
                               {card.title}
                             </h3>
                           </div>
-                          <p className="mt-3 max-w-[95%] text-[13px] font-semibold leading-snug text-[#001447]/80">
+                          <p className="mt-2 sm:mt-3 max-w-full sm:max-w-[95%] text-[13px] sm:text-[14px] font-medium sm:font-semibold leading-relaxed sm:leading-snug text-[#001447]/80">
                             {card.desc}
                           </p>
                         </div>
-                        <div className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full border border-[#c7d4e8] bg-white text-[#0f172a] shadow-[0_10px_30px_rgba(15,23,42,0.12)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-[#2563eb] group-hover:shadow-[0_14px_36px_rgba(37,99,235,0.18)]">
-                          <ArrowRight className="h-4 w-4 -rotate-45 transition-all duration-300 ease-in group-hover:translate-x-5 group-hover:-translate-y-5 group-hover:opacity-0" strokeWidth={2.5} />
-                          <ArrowRight className="absolute h-4 w-4 -translate-x-5 translate-y-5 -rotate-45 opacity-0 transition-all delay-150 duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" strokeWidth={2.5} />
+                        <div className="grid h-9 w-9 sm:h-11 sm:w-11 shrink-0 place-items-center overflow-hidden rounded-full border border-[#c7d4e8] bg-white text-[#0f172a] shadow-[0_10px_30px_rgba(15,23,42,0.12)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-[#2563eb] group-hover:shadow-[0_14px_36px_rgba(37,99,235,0.18)]">
+                          <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 -rotate-45 transition-all duration-300 ease-in group-hover:translate-x-5 group-hover:-translate-y-5 group-hover:opacity-0" strokeWidth={2.5} />
+                          <ArrowRight className="absolute h-3 w-3 sm:h-4 sm:w-4 -translate-x-5 translate-y-5 -rotate-45 opacity-0 transition-all delay-150 duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" strokeWidth={2.5} />
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-8">
-                      <ul className="space-y-3">
+                    <div className="mt-6 sm:mt-8 pt-4 sm:pt-0 border-t border-blue-100/50 sm:border-0">
+                      <ul className="space-y-2.5 sm:space-y-3">
                         {card.outcomes.map((o) => (
                           <li
                             key={o}
-                            className="flex items-start gap-3 text-[14px] font-medium text-[#001447]/70"
+                            className="flex items-start gap-2.5 sm:gap-3 text-[13px] sm:text-[14px] font-medium text-[#001447]/75"
                           >
-                            <div className="mt-[3px] flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#dbeafe]">
+                            <div className="mt-[2px] flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#dbeafe]">
                               <Check className="h-2.5 w-2.5 text-[#102a7a]" strokeWidth={3} />
                             </div>
                             <span className="leading-snug">{o}</span>
@@ -885,7 +887,7 @@ export default function BootcampLaunchLanding() {
       </section>
 
       {/* ─── SECTION 3 · DSA PACK ─────────────────────────────────────────── */}
-      <section className="py-24">
+      <section className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <Reveal className="grid gap-8 lg:grid-cols-[1fr_1.6fr] lg:items-center">
             <div>
@@ -926,7 +928,7 @@ export default function BootcampLaunchLanding() {
       </section>
 
       {/* ─── SECTION 4 · PROJECTS ─────────────────────────────────────────── */}
-      <section className="py-24">
+      <section className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <Reveal className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
             {/* Left Side: Image / Mockup */}
@@ -1489,8 +1491,11 @@ export default function BootcampLaunchLanding() {
                 
                 <div className="flex items-baseline gap-x-2">
                   <span className="text-3xl font-semibold !text-white opacity-80">₹</span>
-                  <span className="text-5xl font-bold tracking-tight !text-white">159</span>
-                  <span className="ml-2 text-xl font-medium !text-white line-through decoration-white/70 decoration-1">₹1500</span>
+                  <span className="text-5xl font-bold tracking-tight !text-white">199</span>
+                  <span className="relative ml-2 text-xl font-medium !text-white opacity-80 inline-block">
+                    ₹1000
+                    <span className="absolute left-[-5%] top-1/2 h-[3px] w-[110%] -translate-y-1/2 -rotate-12 bg-black"></span>
+                  </span>
                 </div>
                 <p className="mt-2 text-[13px] font-medium !text-[#93c5fd]">
                   Valid for the first 30 learners only.
@@ -1568,10 +1573,10 @@ export default function BootcampLaunchLanding() {
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1.6fr]">
             <div>
-              <Link href="/" className="inline-flex items-center gap-3">
+              <span className="inline-flex items-center gap-3 pointer-events-none">
                 <Image src="/skillwyn-logo.png" alt="SkillWyn" width={42} height={42} className="h-10 w-10 object-contain" />
                 <span className="text-xl font-black text-[#102a7a]" >SkillWyn</span>
-              </Link>
+              </span>
               <p className="mt-5 max-w-md text-sm font-medium leading-7 text-[#5b6fb3]" >
                 AI-powered roadmaps, resume help, mock interviews, resources, and project proof for career-focused developers.
               </p>
@@ -1595,9 +1600,9 @@ export default function BootcampLaunchLanding() {
                   <ul className="mt-5 space-y-3">
                     {(links as string[][]).map(([label, href]) => (
                       <li key={label}>
-                        <Link href={href} className="text-sm font-semibold text-[#5b6fb3] transition-colors hover:text-[#102a7a]" >
+                        <span className="text-sm font-semibold text-[#5b6fb3] transition-colors hover:text-[#102a7a] pointer-events-none" >
                           {label}
-                        </Link>
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -1616,14 +1621,13 @@ export default function BootcampLaunchLanding() {
                 ["YouTube", "#"],
                 ["LinkedIn", "#"],
               ].map(([label, href]) => (
-                <a
+                <span
                   key={label}
-                  href={href}
-                  className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb]"
+                  className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb] pointer-events-none"
                   
                 >
                   {label}
-                </a>
+                </span>
               ))}
             </div>
           </div>

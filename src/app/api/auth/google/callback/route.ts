@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
   const state = request.nextUrl.searchParams.get("state");
   const storedState = request.cookies.get(GOOGLE_STATE_COOKIE)?.value;
-  const nextPath = request.cookies.get(GOOGLE_NEXT_COOKIE)?.value || "/profile";
+  const nextPath = request.cookies.get(GOOGLE_NEXT_COOKIE)?.value || "/";
 
   if (!code || !state || !storedState || state !== storedState) {
     return redirectWithError(request, "google_state_failed");
@@ -128,7 +128,7 @@ function oauthPassword() {
 }
 
 function safeNext(value: string) {
-  return value.startsWith("/") && !value.startsWith("//") ? value : "/profile";
+  return value.startsWith("/") && !value.startsWith("//") ? value : "/";
 }
 
 function redirectWithError(request: NextRequest, error: string) {

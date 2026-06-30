@@ -1372,10 +1372,10 @@ export default function SkillWynLanding() {
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1.6fr]">
             <div>
-              <Link href="/" className="inline-flex items-center gap-3">
+              <span className="inline-flex items-center gap-3 pointer-events-none">
                 <Image src="/skillwyn-logo.png" alt="SkillWyn" width={42} height={42} className="h-10 w-10 object-contain" />
                 <span className="text-xl font-black text-[#102a7a]" >SkillWyn</span>
-              </Link>
+              </span>
               <p className="mt-5 max-w-md text-sm font-medium leading-7 text-[#5b6fb3]" >
                 AI-powered roadmaps, resume help, mock interviews, resources, and project proof for career-focused developers.
               </p>
@@ -1399,9 +1399,9 @@ export default function SkillWynLanding() {
                   <ul className="mt-5 space-y-3">
                     {(links as string[][]).map(([label, href]) => (
                       <li key={label}>
-                        <Link href={href} className="text-sm font-semibold text-[#5b6fb3] transition-colors hover:text-[#102a7a]" >
+                        <span className="text-sm font-semibold text-[#5b6fb3] transition-colors hover:text-[#102a7a] pointer-events-none" >
                           {label}
-                        </Link>
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -1420,14 +1420,13 @@ export default function SkillWynLanding() {
                 ["YouTube", "#"],
                 ["LinkedIn", "#"],
               ].map(([label, href]) => (
-                <a
+                <span
                   key={label}
-                  href={href}
-                  className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb]"
+                  className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb] pointer-events-none"
 
                 >
                   {label}
-                </a>
+                </span>
               ))}
             </div>
           </div>

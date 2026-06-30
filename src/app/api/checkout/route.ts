@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     }
 
     const options = {
-      amount: 159 * 100, // amount in smallest currency unit (paise)
+      amount: 199 * 100, // amount in smallest currency unit (paise)
       currency: "INR",
       receipt: `receipt_order_${Math.random().toString(36).substring(7)}`,
       notes: {

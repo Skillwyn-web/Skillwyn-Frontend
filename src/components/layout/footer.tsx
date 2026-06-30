@@ -7,7 +7,7 @@ const SocialIcon = ({ d, label }: { d: string; label: string }) => (
   <a
     href="#"
     aria-label={label}
-    className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-surface transition-all hover:bg-surface/80 hover:border-primary/50"
+    className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-surface transition-all hover:bg-surface/80 hover:border-primary/50 pointer-events-none"
   >
     <svg
       className="h-5 w-5 fill-text-muted transition-colors group-hover:fill-primary"
@@ -22,7 +22,7 @@ const FooterLink = ({ href, children }: { href: string; children: React.ReactNod
   <li>
     <Link
       href={href}
-      className="group flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-primary"
+      className="group flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-primary pointer-events-none"
     >
       <span className="h-px w-0 bg-primary transition-all group-hover:w-4" />
       {children}
@@ -44,7 +44,7 @@ const Footer = () => {
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-2">
           <div className="max-w-md">
-            <Link href="/" className="mb-8 flex items-center gap-3">
+            <Link href="/" className="mb-8 flex items-center gap-3 pointer-events-none">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 border border-primary/25 shadow-[0_0_15px_rgba(102,227,255,0.1)]">
                 <Bot className="w-5 h-5 text-primary" />
               </div>
@@ -61,7 +61,7 @@ const Footer = () => {
                 placeholder="Enter your email"
                 className="theme-input max-w-[240px] text-sm placeholder:text-text-muted"
               />
-              <button className="theme-button px-6 py-3 text-sm">
+              <button className="theme-button px-6 py-3 text-sm pointer-events-none opacity-80" disabled>
                 Subscribe
               </button>
             </div>

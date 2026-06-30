@@ -137,8 +137,7 @@ export function Navbar() {
                         <div className="h-8 w-28 animate-pulse rounded-full bg-gray-100" />
                     ) : user ? (
                         <>
-                            <Link
-                                href="/profile"
+                            <div
                                 className="flex max-w-[160px] items-center gap-2 rounded-full border border-gray-200 bg-gray-50/80 px-3 py-1.5 text-[13px] font-medium text-gray-700 transition-all duration-200 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
                             >
                                 <span className="flex h-5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-full bg-blue-100 text-[9px] font-bold text-blue-700">
@@ -149,7 +148,7 @@ export function Navbar() {
                                     )}
                                 </span>
                                 <span className="truncate">{user.name || "Profile"}</span>
-                            </Link>
+                            </div>
                             <button
                                 onClick={logout}
                                 className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50/80 px-3 py-1.5 text-[13px] font-medium text-gray-600 transition-all duration-200 hover:border-red-200 hover:bg-red-50 hover:text-red-600"
@@ -286,16 +285,14 @@ export function Navbar() {
                             <div className="h-20 animate-pulse rounded-xl bg-gray-100" />
                         ) : user ? (
                             <div className="flex flex-col gap-2">
-                                <Link
-                                    href="/profile"
-                                    onClick={() => setIsMobileMenuOpen(false)}
+                                <div
                                     className="flex items-center gap-2.5 rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-[14px] font-medium text-gray-700 transition-colors hover:bg-gray-100"
                                 >
                                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-[11px] font-bold text-blue-700">
                                         {user.name?.[0]?.toUpperCase() || "U"}
                                     </span>
                                     <span>{user.name || "My Profile"}</span>
-                                </Link>
+                                </div>
                                 <button
                                     onClick={() => { setIsMobileMenuOpen(false); void logout(); }}
                                     className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-100 bg-red-50/60 py-3 text-[14px] font-medium text-red-600 transition-colors hover:bg-red-100"
