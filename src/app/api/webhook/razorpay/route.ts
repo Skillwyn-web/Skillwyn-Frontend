@@ -28,6 +28,13 @@ export async function POST(req: Request) {
     if (event.event === "payment.captured" || event.event === "order.paid") {
       const paymentEntity = event.payload.payment.entity;
       const email = paymentEntity.notes.email || paymentEntity.email;
+      const amount = paymentEntity.amount;
+
+      // Ensure they paid at least ₹199 (19900 paise)
+      if (amount < 19900) {
+        console.warn(`Payment captured but amount is too low: ${amount} for email: ${email}`);
+        return NextResponse.json({ status: "ignored_insufficient_amount" });
+      }
 
       if (email) {
         // Send email via Resend

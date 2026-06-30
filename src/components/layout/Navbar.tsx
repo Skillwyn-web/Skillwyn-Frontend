@@ -21,7 +21,7 @@ export function Navbar() {
     }, []);
 
     const navLinks: any[] = [
-        { name: "Home", href: "/" },
+        { name: "Home", href: "/home" },
         { name: "The Algorithmic Vault", href: "/algorithmic-vault", isHighlight: true },
     ];
 
@@ -36,7 +36,7 @@ export function Navbar() {
             <div className="mx-auto flex h-[60px] max-w-7xl items-center justify-between px-5 lg:px-8">
 
                 {/* ── Logo ── */}
-                <Link href="/" className="group flex shrink-0 items-center gap-2.5">
+                <Link href="/home" className="group flex shrink-0 items-center gap-2.5">
                     <div className="relative flex h-8 w-8 shrink-0 items-center justify-center">
                         <Image
                             src="/skillwyn-logo.png"

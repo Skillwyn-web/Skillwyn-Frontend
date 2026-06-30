@@ -38,7 +38,7 @@ export function OfferPopup() {
       const scrollPercent = scrollTop / (docHeight - winHeight);
       
       if (scrollPercent >= 0.35) {
-        if (pathname === '/' && !firedTriggers.homeScroll) {
+        if ((pathname === '/' || pathname === '/home') && !firedTriggers.homeScroll) {
           setShowPopup(true);
           setFiredTriggers(prev => ({ ...prev, homeScroll: true }));
         } else if (pathname === '/algorithmic-vault' && !firedTriggers.algoScroll) {
