@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
+export const dynamic = 'force-dynamic';
 import connectDB from "@/lib/db/connect";
 import User from "@/lib/models/User";
 import { generateSessionToken, hashToken, sessionExpiryDate, setSessionCookie } from "@/lib/auth/session";
@@ -29,8 +30,8 @@ export async function GET(request: NextRequest) {
     return redirectWithError(request, "google_state_failed");
   }
 
-  const clientId = process.env.GOOGLE_CLIENT_ID;
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const clientId = process.env.GOOGLE_CLIENT_ID?.trim();
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
 
   if (!clientId || !clientSecret) {
     return redirectWithError(request, "google_env_missing");

@@ -1,9 +1,10 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
+export const dynamic = 'force-dynamic';
 import { GOOGLE_NEXT_COOKIE, GOOGLE_STATE_COOKIE, googleRedirectUri } from "@/lib/auth/googleOAuth";
 
 export async function GET(request: NextRequest) {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientId = process.env.GOOGLE_CLIENT_ID?.trim();
 
   if (!clientId) {
     return NextResponse.json(

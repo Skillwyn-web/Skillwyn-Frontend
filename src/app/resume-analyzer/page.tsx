@@ -33,7 +33,7 @@ const ResomeAnalyzerPage = () => {
   const [jdText, setJdText] = useState('');
   const [jdMatch, setJdMatch] = useState<any>(null);
 
-  const API_BASE = 'http://localhost:8000';
+  const API_BASE = process.env.NEXT_PUBLIC_RESUME_API_URL || 'http://localhost:8000';
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
