@@ -16,6 +16,8 @@ export function OfferPopup() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("has_claimed_offer")) return;
+
     if (!firedTriggers.timer && !showPopup) {
       const timerId = setTimeout(() => {
         setShowPopup(true);
@@ -27,7 +29,7 @@ export function OfferPopup() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (showPopup) return;
+      if (showPopup || (typeof window !== "undefined" && localStorage.getItem("has_claimed_offer"))) return;
 
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight;
@@ -57,6 +59,9 @@ export function OfferPopup() {
   }, [pathname, firedTriggers, showPopup]);
 
   const handleClaim = () => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("has_claimed_offer", "true");
+    }
     setShowPopup(false);
     if (pathname === '/algorithmic-vault') {
       document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
