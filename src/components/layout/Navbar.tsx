@@ -318,11 +318,11 @@ export function Navbar() {
                                     Log in
                                 </Link>
                                 <Link
-                                    href="/get-started"
+                                    href="/algorithmic-vault#pricing"
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="group flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 text-center text-[14px] font-semibold text-white shadow-sm shadow-blue-600/20 transition-colors hover:bg-blue-700 active:scale-[0.98]"
+                                    className="group flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 text-center text-[14px] font-semibold text-white-force shadow-sm shadow-blue-600/20 transition-colors hover:bg-blue-700 active:scale-[0.98]"
                                 >
-                                    Get Started
+                                    Claim Vault
                                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                                 </Link>
                             </div>
