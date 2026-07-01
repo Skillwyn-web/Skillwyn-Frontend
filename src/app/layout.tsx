@@ -62,6 +62,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/skillwyn-logo.png",
+    apple: "/skillwyn-logo.png",
+  },
 };
 
 const jsonLd = {
