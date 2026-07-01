@@ -35,7 +35,7 @@ const EyeOffIcon = ({ className }: { className?: string }) => (
 
 const TypewriterText = () => {
     const texts = [
-        "Join 35K+ job-ready developers.",
+        "Join 35K+ community members.",
         "Master DSA & product development.",
         "Get ATS-friendly resumes instantly.",
         "Ace your next technical interview."

@@ -820,7 +820,7 @@ export default function SkillWynLanding() {
                     fontSize: "15px",
                   }}
                 >
-                  Trusted by 35K+ learners
+                  Trusted by 35K+ community members
                 </p>
                 <p
                   className="mt-1 text-[#5b6fb3]"
@@ -1416,17 +1416,17 @@ export default function SkillWynLanding() {
             </p>
             <div className="flex flex-wrap gap-3">
               {[
-                ["Instagram", "https://instagram.com/codewithyash3"],
-                ["YouTube", "#"],
-                ["LinkedIn", "#"],
+                ["Instagram", "https://www.instagram.com/codewithyash3/"],
               ].map(([label, href]) => (
-                <span
+                <a
                   key={label}
-                  className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb] pointer-events-none"
-
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-[#dbeafe] bg-white px-4 py-2 text-xs font-bold text-[#102a7a] transition-colors hover:border-[#2563eb] hover:text-[#2563eb]"
                 >
                   {label}
-                </span>
+                </a>
               ))}
             </div>
           </div>
