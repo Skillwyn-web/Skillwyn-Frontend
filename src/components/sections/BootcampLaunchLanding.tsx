@@ -266,6 +266,34 @@ function SectionBadge({ children }: { children: React.ReactNode }) {
   );
 }
 
+function TrustAvatars({ theme = "light" }: { theme?: "light" | "dark" }) {
+  const textColor = theme === "dark" ? "!text-white opacity-90" : "text-slate-700";
+  const ringColor = theme === "dark" ? "ring-[#0b1f61]" : "ring-white";
+  return (
+    <div className="mt-5 flex flex-col items-center sm:flex-row gap-3">
+      <div className="flex -space-x-3">
+        {[
+          "https://github.com/kunal.png",
+          "https://github.com/hitesh.png",
+          "https://github.com/shivam.png",
+          "https://github.com/aditi.png",
+          "https://github.com/yash.png",
+        ].map((url, i) => (
+          <img key={i} className={`inline-block h-8 w-8 rounded-full ring-2 ${ringColor} object-cover`} src={url} alt="" />
+        ))}
+      </div>
+      <div className={`flex flex-col items-center sm:items-start text-xs font-semibold ${textColor}`}>
+        <div className="flex text-amber-400 mb-0.5">
+          {[...Array(5)].map((_, i) => (
+            <svg key={i} className="h-3 w-3 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+          ))}
+        </div>
+        <span>Join 35,000+ developers</span>
+      </div>
+    </div>
+  );
+}
+
 function SectionHeading({
   children,
   className = "",
@@ -276,7 +304,7 @@ function SectionHeading({
   return (
     <h2
       className={`text-[clamp(28px,4vw,42px)] font-semibold leading-[1.15] tracking-tight text-slate-900 ${className}`}
-      
+
     >
       {children}
     </h2>
@@ -394,7 +422,7 @@ function DsaDashboard() {
     <div className="mx-auto w-full max-w-4xl perspective-[2000px]">
       {/* Laptop Screen / Bezel */}
       <div className="relative overflow-hidden rounded-t-[1.25rem] border-[10px] border-[#0f172a] bg-[#0f172a] shadow-[0_28px_80px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 transition-transform duration-500 hover:rotate-x-[2deg]">
-        
+
         {/* Camera Notch */}
         <div className="absolute left-1/2 top-0 z-20 flex h-4 w-24 -translate-x-1/2 items-center justify-center rounded-b-xl bg-[#0f172a]">
           <div className="h-1.5 w-1.5 rounded-full bg-[#030712] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
@@ -430,11 +458,10 @@ function DsaDashboard() {
                   <button
                     key={t.name}
                     onClick={() => setActiveTopic(i)}
-                    className={`flex w-full items-center justify-between rounded-md px-2 py-1.5 lg:px-3 lg:py-2 text-left text-[10px] lg:text-xs font-semibold transition-colors ${
-                      activeTopic === i
+                    className={`flex w-full items-center justify-between rounded-md px-2 py-1.5 lg:px-3 lg:py-2 text-left text-[10px] lg:text-xs font-semibold transition-colors ${activeTopic === i
                         ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-200/50"
                         : "text-slate-600 hover:bg-white/60"
-                    }`}
+                      }`}
                   >
                     <span className="truncate">{t.name}</span>
                     <span className="ml-1 shrink-0 text-[9px] lg:text-[10px] text-slate-400">
@@ -453,11 +480,10 @@ function DsaDashboard() {
                   <button
                     key={p.id}
                     onClick={() => setActiveProblem(i)}
-                    className={`shrink-0 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 text-[10px] sm:text-[11px] font-semibold transition-all ${
-                      activeProblem === i
+                    className={`shrink-0 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 text-[10px] sm:text-[11px] font-semibold transition-all ${activeProblem === i
                         ? "bg-slate-900 text-white"
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
+                      }`}
                   >
                     {p.title.split("-")[0].trim()}
                   </button>
@@ -576,9 +602,8 @@ function FaqItem({
       >
         <span className="text-base font-semibold text-slate-800">{faq.q}</span>
         <ChevronDown
-          className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 ${
-            open ? "rotate-180" : ""
-          }`}
+          className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 ${open ? "rotate-180" : ""
+            }`}
         />
       </button>
       <AnimatePresence initial={false}>
@@ -686,14 +711,14 @@ export default function BootcampLaunchLanding() {
         {/* Glows to match the Guidix style */}
         <div className="absolute -left-32 -top-32 h-[600px] w-[600px] rounded-full bg-[#60a5fa]/40 blur-[120px]" />
         <div className="absolute -bottom-32 right-0 h-[500px] w-[500px] rounded-full bg-[#3b82f6]/20 blur-[100px]" />
-        
+
         {/* Floating Stars / Particles (Simulated with absolute divs) */}
         <div className="absolute left-[10%] top-[20%] h-1.5 w-1.5 rounded-full bg-[#ffffff]/60 blur-[1px]" />
         <div className="absolute right-[20%] top-[15%] h-2 w-2 rounded-full bg-[#ffffff]/40 blur-[2px]" />
         <div className="absolute left-[80%] top-[40%] h-1 w-1 rounded-full bg-[#ffffff]/80" />
         <div className="absolute left-[15%] top-[60%] h-2.5 w-2.5 rounded-full bg-[#ffffff]/30 blur-[2px]" />
         <div className="absolute left-[30%] top-[80%] h-1.5 w-1.5 rounded-full bg-[#bfdbfe]/50 blur-[1px]" />
-        
+
         <div className="relative mx-auto max-w-7xl px-6 text-center lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 32, filter: "blur(10px)" }}
@@ -732,6 +757,8 @@ export default function BootcampLaunchLanding() {
               </a>
             </div>
 
+            <TrustAvatars theme="dark" />
+
           </motion.div>
 
           {/* Stats strip */}
@@ -743,20 +770,18 @@ export default function BootcampLaunchLanding() {
           >
             {/* Subtle inner highlight */}
             <div className="pointer-events-none absolute inset-0 rounded-2xl border border-[#ffffff]/20" />
-            
+
             {[
               { value: "50", label: "DSA Problems" },
               { value: "3", label: "Real Projects" },
               { value: "2", label: "Live Sessions" },
               { value: "1 mo", label: "AI Access" },
             ].map(({ value, label }, i) => (
-              <div 
-                key={label} 
-                className={`relative px-4 py-4 sm:px-6 sm:py-6 text-center border-[#ffffff]/20 ${
-                  i < 3 ? "sm:border-r" : ""
-                } ${i < 2 ? "max-sm:border-b" : ""} ${
-                  i % 2 === 0 ? "max-sm:border-r" : ""
-                }`}
+              <div
+                key={label}
+                className={`relative px-4 py-4 sm:px-6 sm:py-6 text-center border-[#ffffff]/20 ${i < 3 ? "sm:border-r" : ""
+                  } ${i < 2 ? "max-sm:border-b" : ""} ${i % 2 === 0 ? "max-sm:border-r" : ""
+                  }`}
               >
                 <p className="text-[22px] sm:text-[26px] font-bold tracking-tight text-[#ffffff] drop-shadow-md">
                   {value}
@@ -784,10 +809,10 @@ export default function BootcampLaunchLanding() {
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             className="flex h-8 w-5 justify-center rounded-full border border-[#ffffff]/20 pt-1"
           >
-            <motion.div 
+            <motion.div
               animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              className="h-1.5 w-1.5 rounded-full bg-[#ffffff]/50" 
+              className="h-1.5 w-1.5 rounded-full bg-[#ffffff]/50"
             />
           </motion.div>
         </motion.div>
@@ -799,7 +824,7 @@ export default function BootcampLaunchLanding() {
         <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
           <div className="h-[400px] w-[800px] rounded-full bg-blue-400/5 blur-[100px]" />
         </div>
-        
+
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10 z-10">
           <Reveal className="mb-10 md:mb-16 text-center">
             <SectionBadge>What's included</SectionBadge>
@@ -820,22 +845,22 @@ export default function BootcampLaunchLanding() {
               {
                 icon: Code2,
                 title: "The 50 Problems That Placed Our Students",
-                desc: "Don't grind 500 random problems. We give you the exact 50 questions that consistently show up in MAANG and top product startup interviews.",
+                desc: "Skip the 500-problem grind. Master the exact 50 questions that consistently show up in top product interviews.",
                 outcomes: [
-                  "Exact patterns that interviewers look for",
-                  "Visual intuition before jumping to code",
-                  "Optimal solutions to clear technical rounds",
+                  "Learn exact interview patterns",
+                  "Build visual logic intuition",
+                  "Optimal solutions for tech rounds",
                 ],
                 delay: 0,
               },
               {
                 icon: FolderGit2,
                 title: "3 Projects That Guarantee Shortlists",
-                desc: "Stop building to-do list clones. Build 3 production-grade blueprints that prove to recruiters you can handle real industry architecture.",
+                desc: "Ditch the basic clones. Build 3 production-grade projects that prove you can handle real industry architecture.",
                 outcomes: [
-                  "Architecture mimicking real-world systems",
-                  "Proven ATS-ready resume bullet points",
-                  "Tech stack actually used by hiring companies",
+                  "Real-world system architecture",
+                  "ATS-ready resume bullets",
+                  "In-demand tech stacks",
                 ],
                 delay: 0.05,
               },
@@ -879,9 +904,9 @@ export default function BootcampLaunchLanding() {
                             {card.desc}
                           </p>
                         </div>
-                        <div className="grid h-9 w-9 sm:h-11 sm:w-11 shrink-0 place-items-center overflow-hidden rounded-full border border-[#c7d4e8] bg-white text-[#0f172a] shadow-[0_10px_30px_rgba(15,23,42,0.12)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-[#2563eb] group-hover:shadow-[0_14px_36px_rgba(37,99,235,0.18)]">
-                          <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 -rotate-45 transition-all duration-300 ease-in group-hover:translate-x-5 group-hover:-translate-y-5 group-hover:opacity-0" strokeWidth={2.5} />
-                          <ArrowRight className="absolute h-3 w-3 sm:h-4 sm:w-4 -translate-x-5 translate-y-5 -rotate-45 opacity-0 transition-all delay-150 duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" strokeWidth={2.5} />
+                        <div className="grid h-9 w-9 sm:h-11 sm:w-11 shrink-0 place-items-center overflow-hidden rounded-full bg-[#102a7a] text-white shadow-[0_8px_24px_rgba(16,42,122,0.25)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-[#2563eb] group-hover:shadow-[0_12px_28px_rgba(37,99,235,0.35)]">
+                          <ArrowRight color="#ffffff" className="h-4 w-4 sm:h-5 sm:w-5 -rotate-45 transition-all duration-300 ease-in group-hover:translate-x-5 group-hover:-translate-y-5 group-hover:opacity-0" strokeWidth={2.5} />
+                          <ArrowRight color="#ffffff" className="absolute h-4 w-4 sm:h-5 sm:w-5 -translate-x-5 translate-y-5 -rotate-45 opacity-0 transition-all delay-150 duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" strokeWidth={2.5} />
                         </div>
                       </div>
                     </div>
@@ -958,7 +983,7 @@ export default function BootcampLaunchLanding() {
             <div className="order-2 lg:order-1 w-full perspective-[2000px]">
               {/* Laptop Screen / Bezel */}
               <div className="relative overflow-hidden rounded-t-[1.25rem] border-[10px] border-[#0f172a] bg-[#0f172a] shadow-[0_28px_80px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 transition-transform duration-500 hover:rotate-x-[2deg]">
-                
+
                 {/* Camera Notch */}
                 <div className="absolute left-1/2 top-0 z-20 flex h-4 w-24 -translate-x-1/2 items-center justify-center rounded-b-xl bg-[#0f172a]">
                   <div className="h-1.5 w-1.5 rounded-full bg-[#030712] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
@@ -993,17 +1018,7 @@ export default function BootcampLaunchLanding() {
                 problems, not clone tutorials that look the same on every resume.
               </p>
 
-              {/* Stack tags */}
-              <div className="mt-8 flex flex-wrap gap-2">
-                {projects[0].stack.map((s: string) => (
-                  <span
-                    key={s}
-                    className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-[#102a7a]"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
+
 
               {/* Resume impact */}
               <div className="mt-6 rounded-2xl bg-slate-50 p-5 border border-slate-100">
@@ -1197,7 +1212,7 @@ export default function BootcampLaunchLanding() {
 
           {/* 4 Premium Features Split Layout */}
           <div className="mx-auto mt-20 flex max-w-6xl flex-col gap-24">
-            
+
             {/* Feature 1: Resume Analyzer (Text Left, Image Right) */}
             <Reveal className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
               {/* Left Side: Text */}
@@ -1518,14 +1533,14 @@ export default function BootcampLaunchLanding() {
 
           <Reveal delay={0.1}>
             <div className="mx-auto mt-12 grid max-w-5xl overflow-hidden rounded-[2rem] bg-[#102a7a] shadow-[0_24px_80px_rgba(16,42,122,0.2)] md:grid-cols-[1.2fr_1fr]">
-              
+
               {/* Left Side: Pricing & Features */}
               <div className="flex flex-col justify-center p-8 text-left md:p-12">
                 <div className="mb-8 inline-flex w-fit items-center gap-2 rounded-full bg-blue-500/20 px-3 py-1 text-[12px] font-bold uppercase tracking-widest !text-[#93c5fd] ring-1 ring-inset ring-blue-500/30">
                   <Sparkles className="h-3.5 w-3.5 !text-[#93c5fd]" />
                   <span className="!text-[#93c5fd]">Limited Offer</span>
                 </div>
-                
+
                 <div className="flex flex-wrap items-end gap-x-3 mb-2">
                   <div className="flex items-baseline gap-x-1">
                     <span className="text-2xl sm:text-3xl font-semibold !text-white opacity-90">₹</span>
@@ -1544,9 +1559,24 @@ export default function BootcampLaunchLanding() {
                 <p className="mt-2 text-sm sm:text-base font-medium !text-[#93c5fd]">
                   Valid for the first 30 learners only.
                 </p>
-                
+
+                {/* FOMO Progress Bar */}
+                <div className="mt-6">
+                  <div className="flex justify-between text-xs font-bold text-white mb-2">
+                    <span className="flex items-center gap-1.5"><span className="animate-pulse">🔥</span> 26/30 Seats Claimed</span>
+                    <span className="text-[#93c5fd]">4 Left</span>
+                  </div>
+                  <div className="h-2.5 w-full bg-[#0b1f61] rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-orange-500 to-red-500 w-[86%] rounded-full relative" />
+                  </div>
+                </div>
+
+                <div className="mt-2">
+                  <TrustAvatars theme="dark" />
+                </div>
+
                 <div className="my-8 h-px w-full bg-white/10" />
-                
+
                 <ul className="space-y-4 text-sm sm:text-base font-medium">
                   <li className="flex items-center gap-x-3 !text-white"><Check className="h-4 w-4 shrink-0 !text-[#93c5fd]" /> <span className="!text-white">Full access to 50+ Premium DSA questions</span></li>
                   <li className="flex items-center gap-x-3 !text-white"><Check className="h-4 w-4 shrink-0 !text-[#93c5fd]" /> <span className="!text-white">3 Enterprise-grade Project Blueprints</span></li>
@@ -1561,14 +1591,14 @@ export default function BootcampLaunchLanding() {
                 <p className="mb-8 text-sm sm:text-base leading-relaxed !text-slate-600">
                   Enter your email below. After secure payment, you will instantly receive the Notion Vault link in your inbox.
                 </p>
-                
+
                 <div className="mt-2">
-                  <input 
-                    type="email" 
-                    placeholder="name@example.com" 
+                  <input
+                    type="email"
+                    placeholder="name@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mb-4 w-full rounded-xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-[#102a7a] placeholder-slate-400 shadow-sm outline-none transition-all focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/10"
+                    className="mb-4 w-full rounded-xl border-2 border-slate-200 bg-slate-50 px-5 py-4 text-sm font-semibold text-[#102a7a] placeholder-slate-500 shadow-inner outline-none transition-all focus:border-[#2563eb] focus:bg-white focus:ring-4 focus:ring-[#2563eb]/10"
                   />
                   <button
                     onClick={handleCheckout}
@@ -1687,6 +1717,7 @@ export default function BootcampLaunchLanding() {
           </div>
         </div>
       </footer>
+
     </main>
   );
 }
