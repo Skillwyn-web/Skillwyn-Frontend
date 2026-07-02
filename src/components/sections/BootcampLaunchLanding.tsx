@@ -1560,16 +1560,6 @@ export default function BootcampLaunchLanding() {
                   Valid for the first 30 learners only.
                 </p>
 
-                {/* FOMO Progress Bar */}
-                <div className="mt-6">
-                  <div className="flex justify-between text-xs font-bold text-white mb-2">
-                    <span className="flex items-center gap-1.5"><span className="animate-pulse">🔥</span> 26/30 Seats Claimed</span>
-                    <span className="text-[#93c5fd]">4 Left</span>
-                  </div>
-                  <div className="h-2.5 w-full bg-[#0b1f61] rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-orange-500 to-red-500 w-[86%] rounded-full relative" />
-                  </div>
-                </div>
 
                 <div className="mt-2">
                   <TrustAvatars theme="dark" />
