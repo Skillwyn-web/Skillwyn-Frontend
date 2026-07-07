@@ -30,8 +30,8 @@ export async function POST(req: Request) {
       const email = paymentEntity.notes.email || paymentEntity.email;
       const amount = paymentEntity.amount;
 
-      // Ensure they paid at least ₹199 (19900 paise)
-      if (amount < 19900) {
+      // Ensure they paid at least ₹159 (15900 paise)
+      if (amount < 15900) {
         console.warn(`Payment captured but amount is too low: ${amount} for email: ${email}`);
         return NextResponse.json({ status: "ignored_insufficient_amount" });
       }

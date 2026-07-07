@@ -178,7 +178,7 @@ export function OfferPopup() {
                   
                   <div className="my-3 sm:my-6 flex items-baseline justify-center gap-x-2">
                     <span className="text-2xl sm:text-3xl font-semibold !text-white opacity-80">₹</span>
-                    <span className="text-[56px] sm:text-[72px] font-black tracking-tighter leading-none !text-white">199</span>
+                    <span className="text-[56px] sm:text-[72px] font-black tracking-tighter leading-none !text-white">159</span>
                     <span className="relative ml-2 text-xl sm:text-2xl font-bold !text-white opacity-80 inline-block">
                       ₹1000
                       <span className="absolute left-[-5%] top-1/2 h-[3px] w-[110%] -translate-y-1/2 -rotate-12 bg-black"></span>
@@ -193,7 +193,7 @@ export function OfferPopup() {
                     onClick={handleClaim}
                     className="group cursor-pointer flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-4 text-[16px] font-black !text-[#102a7a] shadow-[0_12px_24px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-0.5 hover:bg-slate-50"
                   >
-                    <span className="!text-[#102a7a]">Claim ₹199 Offer Now</span>
+                    <span className="!text-[#102a7a]">Claim ₹159 Offer Now</span>
                     <ArrowRight className="h-5 w-5 !text-[#102a7a] transition-transform group-hover:translate-x-1" />
                   </button>
                   <p className="mt-4 text-[11px] font-semibold text-blue-200/60 uppercase tracking-widest">Limited Time Offer</p>

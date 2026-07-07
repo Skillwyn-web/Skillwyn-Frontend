@@ -645,11 +645,6 @@ export default function BootcampLaunchLanding() {
   }, [user]);
 
   const handleCheckout = async () => {
-    if (!user) {
-      router.push("/login?redirect=/algorithmic-vault");
-      return;
-    }
-
     if (!email) {
       alert("Please enter your email to get the Notion link.");
       return;
@@ -678,6 +673,9 @@ export default function BootcampLaunchLanding() {
         order_id: order.id,
         handler: function (response: any) {
           alert("Payment Successful! The Notion link has been sent to " + email);
+          if (!user) {
+            router.push("/login?redirect=/algorithmic-vault");
+          }
         },
         prefill: {
           name: "SkillWyn Learner",
@@ -1544,7 +1542,7 @@ export default function BootcampLaunchLanding() {
                 <div className="flex flex-wrap items-end gap-x-3 mb-2">
                   <div className="flex items-baseline gap-x-1">
                     <span className="text-2xl sm:text-3xl font-semibold !text-white opacity-90">₹</span>
-                    <span className="text-5xl sm:text-6xl font-bold tracking-tight !text-white drop-shadow-md">199</span>
+                    <span className="text-5xl sm:text-6xl font-bold tracking-tight !text-white drop-shadow-md">159</span>
                   </div>
                   <div className="flex flex-col justify-end pb-2">
                     <span className="relative text-2xl font-medium !text-white inline-block">
@@ -1553,7 +1551,7 @@ export default function BootcampLaunchLanding() {
                     </span>
                   </div>
                   <div className="mb-3 inline-flex items-center rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-xs font-bold text-emerald-300 ring-1 ring-inset ring-emerald-500/30">
-                    80% OFF
+                    84% OFF
                   </div>
                 </div>
                 <p className="mt-2 text-sm sm:text-base font-medium !text-[#93c5fd]">
